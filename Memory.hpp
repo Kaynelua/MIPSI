@@ -1,3 +1,6 @@
+#ifndef MEMORY_HPP
+#define MEMORY_HPP
+
 #include <vector>
 
 
@@ -35,7 +38,7 @@ class Memory{
 
 };
 
-
+#endif
 
 
 //empty adddress - > exception

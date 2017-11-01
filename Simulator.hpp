@@ -1,7 +1,8 @@
 #ifndef SIMULATOR_HPP
 #define	SIMULATOR_HPP
 
-
+#include "Memory.hpp"
+#include "Register.hpp"
 
 class Simulator{
 

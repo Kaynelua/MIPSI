@@ -1,3 +1,6 @@
+#ifndef REGISTER_HPP
+#define REGISTER_HPP
+
 #include <vector>
 
 class Register{
@@ -15,3 +18,5 @@ class Register{
 
 
 };
+
+#endif

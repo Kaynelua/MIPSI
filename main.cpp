@@ -48,10 +48,10 @@ int main(int argc, char* argv[]){
 
 	cout << "Reg 30 : " << reg.read(30) << endl;
 	reg.write(30,5);
-
 	cout << "Reg 30 : " << reg.read(30) << endl;
 
-
+	Simulator sim;
+	sim.decode();
 
 
 

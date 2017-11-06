@@ -31,22 +31,56 @@
 class Simulator{
 
 private:
+	std::uint32_t pc;
+	std::uint32_t (Simulator::*opcode_function_table[8][8])();
+
 	Memory mem;
 	Register reg;
 	std::uint32_t r_operands[5];
 	std::uint32_t i_operands[3];
 	std::uint32_t j_operands[1];
 
-	int (Simulator::*opcode_function_table[8][8])();
+	std::uint32_t invalid_func();
+
+	std::uint32_t bltz();
+	std::uint32_t bgez();
+	std::uint32_t j();
+	std::uint32_t jal();
+	std::uint32_t beq();
+	std::uint32_t bne();
+	std::uint32_t blez();
+	std::uint32_t bgtz();
+	std::uint32_t addi();
+	std::uint32_t addiu();
+	std::uint32_t slti();
+	std::uint32_t sltiu();
+	std::uint32_t andi();
+	std::uint32_t ori();
+	std::uint32_t xori();
+	std::uint32_t lui();
+	std::uint32_t lb();
+	std::uint32_t lh();
+	std::uint32_t lwl();
+	std::uint32_t lw();
+	std::uint32_t lbu();
+	std::uint32_t lhu();
+	std::uint32_t lwr();
+	std::uint32_t sb();
+	std::uint32_t sh();
+	std::uint32_t swl();
+	std::uint32_t sw();
+	std::uint32_t swr();
+	
+	
 
 
 public:
-	int stub();
+
+	std::uint32_t stub();
 	Simulator();
 	Simulator(std::uint32_t pc_in);
+	
 	void run();
-	std::uint32_t pc;
-
 	void decode();
 
 

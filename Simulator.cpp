@@ -12,15 +12,12 @@
 //int (Simulator::*opcode_function_table[8][8])() = {NULL};
 
 
-Simulator::Simulator(){
-
+Simulator::Simulator(): pc(4){
 	for(int i =0; i<8;i++){
 		for(int j=0;j<8;j++){
 			opcode_function_table[i][j] = &Simulator::stub;
 		}
 	}
-	
-	pc = 4;
 }
 
 
@@ -29,7 +26,7 @@ Simulator::Simulator(std::uint32_t pc_in){
 }
 
 
-int Simulator::stub(){
+std::uint32_t Simulator::stub(){
 	std::cout << "LOL" << std::endl;
 	return 1;
 }

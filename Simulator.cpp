@@ -40,7 +40,13 @@ void Simulator::run(){
 void Simulator::decode(){
 
 	//int curr_inst = mem.read(pc);
-	std::uint32_t curr_inst =0x8000003;
+	std::uint32_t curr_inst = 0b00000000001000110001100000100000;//0x8000003;
+
+	reg.write(1,-2147483648);
+	reg.write(3,-1);
+
+
+
 	int opcode = ((curr_inst & OP_MASK) >> 26);
 
 	if(opcode == 0 ){ 	//R- TYPE
@@ -74,17 +80,18 @@ void Simulator::decode(){
 }
 
 std::uint32_t Simulator ::add(){
-	std:: cout << "Performing Add " <<std:: endl;
-	std::cout <<"R" << r_operands[2] << " = R" << r_operands[0] << " + R" << r_operands[1] << " = " <<std :: endl;
-	uint32_t A =  reg.read(r_operands[0]);
-	uint32_t B =  reg.read(r_operands[1]);
-	uint32_t result = A+B; 
-	reg.write(reg.read(r_operands[2]),result);
-	std::cout << reg.read(r_operands[2]) << std::endl;
-
+	
+	int32_t A =  reg.read(r_operands[0]);
+	int32_t B =  reg.read(r_operands[1]);
+	int32_t result = A+B; 
+	reg.write(r_operands[2],result);
 	if( ((A >= 0) && (B>= 0) && (result < 0)) || ((A<=0) && (B<=0) && (result >=0)) ){
 		std::cout << "Signed Overflow Exception code" << std:: endl;
 	}
+	//debugging
+	//std:: cout << "Performing Add " <<std:: endl;
+	//std::cout <<"R" << r_operands[2] << " = R" << r_operands[0] << " + R" << r_operands[1] << " = " <<std :: endl;
+	std::cout << reg.read(r_operands[2]) << std::endl;
 }
 
 

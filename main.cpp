@@ -32,7 +32,6 @@ int main(int argc, char* argv[]){
 	else{
 		while(binfile.read(buffer,8)){
 			int i = std::stoi(buffer, nullptr, 2);
-			cout << i << endl;
 		}
 	}
  	//Read in binary

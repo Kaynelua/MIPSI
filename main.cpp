@@ -36,34 +36,11 @@ int main(int argc, char* argv[]){
 		}
 	}
  	//Read in binary
-<<<<<<< HEAD
- 	
+
 	//mem.write(INSTR_MEM_BASE+5,5,0);
-=======
 
-
-
-
-
- 	Memory mem;
- 	Register reg;
-
-	/*mem.write(INSTR_MEM_BASE+5,5,0);
-
-	cout << "Reg 30 : " << reg.read(30) << endl;
-	reg.write(30,5);
-	cout << "Reg 30 : " << reg.read(30) << endl;*/
-
->>>>>>> 35c51661e9e9c51fa33f4af692201a598624b772
 	Simulator sim;
 	sim.decode();
-
-
-/*
-	Simulator sim;
-
-	cout << sim.pc << endl;
-*/
 
 	return 0;
 }

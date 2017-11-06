@@ -12,18 +12,6 @@
 
 
 Simulator::Simulator(): pc(4){
-<<<<<<< HEAD
-=======
-
-	for(int i= 0 ; i < 8 ; i++){
-		for(int j=0; j <8 ; j++){
-		opcode_function_table[i][j] = &Simulator::stub;
-		}
-	}
-
-	opcode_function_table[4][0] = &Simulator::add;
-	//opcode_function_table[4][1] = &Simulator::addu;
->>>>>>> 35c51661e9e9c51fa33f4af692201a598624b772
 }
 
 
@@ -52,11 +40,7 @@ void Simulator::run(){
 void Simulator::decode(){
 
 	//int curr_inst = mem.read(pc);
-<<<<<<< HEAD
 	std::uint32_t curr_inst =0x8000003;
-=======
-	std::uint32_t curr_inst = 0b00000000011000110001100000100000;//1007157503;//36847648;//0x00000000; //hardcoded
->>>>>>> 35c51661e9e9c51fa33f4af692201a598624b772
 	int opcode = ((curr_inst & OP_MASK) >> 26);
 
 	if(opcode == 0 ){ 	//R- TYPE
@@ -66,15 +50,12 @@ void Simulator::decode(){
 		r_operands[2] = (curr_inst & RD_MASK) >> 11;
 		r_operands[3] = (curr_inst & SHAMT_MASK) >> 6;
 		r_operands[4] = (curr_inst & FUNCT_MASK);
-<<<<<<< HEAD
-=======
 		int LHFUNCT = (curr_inst & 0X00000038 )>>3;
 		int RHFUNCT = curr_inst & 0X00000007;
-		(this->*opcode_function_table[LHFUNCT][RHFUNCT])();
+		(this->*funct_table[LHFUNCT][RHFUNCT])();
 		/*for(int i=0; i<5;i++){
 			std::cout << r_operands[i] << std::endl;
 		}*/
->>>>>>> 35c51661e9e9c51fa33f4af692201a598624b772
 	}
 	else if( opcode == 2 || opcode ==3 ){	//J-TYPE
 	 	//std:: cout << "J-type" << std:: endl; 

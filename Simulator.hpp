@@ -10,7 +10,7 @@
 #include "Memory.hpp"
 #include "Register.hpp"
 #include <cstdint>
-
+#include <vector>
 
 //#define R_OPCODE 0
 //#define J_OPCODE 2,3
@@ -30,9 +30,36 @@
 
 class Simulator{
 
+public:
+
+
+	std::uint32_t stub();
+	Simulator();
+	Simulator(std::uint32_t pc_in);
+	
+	void run();
+	void decode();
+
 private:
 	std::uint32_t pc;
-	std::uint32_t (Simulator::*opcode_function_table[8][8])();
+	std::uint32_t (Simulator::*opcode_table[8][8])() = {
+		{&Simulator::stub,&Simulator::stub,&Simulator::j,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub}};
+	std::uint32_t (Simulator::*funct_table[8][8])()=  {
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub}};
 
 	Memory mem;
 	Register reg;
@@ -101,14 +128,7 @@ private:
 	
 
 
-public:
 
-	std::uint32_t stub();
-	Simulator();
-	Simulator(std::uint32_t pc_in);
-	
-	void run();
-	void decode();
 	
 	
 };

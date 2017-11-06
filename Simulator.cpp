@@ -13,11 +13,15 @@
 
 
 Simulator::Simulator(): pc(4){
-	for(int i =0; i<8;i++){
-		for(int j=0;j<8;j++){
-			opcode_function_table[i][j] = &Simulator::stub;
+
+	for(int i= 0 ; i < 8 ; i++){
+		for(int j=0; j <8 ; j++){
+		opcode_function_table[i][j] = &Simulator::stub;
 		}
 	}
+
+	opcode_function_table[4][0] = &Simulator::add;
+	//opcode_function_table[4][1] = &Simulator::addu;
 }
 
 
@@ -40,7 +44,7 @@ void Simulator::run(){
 void Simulator::decode(){
 
 	//int curr_inst = mem.read(pc);
-	std::uint32_t curr_inst = 0x0CFFFFFF;//1007157503;//36847648;//0x00000000; //hardcoded
+	std::uint32_t curr_inst = 0b00000000011000110001100000100000;//1007157503;//36847648;//0x00000000; //hardcoded
 	int opcode = ((curr_inst & OP_MASK) >> 26);
 
 	if(opcode == 0 ){ 	//R- TYPE - OK
@@ -50,6 +54,9 @@ void Simulator::decode(){
 		r_operands[2] = (curr_inst & RD_MASK) >> 11;
 		r_operands[3] = (curr_inst & SHAMT_MASK) >> 6;
 		r_operands[4] = (curr_inst & FUNCT_MASK);
+		int LHFUNCT = (curr_inst & 0X00000038 )>>3;
+		int RHFUNCT = curr_inst & 0X00000007;
+		(this->*opcode_function_table[LHFUNCT][RHFUNCT])();
 		/*for(int i=0; i<5;i++){
 			std::cout << r_operands[i] << std::endl;
 		}*/
@@ -73,7 +80,19 @@ void Simulator::decode(){
 	}
 }
 
+std::uint32_t Simulator ::add(){
+	std:: cout << "Performing Add " <<std:: endl;
+	std::cout <<"R" << r_operands[2] << " = R" << r_operands[0] << " + R" << r_operands[1] << " = " <<std :: endl;
+	uint32_t A =  reg.read(r_operands[0]);
+	uint32_t B =  reg.read(r_operands[1]);
+	uint32_t result = A+B; 
+	reg.write(reg.read(r_operands[2]),result);
+	std::cout << reg.read(r_operands[2]) << std::endl;
 
+	if( ((A >= 0) && (B>= 0) && (result < 0)) || ((A<=0) && (B<=0) && (result >=0)) ){
+		std::cout << "Signed Overflow Exception code" << std:: endl;
+	}
+}
 
 
 

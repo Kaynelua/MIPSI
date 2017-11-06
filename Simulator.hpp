@@ -70,7 +70,8 @@ private:
 	std::uint32_t swl();
 	std::uint32_t sw();
 	std::uint32_t swr();
-
+	
+	//R-type Inst:
 	std::uint32_t sll();
 	std::uint32_t srl();
 	std::uint32_t sra();

@@ -44,16 +44,14 @@ int main(int argc, char* argv[]){
  	Memory mem;
  	Register reg;
 
-	mem.write(INSTR_MEM_BASE+5,5,0);
+	/*mem.write(INSTR_MEM_BASE+5,5,0);
 
 	cout << "Reg 30 : " << reg.read(30) << endl;
 	reg.write(30,5);
-	cout << "Reg 30 : " << reg.read(30) << endl;
+	cout << "Reg 30 : " << reg.read(30) << endl;*/
 
 	Simulator sim;
 	sim.decode();
-
-
 
 
 /*

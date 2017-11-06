@@ -48,8 +48,33 @@ public:
 	std::uint32_t pc;
 
 	void decode();
-
-
+	
+	int sll();
+	int srl();
+	int sra();
+	int sllv();
+	int srlv();
+	int srav();
+	int jr();
+	int jalr();
+	int mfhi();
+	int mthi();
+	int mflo();
+	int mtlo();
+	int mult();
+	int multu();
+	int div();
+	int divu();
+	int add();
+	int addu();
+	int subtract();
+	int subu();
+	int bwand();
+	int bwor(); 
+	int bwxor();
+	int bwnor();
+	int slt();
+	int sltu();
 };
 
 

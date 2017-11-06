@@ -70,6 +70,33 @@ private:
 	std::uint32_t swl();
 	std::uint32_t sw();
 	std::uint32_t swr();
+
+	std::uint32_t sll();
+	std::uint32_t srl();
+	std::uint32_t sra();
+	std::uint32_t sllv();
+	std::uint32_t srlv();
+	std::uint32_t srav();
+	std::uint32_t jr();
+	std::uint32_t jalr();
+	std::uint32_t mfhi();
+	std::uint32_t mthi();
+	std::uint32_t mflo();
+	std::uint32_t mtlo();
+	std::uint32_t mult();
+	std::uint32_t multu();
+	std::uint32_t div();
+	std::uint32_t divu();
+	std::uint32_t add();
+	std::uint32_t addu();
+	std::uint32_t subtract();
+	std::uint32_t subu();
+	std::uint32_t bwand();
+	std::uint32_t bwor(); 
+	std::uint32_t bwxor();
+	std::uint32_t bwnor();
+	std::uint32_t slt();
+	std::uint32_t sltu();
 	
 	
 
@@ -83,32 +110,7 @@ public:
 	void run();
 	void decode();
 	
-	int sll();
-	int srl();
-	int sra();
-	int sllv();
-	int srlv();
-	int srav();
-	int jr();
-	int jalr();
-	int mfhi();
-	int mthi();
-	int mflo();
-	int mtlo();
-	int mult();
-	int multu();
-	int div();
-	int divu();
-	int add();
-	int addu();
-	int subtract();
-	int subu();
-	int bwand();
-	int bwor(); 
-	int bwxor();
-	int bwnor();
-	int slt();
-	int sltu();
+	
 };
 
 

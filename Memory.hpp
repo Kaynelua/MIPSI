@@ -4,7 +4,6 @@
 #include <vector>
 #include <cstdint>
 
-
 // test with smaller sizes first
 #define INSTR_MEM_LEN 100	//268435456
 #define DATA_MEM_LEN  100	//1073741824

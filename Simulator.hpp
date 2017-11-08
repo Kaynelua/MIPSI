@@ -41,13 +41,14 @@ public:
 	void decode();
 	void load_bin(const std::vector<std::uint8_t>& vInst);
 	void fetch_instruction();
+	std::uint32_t sign_extend(std::int32_t a,int bits);
 
 private:
 	std::uint32_t pc;
 	std::uint32_t (Simulator::*opcode_table[8][8])() = {
 		{&Simulator::stub,&Simulator::stub,&Simulator::j,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
-		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::addi,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
@@ -144,13 +145,7 @@ private:
 	std::uint32_t bwnor();
 	std::uint32_t slt();
 	std::uint32_t sltu();
-	
-	
 
-
-
-	
-	
 };
 
 

@@ -2,6 +2,7 @@
 #define MEMORY_HPP
 
 #include <vector>
+#include <cstdint>
 
 
 

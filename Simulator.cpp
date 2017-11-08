@@ -37,7 +37,7 @@ Simulator::Simulator(std::uint32_t pc_in){
 
 
 std::uint32_t Simulator::stub(){
-	std::cout << "LOz" << std::endl;
+	std::cout << "stub" << std::endl;
 	return 1;
 }
 
@@ -46,8 +46,7 @@ std::uint32_t Simulator::stub(){
 void Simulator::decode(){
 
 	int curr_inst = instruction;
-	//std::cout << "curr_inst " << curr_inst << std::endl;
-
+	
 	int opcode = ((curr_inst & OP_MASK) >> 26);
 
 	if(opcode == 0 ){ 	//R- TYPE
@@ -60,9 +59,6 @@ void Simulator::decode(){
 		int LHFUNCT = (curr_inst & 0X00000038 )>>3;
 		int RHFUNCT = curr_inst & 0X00000007;
 		(this->*funct_table[LHFUNCT][RHFUNCT])();
-		/*for(int i=0; i<5;i++){
-			std::cout << r_operands[i] << std::endl;
-		}*/
 	}
 	else if( opcode == 2 || opcode ==3 ){	//J-TYPE
 	 	//std:: cout << "J-type" << std:: endl; 
@@ -76,11 +72,11 @@ void Simulator::decode(){
 		i_operands[0] = (curr_inst & RS_MASK) >> 21;
 		i_operands[1] = (curr_inst & RT_MASK) >> 16;
 		i_operands[2] = (curr_inst & IM_MASK);	
-		(this->*opcode_table[4][4])();
+		int LHOP = (opcode & 0b111000) >> 3; 
+	 	int RHOP =  (opcode & 0b000111);
+		(this->*opcode_table[LHOP][RHOP])();
 	}
 }
-
-
 
 
 void Simulator::load_bin(const std::vector<std::uint8_t>& vInst){

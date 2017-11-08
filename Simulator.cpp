@@ -17,7 +17,7 @@ Simulator::Simulator(): pc(4){
 
 
 void Simulator::fetch_instruction(){
-	instruction = mem.read(INSTR_MEM_BASE+pc);
+	instruction = mem.read_inst(INSTR_MEM_BASE+pc);
 }
 
 
@@ -41,12 +41,7 @@ std::uint32_t Simulator::stub(){
 	return 1;
 }
 
-std::uint32_t Simulator::j(){
-	pc = (j_operands[0]*4-INSTR_MEM_BASE) - 4;
-	//std::cout << ": " << pc << std::endl;
-	//std::cout << "Jump Address : " << j_operands[0]*4-INSTR_MEM_BASE-4 << std::endl;
-	return 1;
-}
+
 
 void Simulator::decode(){
 
@@ -85,22 +80,7 @@ void Simulator::decode(){
 	}
 }
 
-std::uint32_t Simulator::add(){
-	
-	int32_t A =  reg.read(r_operands[0]);
-	int32_t B =  reg.read(r_operands[1]);
-	int32_t result = A+B; 
-	reg.write(r_operands[2],result);
-	if( ((A >= 0) && (B>= 0) && (result < 0)) || ((A<0) && (B<0) && (result >=0)) ){
-		std::cout << "Signed Overflow Exception code" << std:: endl;
-	}
-	//debugging
-	//std:: cout << "Performing Add " <<std:: endl;
-	//std::cout <<"R" << r_operands[2] << " = R" << r_operands[0] << " + R" << r_operands[1] << " = " <<std :: endl;
-	std::cout << reg.read(r_operands[2]) << std::endl;
 
-	return 1;
-}
 
 
 void Simulator::load_bin(const std::vector<std::uint8_t>& vInst){

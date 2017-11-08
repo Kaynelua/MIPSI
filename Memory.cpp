@@ -48,3 +48,15 @@ int Memory::write_inst(uint32_t ADDR, uint8_t DATA){
 	}	
 	return 1;
 }
+
+int Memory::read_inst(uint32_t ADDR){
+	if(ADDR >= INSTR_MEM_BASE && ADDR < INSTR_MEM_BASE + INSTR_MEM_LEN){
+		//std::cout << "READING FROM INSTRUCTION MEMORY" << std::endl;
+		return (INSTR_MEM[ADDR-INSTR_MEM_BASE]<<24) + (INSTR_MEM[ADDR-INSTR_MEM_BASE+1] <<16) +  (INSTR_MEM[ADDR-INSTR_MEM_BASE+2]<<8) + INSTR_MEM[ADDR-INSTR_MEM_BASE+3];
+	}
+	else{
+		//std::cout << "CANNOT EXECUTE INSTRUCTION OUTSIDE OF INTSTRUCTION MEMORY" << std::endl;
+		exit(-11);
+	}
+
+}

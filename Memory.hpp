@@ -35,6 +35,7 @@ class Memory{
 		int read(int ADDR, bool mode = 0);
 		int write(int ADDR, int DATA, bool mode = 0);
 		int write_inst(uint32_t ADDR, uint8_t DATA);
+		int read_inst(uint32_t ADDR);
 	
 
 };

@@ -10,8 +10,8 @@
 #define DATA_MEM_LEN  100	//1073741824
 
 
-#define INSTR_MEM_BASE 0x10000000 
-#define DATA_MEM_BASE  0x20000000
+#define INSTR_MEM_BASE 0x1000000 
+#define DATA_MEM_BASE  0x2000000
 
 #define BYTE_RW	  1
 #define WORD_RW	  0
@@ -20,8 +20,8 @@ class Memory{
 
 
 	private:
-		std::vector<unsigned char> INSTR_MEM;
-		std::vector<unsigned char> DATA_MEM;
+		std::vector<uint8_t> INSTR_MEM;
+		std::vector<uint8_t> DATA_MEM;
 
 		int	read_word();
 		char read_byte();
@@ -34,7 +34,7 @@ class Memory{
 		Memory();
 		int read(int ADDR, bool mode = 0);
 		int write(int ADDR, int DATA, bool mode = 0);
-		int writeInst(int ADDR, int DATA);
+		int write_inst(uint32_t ADDR, uint8_t DATA);
 	
 
 };

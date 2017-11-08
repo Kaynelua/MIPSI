@@ -42,15 +42,16 @@ std::uint32_t Simulator::stub(){
 }
 
 std::uint32_t Simulator::j(){
-	std::cout << "Jump Address : " <<j_operands[0] << std::endl;
+	pc = (j_operands[0]*4-INSTR_MEM_BASE) - 4;
+	//std::cout << ": " << pc << std::endl;
+	//std::cout << "Jump Address : " << j_operands[0]*4-INSTR_MEM_BASE-4 << std::endl;
 	return 1;
 }
 
 void Simulator::decode(){
 
-	//int curr_inst = mem.read(pc);
-	std::uint32_t curr_inst = 0b00000000001000110001100000100000;//0x8000003;
-
+	int curr_inst = instruction;
+	//std::cout << "curr_inst " << curr_inst << std::endl;
 
 	int opcode = ((curr_inst & OP_MASK) >> 26);
 
@@ -90,7 +91,7 @@ std::uint32_t Simulator::add(){
 	int32_t B =  reg.read(r_operands[1]);
 	int32_t result = A+B; 
 	reg.write(r_operands[2],result);
-	if( ((A >= 0) && (B>= 0) && (result < 0)) || ((A<=0) && (B<=0) && (result >=0)) ){
+	if( ((A >= 0) && (B>= 0) && (result < 0)) || ((A<0) && (B<0) && (result >=0)) ){
 		std::cout << "Signed Overflow Exception code" << std:: endl;
 	}
 	//debugging
@@ -102,13 +103,9 @@ std::uint32_t Simulator::add(){
 }
 
 
-void Simulator::loadBin(const std::vector<std::uint32_t>& vInst){
+void Simulator::load_bin(const std::vector<std::uint8_t>& vInst){
 	for(int i =0 ; i < vInst.size() ; i++){
-		mem.writeInst((INSTR_MEM_BASE+4*i),vInst[i]);
-	}
-
-	for(int i =0; i <vInst.size(); i++){
-		std::cout << mem.read((INSTR_MEM_BASE+4*i),1) << std::endl;
+		mem.write_inst((INSTR_MEM_BASE+4+i),vInst[i]);
 	}
 }
 

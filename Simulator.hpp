@@ -39,8 +39,9 @@ public:
 	
 	std::uint32_t run();
 	void decode();
-	void loadBin(const std::vector<std::uint32_t>& vInst);
+	void load_bin(const std::vector<std::uint8_t>& vInst);
 	void fetch_instruction();
+
 private:
 	std::uint32_t pc;
 	std::uint32_t (Simulator::*opcode_table[8][8])() = {

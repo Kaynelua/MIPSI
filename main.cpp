@@ -20,10 +20,11 @@ int main(int argc, char* argv[]){
 
 	string binary_filename;
 	ifstream binfile;
-	vector<char> temp_bin;
 	char buffer[8];
+	vector<uint8_t> vInst;
+
 	Simulator sim;
-	vector<uint32_t> vInst;
+
 
 	if(argc > 1){ binary_filename = string(argv[1]); }
 	binfile.open(binary_filename.c_str() ,ios::binary);
@@ -33,20 +34,26 @@ int main(int argc, char* argv[]){
 		exit(EXIT_FAILURE);
 	}
 	else{
+		int i =0;
 		while(binfile.read(buffer,8)){
-			uint32_t byteInst = std::stoi(buffer, nullptr, 2);
+			i++;
+			uint8_t byteInst = std::stoi(buffer, nullptr, 2);
+			//cout << "byteInst : " << (int)byteInst << endl;
 			vInst.push_back(byteInst);
+			if(i == 4){
+				char temp[1];
+				binfile.read(temp,1);
+				i = 0;
+			}
 		}
 	}
+
  	//Read in binary
 
-	//mem.write(INSTR_MEM_BASE+5,5,0);
-	
-	sim.loadBin(vInst);
-	
-	sim.decode();
+	sim.load_bin(vInst);
+	return sim.run();
 
-	return 0;
+	//return 0;
 }
 
 

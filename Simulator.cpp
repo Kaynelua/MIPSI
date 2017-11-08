@@ -15,6 +15,20 @@ Simulator::Simulator(): pc(4){
 }
 
 
+void Simulator::fetch_instruction(){
+	instruction = mem.read(INSTR_MEM_BASE+pc);
+}
+
+
+std::uint32_t Simulator::run(){
+	while(pc != 0){	//sucessful exit is when pc == 0;
+		fetch_instruction();
+		decode();
+		pc = pc + 4;
+	}
+	return reg.read(2) & 0x000000FF; //lower 8 bits of $2
+}
+
 
 Simulator::Simulator(std::uint32_t pc_in){
 	pc = pc_in;
@@ -31,20 +45,10 @@ std::uint32_t Simulator::j(){
 	return 1;
 }
 
-void Simulator::run(){
-	std::cout << "current pc val : " << pc << std::endl;
-	decode();
-
-}
-
 void Simulator::decode(){
 
 	//int curr_inst = mem.read(pc);
 	std::uint32_t curr_inst = 0b00000000001000110001100000100000;//0x8000003;
-
-	reg.write(1,-2147483648);
-	reg.write(3,-1);
-
 
 
 	int opcode = ((curr_inst & OP_MASK) >> 26);
@@ -79,7 +83,7 @@ void Simulator::decode(){
 	}
 }
 
-std::uint32_t Simulator ::add(){
+std::uint32_t Simulator::add(){
 	
 	int32_t A =  reg.read(r_operands[0]);
 	int32_t B =  reg.read(r_operands[1]);
@@ -92,6 +96,8 @@ std::uint32_t Simulator ::add(){
 	//std:: cout << "Performing Add " <<std:: endl;
 	//std::cout <<"R" << r_operands[2] << " = R" << r_operands[0] << " + R" << r_operands[1] << " = " <<std :: endl;
 	std::cout << reg.read(r_operands[2]) << std::endl;
+
+	return 1;
 }
 
 

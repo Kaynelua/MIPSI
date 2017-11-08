@@ -34,6 +34,7 @@ class Memory{
 		Memory();
 		int read(int ADDR, bool mode = 0);
 		int write(int ADDR, int DATA, bool mode = 0);
+		int writeInst(int ADDR, int DATA);
 	
 
 };

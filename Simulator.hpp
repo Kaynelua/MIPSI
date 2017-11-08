@@ -39,6 +39,7 @@ public:
 	
 	void run();
 	void decode();
+	void loadBin(const std::vector<std::uint32_t>& vInst);
 
 private:
 	std::uint32_t pc;

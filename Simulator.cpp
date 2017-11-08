@@ -8,6 +8,7 @@
 #include "Simulator.hpp"
 #include <iostream>
 #include <cstdint>
+#include <vector>
 
 
 
@@ -95,6 +96,14 @@ std::uint32_t Simulator ::add(){
 }
 
 
+void Simulator::loadBin(const std::vector<std::uint32_t>& vInst){
+	for(int i =0 ; i < vInst.size() ; i++){
+		mem.writeInst((INSTR_MEM_BASE+4*i),vInst[i]);
+	}
 
+	for(int i =0; i <vInst.size(); i++){
+		std::cout << mem.read((INSTR_MEM_BASE+4*i),1) << std::endl;
+	}
+}
 
 

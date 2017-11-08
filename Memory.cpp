@@ -26,3 +26,14 @@ int Memory::write(int ADDR, int DATA, bool mode){
 	return 1;
 }
 
+int Memory::writeInst(int ADDR, int DATA){
+
+	//RESOLVE memory range here?	
+	if(ADDR >= INSTR_MEM_BASE && ADDR < INSTR_MEM_BASE + INSTR_MEM_LEN){
+		std::cout << "Loading to Instruction Memory"<< std::endl;
+	}
+	else{
+		std::cout << "Error Loading Binary Instructions" << std::endl;
+	}	
+	return 1;
+}

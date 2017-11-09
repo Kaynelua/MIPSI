@@ -31,28 +31,23 @@
 class Simulator{
 
 public:
-
-
-	
 	Simulator();
 	std::uint32_t run();
-	void decode();
-	void load_bin(const std::vector<std::uint8_t>& vInst);
-	void fetch_instruction();
-	std::uint32_t sign_extend(std::int32_t a,int bits);
+	void load_bin(const std::vector<std::uint8_t>& v_byte_inst);
+	
+
 
 private:
-	std::uint32_t pc;
 	std::uint32_t (Simulator::*opcode_table[8][8])() = {
 		{&Simulator::stub,&Simulator::stub,&Simulator::j,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
-		{&Simulator::stub,&Simulator::addi,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::addi,&Simulator::addiu,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
-		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::addiu,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
@@ -80,13 +75,25 @@ private:
 
 	Memory mem;
 	Register reg;
+	std::uint32_t pc;
 	std::uint32_t instruction;
 	std::uint32_t r_operands[5];
 	std::uint32_t i_operands[3];
 	std::uint32_t j_operands[1];
+	
+	std::uint32_t branch_taken;
+	std::uint32_t branch_address;
+
+	void fetch_instruction();
+	void decode();
+	void update_pc();
+
+	std::uint32_t sign_extend(std::int32_t a,int bits);
+
 
 	std::uint32_t stub();
 	std::uint32_t invalid_func();
+
 
 	std::uint32_t bltz();
 	std::uint32_t bgez();

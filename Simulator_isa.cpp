@@ -18,7 +18,8 @@ std::uint32_t Simulator::stub(){
 
 /**************** J TYPE ******************/
 std::uint32_t Simulator::j(){
-	pc = (j_operands[0]*4) - 4; //
+	branch_address = (j_operands[0]*4);
+	branch_taken = 1;
 	//std::cout << ": " << pc << std::endl;
 	std::cout << "Jump Address (PC): " << j_operands[0]*4-INSTR_MEM_BASE << std::endl;
 	return 1;
@@ -29,9 +30,9 @@ std::uint32_t Simulator::j(){
 
 std::uint32_t Simulator::jr(){
 	uint32_t ja = mem.read(r_operands[0]);
-	pc = ja-4;
-	//std::cout << ": " << pc << std::endl;
-	std::cout << "Jump Register (PC): " << j_operands[0]*4-INSTR_MEM_BASE << std::endl;
+	branch_address = ja;
+	branch_taken = 1;
+	std::cout << "Jump Register (PC): " << j_operands[0]*4 << std::endl;
 	return 1;
 }
 

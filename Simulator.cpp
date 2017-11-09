@@ -12,7 +12,7 @@
 
 
 
-Simulator::Simulator(): pc(PC_INITIAL+4){
+Simulator::Simulator(): pc(PC_INITIAL+4),branch_taken(false){
 }
 
 void Simulator::load_bin(const std::vector<std::uint8_t>& v_byte_inst){
@@ -23,13 +23,30 @@ void Simulator::load_bin(const std::vector<std::uint8_t>& v_byte_inst){
 
 void Simulator::fetch_instruction(){
 	instruction = mem.read_inst(pc);
+	//std::cout << " instruction " << instruction << std::endl;
+}
+
+void Simulator::update_pc(){
+	if(branch_taken == 1){
+		pc = pc + 4;
+		branch_taken = 2;
+	}
+	else if(branch_taken = 2){
+		pc = branch_address;
+	}
+	else{
+		pc=pc+4;
+	}
+
 }
 
 std::uint32_t Simulator::run(){
 	while(pc != ADDR_NULL){	//PC = 0 Signals completion of binary
+		//std::cout << " pc " << pc << std::endl;
 		fetch_instruction();
 		decode();
-		pc = pc + 4;
+		update_pc();
+	
 	}
 
 	return reg.read(2) & 0x000000FF; //MASK lower 8 bits of $2

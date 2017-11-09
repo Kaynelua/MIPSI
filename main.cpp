@@ -26,6 +26,7 @@ void read_binary(const string& filename,vector<uint8_t>& v_inst_out){
 	else{
 		while(binfile.read(buffer,1)){
 			uint8_t byte_inst =  buffer[0];
+			//cout << int(byte_inst) << endl;
 			v_inst_out.push_back(byte_inst);
 		}
 	}

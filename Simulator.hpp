@@ -12,9 +12,9 @@
 #include <cstdint>
 #include <vector>
 
-//#define R_OPCODE 0
-//#define J_OPCODE 2,3
-//#define I_OPCODE 4 //idk?
+
+#define PC_INITIAL 0x1000000
+#define ADDR_NULL 0x00000000
 
 #define OP_MASK 0xFC000000
 
@@ -33,10 +33,8 @@ class Simulator{
 public:
 
 
-	std::uint32_t stub();
-	Simulator();
-	Simulator(std::uint32_t pc_in);
 	
+	Simulator();
 	std::uint32_t run();
 	void decode();
 	void load_bin(const std::vector<std::uint8_t>& vInst);
@@ -54,7 +52,7 @@ private:
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
-		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::addiu,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
@@ -66,13 +64,13 @@ private:
 	std::uint32_t (Simulator::*funct_table[8][8])()=  {
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
-		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::jr,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
-		{&Simulator::add,&Simulator::addu,&Simulator::subtract,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::add,&Simulator::addu,&Simulator::sub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
@@ -87,6 +85,7 @@ private:
 	std::uint32_t i_operands[3];
 	std::uint32_t j_operands[1];
 
+	std::uint32_t stub();
 	std::uint32_t invalid_func();
 
 	std::uint32_t bltz();
@@ -137,7 +136,7 @@ private:
 	std::uint32_t divu();
 	std::uint32_t add();
 	std::uint32_t addu();
-	std::uint32_t subtract();
+	std::uint32_t sub();
 	std::uint32_t subu();
 	std::uint32_t bwand();
 	std::uint32_t bwor(); 

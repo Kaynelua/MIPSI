@@ -13,47 +13,37 @@
 using namespace std;
 
 
-
-int main(int argc, char* argv[]){
-
-
-
-	string binary_filename;
+void read_binary(const string& filename,vector<uint8_t>& v_inst_out){
 	ifstream binfile;
-	char buffer[8];
-	vector<uint8_t> vInst;
+	char buffer[1];
 
-	Simulator sim;
-
-
-	if(argc > 1){ binary_filename = string(argv[1]); }
-	binfile.open(binary_filename.c_str() ,ios::binary);
+	binfile.open(filename.c_str() ,ios::binary);
 
 	if(!binfile.is_open()){
 		cout << "File not found!" << endl;
 		exit(EXIT_FAILURE);
 	}
 	else{
-		int i =0;
-		while(binfile.read(buffer,8)){
-			i++;
-			uint8_t byteInst = std::stoi(buffer, nullptr, 2);
-			//cout << "byteInst : " << (int)byteInst << endl;
-			vInst.push_back(byteInst);
-			if(i == 4){
-				char temp[1];
-				binfile.read(temp,1);
-				i = 0;
-			}
+		while(binfile.read(buffer,1)){
+			uint8_t byte_inst =  buffer[0];
+			v_inst_out.push_back(byte_inst);
 		}
 	}
+}
 
- 	//Read in binary
 
-	sim.load_bin(vInst);
-	return sim.run();
+int main(int argc, char* argv[]){
+	Simulator sim;
 
-	//return 0;
+	string binary_filename;
+	vector<uint8_t> v_byte_inst;
+
+	if(argc > 1){ binary_filename = string(argv[1]); }
+	read_binary(binary_filename,v_byte_inst); //Read in binary
+	sim.load_bin(v_byte_inst);
+	int ret = sim.run();
+
+	return ret;
 }
 
 

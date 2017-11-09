@@ -11,10 +11,14 @@ std::uint32_t Simulator::sign_extend(std::int32_t a,int bits){
 	return a;
 }
 
+std::uint32_t Simulator::stub(){
+	std::cout << "stub" << std::endl;
+	return 1;
+}
 
 /**************** J TYPE ******************/
 std::uint32_t Simulator::j(){
-	pc = (j_operands[0]*4-INSTR_MEM_BASE) - 4;
+	pc = (j_operands[0]*4) - 4; //
 	//std::cout << ": " << pc << std::endl;
 	std::cout << "Jump Address (PC): " << j_operands[0]*4-INSTR_MEM_BASE << std::endl;
 	return 1;
@@ -22,6 +26,14 @@ std::uint32_t Simulator::j(){
 
 
 /**************** R TYPE ******************/
+
+std::uint32_t Simulator::jr(){
+	uint32_t ja = mem.read(r_operands[0]);
+	pc = ja-4;
+	//std::cout << ": " << pc << std::endl;
+	std::cout << "Jump Register (PC): " << j_operands[0]*4-INSTR_MEM_BASE << std::endl;
+	return 1;
+}
 
 std::uint32_t Simulator::add(){
 	
@@ -56,7 +68,7 @@ std::uint32_t Simulator::addu(){
 	return 1;
 }
 
-std::uint32_t Simulator::subtract(){
+std::uint32_t Simulator::sub(){
 	
 	int32_t A =  reg.read(r_operands[0]);
 	int32_t B =  reg.read(r_operands[1]);
@@ -87,5 +99,24 @@ std::uint32_t Simulator::addi(){
 
 
 	return 1;
+}
+
+std::uint32_t Simulator::addiu(){
+	//source : rs,imm
+	//dest : rt
+	int32_t A = reg.read(i_operands[0]);
+	int32_t B = sign_extend(i_operands[2],16);
+	int32_t result = A+B;
+	reg.write(i_operands[1],result);
+	return 1;
 
 }
+
+
+
+
+
+
+
+
+

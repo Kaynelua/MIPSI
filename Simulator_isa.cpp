@@ -80,7 +80,7 @@ std::uint32_t Simulator::sub(){
 	//debugging
 	std:: cout << "Performing Sub " <<std:: endl;
 	std::cout <<"R" << r_operands[2] << " = R" << r_operands[0] << " - R" << r_operands[1] << " = " <<std :: endl;
-	std::cout << reg.read(r_operands[2]) << std::endl;
+	std::cout << (int)reg.read(r_operands[2]) << std::endl;
 
 	return 1;
 }

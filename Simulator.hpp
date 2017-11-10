@@ -9,6 +9,7 @@
 
 #include "Memory.hpp"
 #include "Register.hpp"
+#include "Debug.hpp"
 #include <cstdint>
 #include <vector>
 

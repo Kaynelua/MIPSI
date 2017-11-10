@@ -1,4 +1,6 @@
 #include "Register.hpp"
+#include "Debug.hpp"
+
 
 
 Register::Register(): reg_file(32){

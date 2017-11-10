@@ -8,6 +8,9 @@
 #include "Simulator.hpp"
 #include "Memory.hpp"
 #include "Register.hpp"
+#include "Debug.hpp"
+
+
 
 
 using namespace std;
@@ -35,7 +38,7 @@ void read_binary(const string& filename,vector<uint8_t>& v_inst_out){
 
 int main(int argc, char* argv[]){
 	Simulator sim;
-
+	
 	string binary_filename;
 	vector<uint8_t> v_byte_inst;
 

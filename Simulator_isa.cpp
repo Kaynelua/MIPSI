@@ -1,7 +1,9 @@
 #include "Simulator.hpp"
+#include "Debug.hpp"
 #include <iostream>
 #include <cstdint>
 #include <vector>
+#include <iomanip>
 
 
 /*************** HELPER FUCNTIONS ********/
@@ -21,7 +23,7 @@ std::uint32_t Simulator::j(){
 	branch_address = (j_operands[0]*4);
 	branch_taken = 1;
 	//std::cout << ": " << pc << std::endl;
-	std::cout << "Jump Address (PC): " << j_operands[0]*4-INSTR_MEM_BASE << std::endl;
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump (PC):" << j_operands[0]*4 << std::endl;
 	return 1;
 }
 
@@ -32,7 +34,7 @@ std::uint32_t Simulator::jr(){
 	uint32_t ja = mem.read(r_operands[0]);
 	branch_address = ja;
 	branch_taken = 1;
-	std::cout << "Jump Register (PC): " << j_operands[0]*4 << std::endl;
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump Register (PC) -> " << ja << std::endl;
 	return 1;
 }
 
@@ -98,7 +100,8 @@ std::uint32_t Simulator::addi(){
 	}
 	reg.write(i_operands[1],result);
 
-
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "ADDIU :" << "$" << r_operands[2] << "= $"<<r_operands[0] << " + $" <<  r_operands[1]<< std::endl;
+	
 	return 1;
 }
 
@@ -109,6 +112,8 @@ std::uint32_t Simulator::addiu(){
 	int32_t B = sign_extend(i_operands[2],16);
 	int32_t result = A+B;
 	reg.write(i_operands[1],result);
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "ADDIU :" << "$" << r_operands[2] << "= $"<<r_operands[0] << " + " << B << std::endl;
 	return 1;
 
 }

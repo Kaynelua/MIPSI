@@ -33,7 +33,7 @@ void Simulator::update_pc(){
 		pc = pc + 4;
 		branch_taken = 2;
 	}
-	else if(branch_taken = 2){
+	else if(branch_taken == 2){
 		pc = branch_address;
 	}
 	else{
@@ -89,8 +89,3 @@ void Simulator::decode(){
 		(this->*opcode_table[LHOP][RHOP])();
 	}
 }
-
-
-
-
-

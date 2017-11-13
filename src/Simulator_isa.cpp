@@ -79,12 +79,36 @@ std::uint32_t Simulator :: srav(){
 }
 
 std::uint32_t Simulator::jr(){
-	uint32_t ja = reg.read(r_operands[0]);
-	branch_address = ja;
-	branch_taken = 1;
-	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump Register (PC) -> " << ja << std::endl;
-	return 1;
+	uint32_t jd = reg.read(r_operands[0]);
+	branch_address = jd;
+
+	if(branch_address%4 == 0){
+		branch_taken = 1;
+		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump Register (PC) -> " << jd << std::endl;
+	}
+	else{
+		exit(-12);
+	}
 }
+
+std::uint32_t Simulator::jalr(){ // KIV NOT SURE
+	uint32_t jd = reg.read(r_operands[0]);
+	uint32_t return_address = pc +8;
+	reg.write(31,return_address);	
+	branch_address = jd;
+	
+	// NEED TO MAKE ANOTHER EXCEPTION HERE WHEN RETURN ADDR = JUMP DESTINATION DUE TO RE-EXECUTION
+
+	if(branch_address%4 == 0){
+		branch_taken = 1;
+		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump Register (PC) -> " << jd << std::endl;
+		debug << std::setw(21)  << std::left <<"RETURN ADDR IN R31" << return_address << std::endl;
+	}
+	else{
+		exit(-12);
+	}
+}
+
 
 std::uint32_t Simulator::add(){
 	

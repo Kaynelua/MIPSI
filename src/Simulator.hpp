@@ -60,7 +60,7 @@ private:
 	std::uint32_t (Simulator::*funct_table[8][8])()=  {
 		{&Simulator::sll,&Simulator::stub,&Simulator::srl,&Simulator::sra,&Simulator::sllv,&Simulator::stub,&Simulator::srlv,&Simulator::srav},
 
-		{&Simulator::jr,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::jr,&Simulator::jalr,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 

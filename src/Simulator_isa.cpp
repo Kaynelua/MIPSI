@@ -30,8 +30,48 @@ std::uint32_t Simulator::j(){
 
 /**************** R TYPE ******************/
 
+std::uint32_t Simulator :: sll(){
+	uint32_t shiftamt = r_operands[3];
+	uint32_t rt = reg.read(r_operands[1]);
+	uint32_t rd = rt << shiftamt;
+	reg.write(r_operands[2],rd);
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Shift left Logical by " << shiftamt << std::endl;
+}
+
+std::uint32_t Simulator :: srl(){
+	uint32_t shiftamt = r_operands[3];
+	uint32_t rt = reg.read(r_operands[1]);
+	uint32_t rd = rt >> shiftamt;
+	reg.write(r_operands[2],rd);
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Shift right Logical by " << shiftamt << std::endl;
+}
+
+std::uint32_t Simulator :: sra(){ 
+	uint32_t shiftamt = r_operands[3];
+	uint32_t rt = reg.read(r_operands[1]);
+	uint32_t rd = (int32_t)rt >> shiftamt;
+	reg.write(r_operands[2],rd);
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Shift right Arithmetic by " << shiftamt << std::endl;
+}
+
+std::uint32_t Simulator :: sllv(){
+	uint32_t shiftamt = reg.read(r_operands[0]);
+	uint32_t rt = reg.read(r_operands[1]);
+	uint32_t rd = rt << shiftamt;
+	reg.write(r_operands[2],rd);
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Shift left Logical Variable by " << shiftamt << std::endl;
+}
+
+std::uint32_t Simulator :: srlv(){
+	uint32_t shiftamt = reg.read(r_operands[0]);
+	uint32_t rt = reg.read(r_operands[1]);
+	uint32_t rd = rt >> shiftamt;
+	reg.write(r_operands[2],rd);
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Shift right Logical Variable by " << shiftamt << std::endl;
+}
+
 std::uint32_t Simulator::jr(){
-	uint32_t ja = mem.read(r_operands[0]);
+	uint32_t ja = reg.read(r_operands[0]);
 	branch_address = ja;
 	branch_taken = 1;
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump Register (PC) -> " << ja << std::endl;
@@ -100,8 +140,8 @@ std::uint32_t Simulator::addi(){
 	}
 	reg.write(i_operands[1],result);
 
-	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "ADDIU :" << "$" << r_operands[2] << "= $"<<r_operands[0] << " + $" <<  r_operands[1]<< std::endl;
-	
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "ADDI :" << "R" << i_operands[1] << "= R"<<i_operands[0] << " + " <<  i_operands[2]<< std::endl;
+	std::cout << reg.read(i_operands[1]) <<std::endl;
 	return 1;
 }
 
@@ -113,7 +153,7 @@ std::uint32_t Simulator::addiu(){
 	int32_t result = A+B;
 	reg.write(i_operands[1],result);
 
-	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "ADDIU :" << "$" << r_operands[2] << "= $"<<r_operands[0] << " + " << B << std::endl;
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "ADDIU :" << "R" << i_operands[1] << "= R"<<r_operands[0] << " + " << B << std::endl;
 	return 1;
 
 }

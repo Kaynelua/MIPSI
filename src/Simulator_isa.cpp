@@ -70,6 +70,14 @@ std::uint32_t Simulator :: srlv(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Shift right Logical Variable by " << shiftamt << std::endl;
 }
 
+std::uint32_t Simulator :: srav(){
+	uint32_t shiftamt = reg.read(r_operands[0]);
+	uint32_t rt = reg.read(r_operands[1]);
+	uint32_t rd = (int32_t)rt >> shiftamt;
+	reg.write(r_operands[2],rd);
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Shift right Arithmetic Variable by " << shiftamt << std::endl;
+}
+
 std::uint32_t Simulator::jr(){
 	uint32_t ja = reg.read(r_operands[0]);
 	branch_address = ja;

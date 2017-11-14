@@ -3,7 +3,7 @@
 
 
 
-Register::Register(): reg_file(32){
+Register::Register(): reg_file(32), regHI(0), regLO(0){
 
 }
 

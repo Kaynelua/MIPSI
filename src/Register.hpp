@@ -10,11 +10,13 @@ class Register{
 		std::vector<uint32_t> reg_file;
 
 
+
 	public:
 		Register();
 		uint32_t read(uint32_t reg_num);
 		uint32_t write(uint32_t reg_num, uint32_t data); 
-
+		uint32_t regHI;
+		uint32_t regLO;
 
 
 };

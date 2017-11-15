@@ -23,8 +23,17 @@ std::uint32_t Simulator::stub(){
 std::uint32_t Simulator::j(){
 	branch_address = (j_operands[0]*4);
 	branch_taken = 1;
-	//std::cout << ": " << pc << std::endl;
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump (PC):" << j_operands[0]*4 << std::endl;
+	return 1;
+}
+
+std::uint32_t Simulator::jal(){
+	branch_address = (j_operands[0]*4);
+	branch_taken = 1;
+	uint32_t return_address = pc +8;
+	reg.write(31,return_address);
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump and Link (PC): Branch Target=" << branch_address << std::endl;
+	debug <<"RETURN ADDR IN R31 = " << return_address << std::endl;
 	return 1;
 }
 
@@ -402,7 +411,7 @@ std::uint32_t Simulator::conditional_B(){
 		bltzal();
 	
 	}
-	else if(branchCondition == 17){
+	else if(branchCondition ==17){
 		//BGEZAL
 		bgezal();
 	}
@@ -414,7 +423,7 @@ std::uint32_t Simulator::conditional_B(){
 	return 1;
 }
 
-std::uint32_t Simulator :: bltz(){	// CHECK FOR OUT OF BOUNDS BRANCH
+std::uint32_t Simulator :: bltz(){
 	int32_t RS = reg.read(i_operands[0]);
 	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
 
@@ -436,7 +445,7 @@ std::uint32_t Simulator :: bltz(){	// CHECK FOR OUT OF BOUNDS BRANCH
 	
 }
 
-std::uint32_t Simulator :: bgez(){	// CHECK FOR OUT OF BOUNDS BRANCH
+std::uint32_t Simulator :: bgez(){
 	int32_t RS = reg.read(i_operands[0]);
 	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
 
@@ -458,7 +467,7 @@ std::uint32_t Simulator :: bgez(){	// CHECK FOR OUT OF BOUNDS BRANCH
 	
 }
 
-std::uint32_t Simulator :: bltzal(){	//CHECK FOR OUT OF BOUNDS BRANCH
+std::uint32_t Simulator :: bltzal(){
 	int32_t RS = reg.read(i_operands[0]);
 	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
 
@@ -506,7 +515,91 @@ std::uint32_t Simulator :: bgezal(){
 	}
 
 	return 1;
+}
 
+std::uint32_t Simulator :: beq(){
+	uint32_t A = reg.read(i_operands[0]);
+	uint32_t B = reg.read(i_operands[1]);
+	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BEQ" << std::endl;
+
+	if(A == B){	
+		branch_address = pc + (int32_t)branchoffset;
+		branch_taken = 1;
+
+		debug <<"RS = RT (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
+	}
+	
+	else{
+		debug <<"RS != RT (Branch not Taken) "  << std::endl;
+	}
+
+	return 1;		
+}
+
+std::uint32_t Simulator :: bne(){
+	uint32_t A = reg.read(i_operands[0]);
+	uint32_t B = reg.read(i_operands[1]);
+	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BNE" << std::endl;
+
+	if(A != B){	
+		branch_address = pc + (int32_t)branchoffset;
+		branch_taken = 1;
+
+		debug <<"RS != RT (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
+	}
+	
+	else{
+		debug <<"RS = RT (Branch not Taken) "  << std::endl;
+	}
+
+	return 1;		
+}
+
+std::uint32_t Simulator :: blez(){
+	int32_t RS = reg.read(i_operands[0]);
+	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BLEZ " << std::endl;
+	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
+
+	if(RS <= 0){	
+		branch_address = pc + (int32_t)branchoffset;
+		branch_taken = 1;
+
+		debug <<"RS <=0 and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
+	}
+	
+	else{
+		debug <<"RS > 0 and Branch not Taken "  << std::endl;
+	}
+
+	return 1;		
+}
+
+std::uint32_t Simulator :: bgtz(){
+	int32_t RS = reg.read(i_operands[0]);
+	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BGTZ " << std::endl;
+	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
+
+	if(RS > 0){	
+		branch_address = pc + (int32_t)branchoffset;
+		branch_taken = 1;
+
+		debug <<"RS > 0 (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
+	}
+	
+	else{
+		debug <<"RS <= 0 (Branch not Taken) "  << std::endl;
+	}
+
+	return 1;	
+	
 }
 
 std::uint32_t Simulator::addi(){

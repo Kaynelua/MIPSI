@@ -123,9 +123,7 @@ private:
 	std::uint32_t lwr();
 	std::uint32_t sb();
 	std::uint32_t sh();
-	std::uint32_t swl();
 	std::uint32_t sw();
-	std::uint32_t swr();
 	
 	//R-type Inst:
 	std::uint32_t sll();

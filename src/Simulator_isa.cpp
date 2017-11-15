@@ -711,46 +711,67 @@ std::uint32_t Simulator::lw(){
 	else{
 		exit(-11);
 	}
-	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LW -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
-	
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LW -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;	
 }
 
 
 std::uint32_t Simulator::lwl(){	//need to check for address error
 
-	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);	//unaligned access permissible
+	int32_t eff_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);	//unaligned access permissible
+
+
 
 	uint32_t rt_data = reg.read(i_operands[1]);
-	uint32_t mem_data = mem.read(mem_addr,WORD_RW);
 
-	rt_data = (rt_data & 0x0000FFFF);
-	mem_data = (mem_data & 0XFFFF0000);
-	rt_data = rt_data|mem_data;
+
+	uint32_t remainder = eff_addr%4;
+	uint32_t aligned_addr = eff_addr-remainder;
+	uint32_t aligned_word = mem.read(aligned_addr,WORD_RW);
+	//extract least significant (4-r) bytes and assign to MS 4-r bytes of rt_data
+	uint32_t word_mask = 0xFFFFFFFF;
+	uint32_t rt_data_mask = 0xFFFFFFFF;
+
+	word_mask = word_mask >> remainder*8;
+	rt_data_mask = rt_data_mask >> (4-remainder)*8;
+
+	aligned_word = (aligned_word & word_mask) << remainder*8;
+	rt_data = (rt_data & rt_data_mask);
+	rt_data = rt_data | aligned_word;
 
 	reg.write(i_operands[1],rt_data);
 
-	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LWL -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
-	
+	debug << std::setw(21)  << std::left << "INSTRUCTION" << " : " << "LWL -> " << std:: endl;
 }
 
 std::uint32_t Simulator::lwr(){	//need to check for address error
 
 
-	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);	//unaligned access permissible
+	int32_t eff_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);	//unaligned access permissible
+
 
 	uint32_t rt_data = reg.read(i_operands[1]);
-	uint32_t mem_data = mem.read(mem_addr,WORD_RW);
 
-	rt_data = (rt_data & 0xFFFFF0000);
-	mem_data = (mem_data & 0X0000FFFF);
-	rt_data = rt_data|mem_data;
+
+	uint32_t remainder = eff_addr%4;
+	uint32_t aligned_addr = eff_addr-remainder;
+	uint32_t aligned_word = mem.read(aligned_addr,WORD_RW);
+
+
+	//extract least significant (4-r) bytes and assign to MS 4-r bytes of rt_data
+	uint32_t word_mask = 0xFFFFFFFF;
+	uint32_t rt_data_mask = 0xFFFFFFFF;
+
+	word_mask = word_mask << (3-remainder)*8;
+	rt_data_mask = rt_data_mask << (remainder+1)*8;
+
+	aligned_word = (aligned_word & word_mask) >> (3-remainder)*8;
+	rt_data = (rt_data & rt_data_mask);
+	rt_data = rt_data | aligned_word;
+
 	reg.write(i_operands[1],rt_data);
 
-	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LWR -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
-	
+	debug << std::setw(21)  << std::left << "INSTRUCTION" << " : " << "LWR -> " << std:: endl;
 }
-
-
 
 
 

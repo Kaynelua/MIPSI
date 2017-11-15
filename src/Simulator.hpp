@@ -48,9 +48,9 @@ private:
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
-		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::lw,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::lb,&Simulator::stub,&Simulator::stub,&Simulator::lw,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
-		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::sw,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::sb,&Simulator::stub,&Simulator::stub,&Simulator::sw,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 

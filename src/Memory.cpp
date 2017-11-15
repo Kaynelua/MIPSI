@@ -71,7 +71,6 @@ std::uint32_t Memory::write(uint32_t ADDR, uint32_t DATA, bool mode){
 
 std::uint32_t Memory::write_inst(uint32_t ADDR, uint8_t DATA){
 	if(ADDR >= INSTR_MEM_BASE && ADDR < INSTR_MEM_BASE + INSTR_MEM_LEN){
-		//std::cout << "LOADING INTO INSTRUCITON MEMORY"<< std::endl;
 		INSTR_MEM[ADDR-INSTR_MEM_BASE] = DATA;
 	}
 	else{

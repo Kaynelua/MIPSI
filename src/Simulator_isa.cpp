@@ -1,4 +1,5 @@
 #include "Simulator.hpp"
+#include "Memory.hpp"
 #include "Debug.hpp"
 #include <iostream>
 #include <cstdint>
@@ -536,6 +537,30 @@ std::uint32_t Simulator::addiu(){
 	return 1;
 
 }
+
+
+std::uint32_t Simulator::sb(){
+	//source: rt
+	//dest	: rs + imm
+	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
+	mem.write(mem_addr,reg.read(i_operands[1]),BYTE_RW);
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "SB -> " << "MEM[" << mem_addr << "] = " << "R" << i_operands[1] << std::endl;
+}
+
+
+std::uint32_t Simulator::lb(){
+	//source: rs,imm
+	//dest	: rt
+	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
+	//int32_t byte_data = sign_extend( mem.read(mem_addr,BYTE_RW), 8 );
+	reg.write( i_operands[1], sign_extend(mem.read(mem_addr,BYTE_RW) , 8) );
+
+	debug << reg.read(i_operands[1]) << std::endl;
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LB -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
+	
+}
+
+
 
 std::uint32_t Simulator::sw(){
 	//source: rt

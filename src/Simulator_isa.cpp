@@ -631,6 +631,88 @@ std::uint32_t Simulator::addiu(){
 
 }
 
+std::uint32_t Simulator::slti(){
+	
+	int32_t RS =  reg.read(i_operands[0]);
+	int32_t Immediate =  sign_extend(i_operands[2],16);
+
+	if(RS < Immediate){
+		reg.write(i_operands[1],1);
+		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Set less than Immediate " << std::endl;
+		debug <<  "R" << i_operands[0] << " is < Immediate = " << Immediate << std :: endl;
+		debug <<  "R" << i_operands[1]  << " = 1 " << std::endl;
+	}	
+	else{
+		reg.write(i_operands[1],0);
+		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Set less than Immediate" << std::endl;
+		debug <<  "R" << i_operands[0] << " is not < Immediate = " << Immediate << std :: endl;
+		debug <<  "R" << i_operands[1]  << " = 0 " << std::endl;
+	}
+
+	return 1;
+}
+
+std::uint32_t Simulator::sltiu(){
+	
+	uint32_t RS =  reg.read(i_operands[0]);
+	uint32_t Immediate =  sign_extend(i_operands[2],16);
+
+	if(RS < Immediate){
+		reg.write(i_operands[1],1);
+		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Set less than Immediate Unsigned" << std::endl;
+		debug <<  "R" << i_operands[0] << " is < Immediate = " << Immediate << std :: endl;
+		debug <<  "R" << i_operands[1]  << " = 1 " << std::endl;
+	}	
+	else{
+		reg.write(i_operands[1],0);
+		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Set less than Immediate Unsigned" << std::endl;
+		debug <<  "R" << i_operands[0] << " is not < Immediate = " << Immediate << std :: endl;
+		debug <<  "R" << i_operands[1]  << " = 0 " << std::endl;
+	}
+
+	return 1;
+}
+
+std::uint32_t Simulator::andi(){
+	
+	uint32_t RS =  reg.read(i_operands[0]);
+	uint32_t Immediate =  i_operands[2];
+	uint32_t result = Immediate & RS;
+	reg.write(i_operands[1],result);
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "And Immediate " << std::endl;
+	debug <<  "R" << i_operands[0] << " AND Immediate " << i_operands[2] << " = " <<std :: endl;
+	debug <<  "R" << i_operands[1]  << " = " << result << std::endl;
+	return 1;
+}
+
+std::uint32_t Simulator::ori(){
+	
+	uint32_t RS =  reg.read(i_operands[0]);
+	uint32_t Immediate =  i_operands[2];
+	uint32_t result = Immediate | RS;
+	reg.write(i_operands[1],result);
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "OR Immediate " << std::endl;
+	debug <<  "R" << i_operands[0] << " OR Immediate " << i_operands[2] << " = " <<std :: endl;
+	debug <<  "R" << i_operands[1]  << " = " << result << std::endl;
+	return 1;
+}
+
+std::uint32_t Simulator::xori(){
+	
+	uint32_t RS =  reg.read(i_operands[0]);
+	uint32_t Immediate =  i_operands[2];
+	uint32_t result = Immediate ^ RS;
+	reg.write(i_operands[1],result);
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "XOR Immediate " << std::endl;
+	debug <<  "R" << i_operands[0] << " XOR Immediate " << i_operands[2] << " = " <<std :: endl;
+	debug <<  "R" << i_operands[1]  << " = " << result << std::endl;
+	return 1;
+}
+
+
 
 std::uint32_t Simulator::sb(){
 	//source: rt

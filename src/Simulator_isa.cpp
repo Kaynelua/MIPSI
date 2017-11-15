@@ -561,6 +561,37 @@ std::uint32_t Simulator::lb(){
 }
 
 
+std::uint32_t Simulator::sh(){
+	//source: rt
+	//dest	: rs + imm
+	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
+	if(mem_addr%2 == 0){
+		mem.write(mem_addr,reg.read(i_operands[1]),HWORD_RW);
+		//debug << mem.read(mem_addr,WORD_RW) << std::endl;;
+	}
+	else{
+		exit(-11);
+	}
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "SH -> " << "MEM[" << mem_addr << "] = " << "R" << i_operands[1] << std::endl;
+}
+
+
+std::uint32_t Simulator::lh(){
+	//source: rs,imm
+	//dest	: rt
+	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
+	if(mem_addr%2 == 0){
+		reg.write(i_operands[1],mem.read(mem_addr,HWORD_RW));
+		debug << reg.read(i_operands[1]) << std::endl;
+	}
+	else{
+		exit(-11);
+	}
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LH -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
+	
+}
+
+
 
 std::uint32_t Simulator::sw(){
 	//source: rt

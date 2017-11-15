@@ -42,13 +42,13 @@ private:
 	std::uint32_t (Simulator::*opcode_table[8][8])() = {
 		{&Simulator::stub,&Simulator::conditional_B,&Simulator::j,&Simulator::jal,&Simulator::beq,&Simulator::bne,&Simulator::blez,&Simulator::bgtz},
 
-		{&Simulator::addi,&Simulator::addiu,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::addi,&Simulator::addiu,&Simulator::slti,&Simulator::sltiu,&Simulator::andi,&Simulator::ori,&Simulator::xori,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
-		{&Simulator::lb,&Simulator::lh,&Simulator::lwl,&Simulator::lw,&Simulator::stub,&Simulator::stub,&Simulator::lwr,&Simulator::stub},
+		{&Simulator::lb,&Simulator::lh,&Simulator::lwl,&Simulator::lw,&Simulator::lbu,&Simulator::lhu,&Simulator::lwr,&Simulator::stub},
 
 		{&Simulator::sb,&Simulator::sh,&Simulator::stub,&Simulator::sw,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 

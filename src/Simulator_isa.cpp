@@ -631,6 +631,88 @@ std::uint32_t Simulator::addiu(){
 
 }
 
+std::uint32_t Simulator::slti(){
+	
+	int32_t RS =  reg.read(i_operands[0]);
+	int32_t Immediate =  sign_extend(i_operands[2],16);
+
+	if(RS < Immediate){
+		reg.write(i_operands[1],1);
+		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Set less than Immediate " << std::endl;
+		debug <<  "R" << i_operands[0] << " is < Immediate = " << Immediate << std :: endl;
+		debug <<  "R" << i_operands[1]  << " = 1 " << std::endl;
+	}	
+	else{
+		reg.write(i_operands[1],0);
+		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Set less than Immediate" << std::endl;
+		debug <<  "R" << i_operands[0] << " is not < Immediate = " << Immediate << std :: endl;
+		debug <<  "R" << i_operands[1]  << " = 0 " << std::endl;
+	}
+
+	return 1;
+}
+
+std::uint32_t Simulator::sltiu(){
+	
+	uint32_t RS =  reg.read(i_operands[0]);
+	uint32_t Immediate =  sign_extend(i_operands[2],16);
+
+	if(RS < Immediate){
+		reg.write(i_operands[1],1);
+		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Set less than Immediate Unsigned" << std::endl;
+		debug <<  "R" << i_operands[0] << " is < Immediate = " << Immediate << std :: endl;
+		debug <<  "R" << i_operands[1]  << " = 1 " << std::endl;
+	}	
+	else{
+		reg.write(i_operands[1],0);
+		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Set less than Immediate Unsigned" << std::endl;
+		debug <<  "R" << i_operands[0] << " is not < Immediate = " << Immediate << std :: endl;
+		debug <<  "R" << i_operands[1]  << " = 0 " << std::endl;
+	}
+
+	return 1;
+}
+
+std::uint32_t Simulator::andi(){
+	
+	uint32_t RS =  reg.read(i_operands[0]);
+	uint32_t Immediate =  i_operands[2];
+	uint32_t result = Immediate & RS;
+	reg.write(i_operands[1],result);
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "And Immediate " << std::endl;
+	debug <<  "R" << i_operands[0] << " AND Immediate " << i_operands[2] << " = " <<std :: endl;
+	debug <<  "R" << i_operands[1]  << " = " << result << std::endl;
+	return 1;
+}
+
+std::uint32_t Simulator::ori(){
+	
+	uint32_t RS =  reg.read(i_operands[0]);
+	uint32_t Immediate =  i_operands[2];
+	uint32_t result = Immediate | RS;
+	reg.write(i_operands[1],result);
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "OR Immediate " << std::endl;
+	debug <<  "R" << i_operands[0] << " OR Immediate " << i_operands[2] << " = " <<std :: endl;
+	debug <<  "R" << i_operands[1]  << " = " << result << std::endl;
+	return 1;
+}
+
+std::uint32_t Simulator::xori(){
+	
+	uint32_t RS =  reg.read(i_operands[0]);
+	uint32_t Immediate =  i_operands[2];
+	uint32_t result = Immediate ^ RS;
+	reg.write(i_operands[1],result);
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "XOR Immediate " << std::endl;
+	debug <<  "R" << i_operands[0] << " XOR Immediate " << i_operands[2] << " = " <<std :: endl;
+	debug <<  "R" << i_operands[1]  << " = " << result << std::endl;
+	return 1;
+}
+
+
 
 std::uint32_t Simulator::sb(){
 	//source: rt
@@ -757,7 +839,7 @@ std::uint32_t Simulator::lwr(){	//need to check for address error
 	uint32_t aligned_word = mem.read(aligned_addr,WORD_RW);
 
 
-	//extract least significant (4-r) bytes and assign to MS 4-r bytes of rt_data
+	//extract most significant r bytes and assign to LS r bytes of rt_data
 	uint32_t word_mask = 0xFFFFFFFF;
 	uint32_t rt_data_mask = 0xFFFFFFFF;
 
@@ -770,10 +852,37 @@ std::uint32_t Simulator::lwr(){	//need to check for address error
 
 	reg.write(i_operands[1],rt_data);
 
+	debug << rt_data << std::endl;
+
 	debug << std::setw(21)  << std::left << "INSTRUCTION" << " : " << "LWR -> " << std:: endl;
 }
 
 
+std::uint32_t Simulator::lbu(){
+	//source: rs,imm
+	//dest	: rt
+	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
+	//int32_t byte_data = sign_extend( mem.read(mem_addr,BYTE_RW), 8 );
+	reg.write( i_operands[1], mem.read(mem_addr,BYTE_RW) );
+
+	debug << reg.read(i_operands[1]) << std::endl;
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LBU -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
+}
+
+std::uint32_t Simulator::lhu(){
+	//source: rs,imm
+	//dest	: rt
+	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
+	if(mem_addr%2 == 0){
+		reg.write(i_operands[1], mem.read(mem_addr,HWORD_RW) );
+		debug << reg.read(i_operands[1]) << std::endl;
+	}
+	else{
+		exit(-11);
+	}
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LHU -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
+	
+}
 
 
 

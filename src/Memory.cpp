@@ -26,7 +26,7 @@ std::uint32_t Memory::half_word_read(uint32_t R_ADDR, const std::vector<uint8_t>
 }
 
 std::uint32_t Memory::half_word_write(uint32_t R_ADDR, uint32_t DATA, std::vector<uint8_t>& v){ //wrong for now
-	v[R_ADDR] =   (DATA & 0x0000FF00 ) >> 8;
+	v[R_ADDR  ] =   (DATA & 0x0000FF00 ) >> 8;
 	v[R_ADDR+1] = (DATA & 0x000000FF );
 
 }

@@ -674,7 +674,7 @@ std::uint32_t Simulator::lh(){
 	//dest	: rt
 	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
 	if(mem_addr%2 == 0){
-		reg.write(i_operands[1],mem.read(mem_addr,HWORD_RW));
+		reg.write(i_operands[1], sign_extend( mem.read(mem_addr,HWORD_RW) , 16) );
 		debug << reg.read(i_operands[1]) << std::endl;
 	}
 	else{
@@ -714,6 +714,42 @@ std::uint32_t Simulator::lw(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LW -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
 	
 }
+
+
+std::uint32_t Simulator::lwl(){	//need to check for address error
+
+	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);	//unaligned access permissible
+
+	uint32_t rt_data = reg.read(i_operands[1]);
+	uint32_t mem_data = mem.read(mem_addr,WORD_RW);
+
+	rt_data = (rt_data & 0x0000FFFF);
+	mem_data = (mem_data & 0XFFFF0000);
+	rt_data = rt_data|mem_data;
+
+	reg.write(i_operands[1],rt_data);
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LWL -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
+	
+}
+
+std::uint32_t Simulator::lwr(){	//need to check for address error
+
+
+	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);	//unaligned access permissible
+
+	uint32_t rt_data = reg.read(i_operands[1]);
+	uint32_t mem_data = mem.read(mem_addr,WORD_RW);
+
+	rt_data = (rt_data & 0xFFFFF0000);
+	mem_data = (mem_data & 0X0000FFFF);
+	rt_data = rt_data|mem_data;
+	reg.write(i_operands[1],rt_data);
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LWR -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
+	
+}
+
 
 
 

@@ -40,7 +40,7 @@ public:
 
 private:
 	std::uint32_t (Simulator::*opcode_table[8][8])() = {
-		{&Simulator::stub,&Simulator::stub,&Simulator::j,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
+		{&Simulator::stub,&Simulator::conditional_B,&Simulator::j,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
 		{&Simulator::addi,&Simulator::addiu,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
 
@@ -95,8 +95,10 @@ private:
 	std::uint32_t stub();
 	std::uint32_t invalid_func();
 
-
+	std::uint32_t conditional_B();
 	std::uint32_t bltz();
+	std::uint32_t bltzal();
+	std::uint32_t bgezal();
 	std::uint32_t bgez();
 	std::uint32_t j();
 	std::uint32_t jal();

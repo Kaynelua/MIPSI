@@ -35,6 +35,7 @@ void Simulator::update_pc(){
 	}
 	else if(branch_taken == 2){
 		pc = branch_address;
+		branch_taken = 0;
 	}
 	else{
 		pc=pc+4;

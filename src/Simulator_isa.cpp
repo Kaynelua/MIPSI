@@ -78,11 +78,11 @@ std::uint32_t Simulator :: srav(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : R" << r_operands[2] << " = R" <<r_operands[1] << " Shift Right Arithmetic Variable by " << shiftamt << std::endl;
 }
 
-std::uint32_t Simulator::jr(){
+std::uint32_t Simulator::jr(){	// JUMPING to invalid PC INSTRUCTION ADDRESS
 	uint32_t jd = reg.read(r_operands[0]);
-	branch_address = jd;
-
-	if(branch_address%4 == 0){
+	
+	if(jd%4 == 0){
+		branch_address = jd;
 		branch_taken = 1;
 		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump Register (PC) -> " << jd << std::endl;
 	}
@@ -91,15 +91,14 @@ std::uint32_t Simulator::jr(){
 	}
 }
 
-std::uint32_t Simulator::jalr(){ // KIV NOT SURE
+std::uint32_t Simulator::jalr(){ // KIV NOT SURE about this when RS == R31 (LR ) Undefined behaviour
 	uint32_t jd = reg.read(r_operands[0]);
 	uint32_t return_address = pc +8;
-	reg.write(31,return_address);	
-	branch_address = jd;
-	
-	// UNHANDLED: NEED TO MAKE ANOTHER EXCEPTION HERE WHEN RETURN ADDR = JUMP DESTINATION DUE TO RE-EXECUTION
+	reg.write(31,return_address);	// SHOULD RETURN ADDRESS BE WRITTEN HERE ? DOES IT DEPENDS ON whether address is valid before they write to R31?
+		
 
 	if(branch_address%4 == 0){
+		branch_address = jd;
 		branch_taken = 1;
 		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump Register (PC) -> " << jd << std::endl;
 		debug <<"RETURN ADDR IN R31 = " << return_address << std::endl;
@@ -386,6 +385,130 @@ std::uint32_t Simulator::sltu(){
 }
 
 /**************** I TYPE ******************/
+std::uint32_t Simulator::conditional_B(){
+	uint32_t branchCondition = (i_operands[1]);
+	if(branchCondition == 0){
+		//BLTZ	
+		bltz();
+	}
+	else if(branchCondition == 1){
+		//BGEZ
+		bgez();
+
+	}
+	else if(branchCondition ==16){
+		//BLTZAL
+		bltzal();
+	
+	}
+	else if(branchCondition =17){
+		//BGEZAL
+		bgezal();
+	
+	}
+	else{
+	std :: cout << "Invalid Instruction" << std:: endl;
+	exit(-10);
+	}
+
+	return 1;
+}
+
+std::uint32_t Simulator :: bltz(){	// CHECK FOR OUT OF BOUNDS BRANCH
+	int32_t RS = reg.read(i_operands[0]);
+	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BLTZ " << std::endl;
+	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
+
+	if(RS < 0){	
+		branch_address = pc + (int32_t)branchoffset;
+		branch_taken = 1;
+
+		debug <<"RS <0 and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
+	}
+	
+	else{
+		debug <<"RS >= 0 and Branch not Taken "  << std::endl;
+	}
+
+	return 1;	
+	
+}
+
+std::uint32_t Simulator :: bgez(){	// CHECK FOR OUT OF BOUNDS BRANCH
+	int32_t RS = reg.read(i_operands[0]);
+	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BGEZ " << std::endl;
+	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
+
+	if(RS >= 0){	
+		branch_address = pc + (int32_t)branchoffset;
+		branch_taken = 1;
+
+		debug <<"RS >=0 (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
+	}
+	
+	else{
+		debug <<"RS < 0 (Branch not Taken) "  << std::endl;
+	}
+
+	return 1;	
+	
+}
+
+std::uint32_t Simulator :: bltzal(){	//CHECK FOR OUT OF BOUNDS BRANCH
+	int32_t RS = reg.read(i_operands[0]);
+	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BLTZAL " << std::endl;
+	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
+
+	if(RS < 0){
+		uint32_t return_address = pc +8;
+		reg.write(31,return_address);	
+		branch_address = pc + (int32_t)branchoffset;
+		branch_taken = 1;
+
+		debug <<"RS <0 and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
+		debug << "Return Addr = " << return_address << std::endl;
+	}
+	
+	else{
+		debug <<"RS >= 0 and Branch not Taken "  << std::endl;
+	}
+
+	return 1;
+
+}
+
+std::uint32_t Simulator :: bgezal(){
+	int32_t RS = reg.read(i_operands[0]);
+	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
+	
+
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BGEZAL " << std::endl;
+	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
+
+	if(RS >= 0){
+		uint32_t return_address = pc +8;
+		reg.write(31,return_address);	
+		branch_address = pc + (int32_t)branchoffset;
+		branch_taken = 1;
+
+		debug <<"RS >=0 (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
+		debug << "Return Addr = " << return_address << std::endl;	
+	}
+	
+	else{
+		debug <<"RS < 0 (Branch not Taken) "  << std::endl;
+	}
+
+	return 1;
+
+}
+
 std::uint32_t Simulator::addi(){
 	//source : rs,imm
 	//dest : rt

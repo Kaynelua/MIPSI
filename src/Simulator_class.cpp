@@ -14,12 +14,12 @@
 
 
 
-Simulator::Simulator(): pc(PC_INITIAL+4),branch_taken(false){
+Simulator::Simulator(): pc(PC_INITIAL),branch_taken(false){
 }
 
 void Simulator::load_bin(const std::vector<std::uint8_t>& v_byte_inst){
 	for(int i =0 ; i < v_byte_inst.size() ; i++){
-		mem.write_inst((INSTR_MEM_BASE+4+i),v_byte_inst[i]);
+		mem.write_inst((INSTR_MEM_BASE+i),v_byte_inst[i]);
 	}
 }
 

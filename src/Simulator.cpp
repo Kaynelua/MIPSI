@@ -69,8 +69,8 @@ int main(int argc, char* argv[]){
 	vector<uint8_t> v_byte_inst;
 
 	if(argc > 1){ binary_filename = string(argv[1]); }
-	read_binstring(binary_filename,v_byte_inst); //Read in binary string
-	//read_binary(binary_filename,v_byte_inst); //Read in binary file
+	//read_binstring(binary_filename,v_byte_inst); //Read in binary string
+	read_binary(binary_filename,v_byte_inst); //Read in binary file
 	sim.load_bin(v_byte_inst);
 	int ret = sim.run();
 

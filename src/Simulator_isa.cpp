@@ -415,6 +415,35 @@ std::uint32_t Simulator::addiu(){
 
 }
 
+std::uint32_t Simulator::sw(){
+	//source: rt
+	//dest	: rs + imm
+	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + (int32_t)i_operands[2];
+	if(mem_addr%4 == 0){
+		mem.write(mem_addr,reg.read(i_operands[1]));
+	}
+	else{
+		exit(-11);
+	}
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "SW -> " << "MEM[" << mem_addr << "] = " << "R" << i_operands[1] << std::endl;
+}
+
+
+std::uint32_t Simulator::lw(){
+	//source: rs,imm
+	//dest	: rt
+	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + (int32_t)i_operands[2];
+	if(mem_addr%4 == 0){
+		reg.write(i_operands[1],mem.read(mem_addr));
+		debug << reg.read(i_operands[1]) << std::endl;
+	}
+	else{
+		exit(-11);
+	}
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LW -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
+	
+}
+
 
 
 

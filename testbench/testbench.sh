@@ -3,6 +3,10 @@ shopt -s nullglob
 TEST_CASE_PATH=(testbench/testcases/*.bin)
 GOLDEN_PATH=(testbench/testcases/*.gld)
 
+#echo ${TEST_CASE_PATH[@]}
+#echo ${GOLDEN_PATH[@]}
+
+
 for ((i=0;i<${#TEST_CASE_PATH[@]};i++))
 	do	
 		Curr_test_path=${TEST_CASE_PATH[i]}

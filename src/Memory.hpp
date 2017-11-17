@@ -19,6 +19,11 @@
 #define HWORD_RW  1
 #define WORD_RW	  0
 
+
+#define INVALID_INSTRUCTION -12
+#define MEMORY_EXCEPTION	-11
+#define ARITHMETIC_EXCEPTION -10
+
 class Memory{
 
 	private:

@@ -16,6 +16,10 @@ MIPS_LDFLAGS += -Wl,--build-id=none
 %.mips.o : %.c
 	$(MIPS_CC) $(MIPS_CPPFLAGS) -c $< -o $@
 
+# Compile a s file into a MIPS object file
+%.mips.o : %.s
+	$(MIPS_CC) $(MIPS_CPPFLAGS) -c $< -o $@
+
 # Link a MIPS object file and place it at the locations required in the
 # spec using linker.ld
 %.mips.elf : %.mips.o

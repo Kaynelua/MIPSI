@@ -65,7 +65,7 @@ std::uint32_t Simulator :: sra(){
 }
 
 std::uint32_t Simulator :: sllv(){
-	uint32_t shiftamt = reg.read(r_operands[0]);
+	uint32_t shiftamt = ( reg.read(r_operands[0]) & 0x1F );
 	uint32_t rt = reg.read(r_operands[1]);
 	uint32_t rd = rt << shiftamt;
 	reg.write(r_operands[2],rd);
@@ -73,7 +73,7 @@ std::uint32_t Simulator :: sllv(){
 }
 
 std::uint32_t Simulator :: srlv(){
-	uint32_t shiftamt = reg.read(r_operands[0]);
+	uint32_t shiftamt = ( reg.read(r_operands[0]) & 0x1F );
 	uint32_t rt = reg.read(r_operands[1]);
 	uint32_t rd = rt >> shiftamt;
 	reg.write(r_operands[2],rd);
@@ -81,7 +81,7 @@ std::uint32_t Simulator :: srlv(){
 }
 
 std::uint32_t Simulator :: srav(){
-	uint32_t shiftamt = reg.read(r_operands[0]);
+	uint32_t shiftamt = ( reg.read(r_operands[0]) & 0x1F );
 	uint32_t rt = reg.read(r_operands[1]);
 	uint32_t rd = (int32_t)rt >> shiftamt;
 	reg.write(r_operands[2],rd);
@@ -243,15 +243,15 @@ std::uint32_t Simulator::add(){
 	int32_t B =  reg.read(r_operands[1]);
 	int32_t result = A+B; 
 	if( ((A >= 0) && (B>= 0) && (result < 0)) || ((A<0) && (B<0) && (result >=0)) ){
-		std::cout << "Signed Overflow Exception code" << std:: endl;
+		debug << "Signed Overflow Exception code" << std:: endl;
 	}
 
 	//debugging
-	std:: cout << "Performing Add " <<std:: endl;
-	std::cout <<"R" << r_operands[2] << " = R" << r_operands[0] << " + R" << r_operands[1] << " = " <<std :: endl;
+	debug << "Performing Add " <<std:: endl;
+	debug <<"R" << r_operands[2] << " = R" << r_operands[0] << " + R" << r_operands[1] << " = " <<std :: endl;
 	reg.write(r_operands[2],result);
 
-	std::cout << reg.read(r_operands[2]) << std::endl;
+	debug << reg.read(r_operands[2]) << std::endl;
 
 	return 1;
 }
@@ -263,9 +263,9 @@ std::uint32_t Simulator::addu(){
 	int32_t result = A+B; 
 	reg.write(r_operands[2],result);
 	//debugging
-	std:: cout << "Performing Addu " <<std:: endl;
-	std::cout <<"R" << r_operands[2] << " = R" << r_operands[0] << " + R" << r_operands[1] << " = " <<std :: endl;
-	std::cout << reg.read(r_operands[2]) << std::endl;
+	debug << "Performing Addu " <<std:: endl;
+	debug <<"R" << r_operands[2] << " = R" << r_operands[0] << " + R" << r_operands[1] << " = " <<std :: endl;
+	debug << reg.read(r_operands[2]) << std::endl;
 
 	return 1;
 }
@@ -277,12 +277,12 @@ std::uint32_t Simulator::sub(){
 	int32_t result = A-B; 
 	reg.write(r_operands[2],result);
 	if( ((A >= 0) && (B< 0) && (result < 0)) || ((A<0) && (B>=0) && (result >=0)) ){
-		std::cout << "Signed Overflow Exception code" << std:: endl;
+		debug << "Signed Overflow Exception code" << std:: endl;
 	}
 	//debugging
-	std:: cout << "Performing Sub " <<std:: endl;
-	std::cout <<"R" << r_operands[2] << " = R" << r_operands[0] << " - R" << r_operands[1] << " = " <<std :: endl;
-	std::cout << (int)reg.read(r_operands[2]) << std::endl;
+	debug << "Performing Sub " <<std:: endl;
+	debug <<"R" << r_operands[2] << " = R" << r_operands[0] << " - R" << r_operands[1] << " = " <<std :: endl;
+	debug << (int)reg.read(r_operands[2]) << std::endl;
 
 	return 1;
 }
@@ -295,9 +295,9 @@ std::uint32_t Simulator::subu(){
 	reg.write(r_operands[2],result);
 
 	//debugging
-	std:: cout << "Performing Subu " <<std:: endl;
-	std::cout <<"R" << r_operands[2] << " = R" << r_operands[0] << " - R" << r_operands[1] << " = " <<std :: endl;
-	std::cout << (int)reg.read(r_operands[2]) << std::endl;
+	debug  << "Performing Subu " <<std:: endl;
+	debug <<"R" << r_operands[2] << " = R" << r_operands[0] << " - R" << r_operands[1] << " = " <<std :: endl;
+	debug << (int)reg.read(r_operands[2]) << std::endl;
 
 	return 1;
 }
@@ -609,12 +609,13 @@ std::uint32_t Simulator::addi(){
 	int32_t B = sign_extend(i_operands[2],16);
 	int32_t result = A+B;
 	if( ((A >= 0) && (B>= 0) && (result < 0)) || ((A<0) && (B<0) && (result >=0)) ){
-		std::cout << "Signed Overflow Exception code" << std:: endl;
+		debug << "Signed Overflow Exception code" << std:: endl;
+		exit(-10);
 	}
 	reg.write(i_operands[1],result);
 
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "ADDI :" << "R" << i_operands[1] << "= R"<<i_operands[0] << " + " <<  i_operands[2]<< std::endl;
-	std::cout << reg.read(i_operands[1]) <<std::endl;
+	debug << reg.read(i_operands[1]) <<std::endl;
 	return 1;
 }
 
@@ -884,6 +885,11 @@ std::uint32_t Simulator::lhu(){
 	
 }
 
+std::uint32_t Simulator::lui(){
+	//source : imm
+	//dest	 : rt
+	reg.write( i_operands[1], (i_operands[2] << 16) | 0x00000000 );
+}
 
 
 

@@ -111,7 +111,8 @@ std::uint32_t Memory::read_inst(uint32_t ADDR){
 		return word_read(R_ADDR,INSTR_MEM);
 	}
 	else{	//EXECUTING OUTSIDE INSTRUCTION MEMORY
-		exit(-11);
+		debug  << "INVALID INSTR" << std::endl;
+		exit(INVALID_INSTRUCTION);
 	}
 
 }

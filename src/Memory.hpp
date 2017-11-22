@@ -13,7 +13,12 @@
 #define DATA_MEM_BASE  0x20000000
 
 #define ADDR_GETC 0x30000000
+#define ADDR_GETC_HW 0x30000000
+#define ADDR_GETC_B 0x30000000
+
 #define ADDR_PUTC 0x30000004
+#define ADDR_PUTC_HW 0x30000006
+#define ADDR_PUTC_B 0x30000007
 
 #define BYTE_RW	  2
 #define HWORD_RW  1
@@ -50,8 +55,6 @@ class Memory{
 
 		std::uint32_t word_read(uint32_t RADDR, const std::vector<uint8_t>& v);
 		std::uint32_t word_write(uint32_t R_ADDR, uint32_t DATA, std::vector<uint8_t>& v);
-	
-
 };
 
 #endif

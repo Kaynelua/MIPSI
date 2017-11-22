@@ -33,65 +33,96 @@ std::uint32_t Memory::half_word_write(uint32_t R_ADDR, uint32_t DATA, std::vecto
 
 
 std::uint32_t Memory::read(uint32_t ADDR, char mode){
-	if(ADDR == ADDR_GETC){
-
+	if(ADDR == ADDR_GETC && mode == WORD_RW){
+		int32_t c;
+		c = std::getchar();
+		if(c==-1){
+			return -1;
+		}
+		else{
+			uint8_t ch = (uint8_t)c;
+			return uint32_t(ch);
+		}	
 	}
-	else if(mode == WORD_RW){
-		if(ADDR >= DATA_MEM_BASE && ADDR < DATA_MEM_BASE + DATA_MEM_LEN){			//READ DATA MEM WORD
+	else if(ADDR == ADDR_GETC_HW && mode == HWORD_RW){
+		int32_t c;
+		c = std::getchar();
+		if(c==-1){
+			return -1;
+		}
+		else{
+			uint8_t ch = (uint8_t)c;
+			return uint32_t(ch);
+		}
+	}
+	else if(ADDR == ADDR_GETC_B && mode == BYTE_RW){
+		int32_t c;
+		c = std::getchar();
+		if(c==-1){
+			return -1;
+		}
+		else{
+			uint8_t ch = (uint8_t)c;
+			return uint32_t(ch);
+		}
+	}
+	else if(ADDR >= DATA_MEM_BASE && ADDR < DATA_MEM_BASE + DATA_MEM_LEN){ // READING FROM DATA MEMORY
+		if(mode == WORD_RW){
 			return word_read(ADDR-DATA_MEM_BASE,DATA_MEM);
 		}
-		else if(ADDR >= INSTR_MEM_BASE && ADDR < INSTR_MEM_BASE + INSTR_MEM_LEN){	//READ INSTR MEM WORD
-			return word_read(ADDR-INSTR_MEM_BASE,INSTR_MEM);
-		}	
-	}
-	else if(mode == HWORD_RW){
-		if(ADDR >= DATA_MEM_BASE && ADDR < DATA_MEM_BASE + DATA_MEM_LEN){			//READ HALF DATA MEM WORD
+		else if(mode == HWORD_RW){
 			return half_word_read(ADDR-DATA_MEM_BASE,DATA_MEM);
 		}
-		else if(ADDR >= INSTR_MEM_BASE && ADDR < INSTR_MEM_BASE + INSTR_MEM_LEN){	//READ HALF INSTR MEM WORD
-			return half_word_read(ADDR-INSTR_MEM_BASE,INSTR_MEM);
-		}	
-	}
-	else if(mode == BYTE_RW){
-		if(ADDR >= DATA_MEM_BASE && ADDR < DATA_MEM_BASE + DATA_MEM_LEN){			//READ DATA MEM BYTE
+		else if(mode == BYTE_RW){
 			return DATA_MEM[ADDR-DATA_MEM_BASE];
 		}
-		else if(ADDR >= INSTR_MEM_BASE && ADDR < INSTR_MEM_BASE + INSTR_MEM_LEN){	//READ INSTR MEM BYTE
+	}
+	else if(ADDR >= INSTR_MEM_BASE && ADDR < INSTR_MEM_BASE + INSTR_MEM_LEN){	//READING FROM INSTRUCTION MEMORY
+		if(mode == WORD_RW){
+			return word_read(ADDR-INSTR_MEM_BASE,INSTR_MEM);
+		}
+		else if(mode == HWORD_RW){
+			return half_word_read(ADDR-INSTR_MEM_BASE,INSTR_MEM);
+		}
+		else if(mode == BYTE_RW){
 			return INSTR_MEM[ADDR-INSTR_MEM_BASE];
 		}
-
+	}
+	else{
+		exit(-11);
 	}
 	return 0;	
 }
 
 std::uint32_t Memory::write(uint32_t ADDR, uint32_t DATA, char mode){
-	if(ADDR == ADDR_PUTC){
+	if(ADDR == ADDR_PUTC && mode == WORD_RW){
+		uint8_t c = (DATA & 0XFF);
+		std::putchar(c);
+	}
+	else if(ADDR == ADDR_PUTC_HW && mode == HWORD_RW){
+		uint8_t c = (DATA & 0XFF);
+		std::putchar(c);
 
 	}
-	else if(mode == WORD_RW){
-		if(ADDR >= DATA_MEM_BASE && ADDR < DATA_MEM_BASE + DATA_MEM_LEN){			//WRITE TO DATA MEM WORD
+	else if(ADDR == ADDR_PUTC_B && mode == BYTE_RW){
+		uint8_t c = (DATA & 0XFF);
+		std::putchar(c);
+	}
+	else if(ADDR >= DATA_MEM_BASE && ADDR < DATA_MEM_BASE + DATA_MEM_LEN){ // WRITING TO DATA MEMORY
+		if(mode == WORD_RW){
 			word_write(ADDR-DATA_MEM_BASE,DATA,DATA_MEM);
 		}
-		else if(ADDR >= INSTR_MEM_BASE && ADDR < INSTR_MEM_BASE + INSTR_MEM_LEN){	//WRITE TO INSTR MEM WORD
-			//ILLEGGAL OPERATION
-		}
-	}
-	else if(mode == HWORD_RW){
-		if(ADDR >= DATA_MEM_BASE && ADDR < DATA_MEM_BASE + DATA_MEM_LEN){			//WRITE TO DATA MEM WORD
+		else if(mode == HWORD_RW){
 			half_word_write(ADDR-DATA_MEM_BASE,DATA,DATA_MEM);
 		}
-		else if(ADDR >= INSTR_MEM_BASE && ADDR < INSTR_MEM_BASE + INSTR_MEM_LEN){	//WRITE TO INSTR MEM WORD
-			//ILLEGGAL OPERATION
+		else if(mode == BYTE_RW){
+			DATA_MEM[ADDR-DATA_MEM_BASE] = DATA;	// NEED TO MASK??? 	
 		}
 	}
-	else if(mode == BYTE_RW){
-		if(ADDR >= DATA_MEM_BASE && ADDR < DATA_MEM_BASE + DATA_MEM_LEN){			//WRITE TO DATA MEM BYTE
-			DATA_MEM[ADDR-DATA_MEM_BASE] = DATA;// NEED TO MASK??? 	
-		}
-		else if(ADDR >= INSTR_MEM_BASE && ADDR < INSTR_MEM_BASE + INSTR_MEM_LEN){	//WRITE TO INSTR MEM BYTE
-			//ILLEGGAL OPERATION
-		}
-	}	
+	else{
+		exit(-11);
+	}
+
 	return 1;
 }
 

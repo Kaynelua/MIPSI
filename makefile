@@ -64,5 +64,3 @@ testbench : bin/mips_testbench
 
 
 
-
-

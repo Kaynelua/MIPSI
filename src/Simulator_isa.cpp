@@ -787,6 +787,7 @@ std::uint32_t Simulator::lw(){
 	//source: rs,imm
 	//dest	: rt
 	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
+	debug << "mem addr " <<(int32_t)reg.read(i_operands[0]) << std::endl;
 	if(mem_addr%4 == 0){
 		reg.write(i_operands[1],mem.read(mem_addr));
 		debug << reg.read(i_operands[1]) << std::endl;

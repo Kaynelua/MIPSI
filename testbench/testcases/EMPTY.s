@@ -1,2 +1,0 @@
-.set noreorder
-.set noat

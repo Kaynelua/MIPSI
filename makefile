@@ -26,7 +26,7 @@ MIPS_LDFLAGS += -Wl,--build-id=none
 	$(MIPS_CC) $(MIPS_CPPFLAGS) $(MIPS_LDFLAGS) -T src/linker.ld $< -o $@
 
 # Extract machine instructions from object file
-%.mips.asm : %.mips.o
+%.mips.asm : %.mips.elf
 	$(MIPS_OBJDUMP) -d $< > $@
 
 # Extract just the binary instructions from the object file
@@ -59,6 +59,8 @@ bin/mips_testbench : testbench/testbench.sh
 
 
 testbench : bin/mips_testbench
+
+
 
 
 

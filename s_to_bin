@@ -1,6 +1,7 @@
 #!/bin/bash
 mkdir -p testbench/testcases
 
+
 for f in $1/*.s
  do 
  	fname=$(basename "$f" .s)

@@ -6,4 +6,5 @@ gld base offset filename
 245 0x24000000 0 LW_invalid_address_boundary_5
 245 0x2FFFFFFF 0 LW_invalid_address_boundary_6
 245 0x30000004 0 LW_invalid_address_boundary_7
-245 0x40000008 0 LW_invalid_address_boundary_8
+245 0x30000008 0 LW_invalid_address_boundary_8
+0	0x00000000 0 LW_valid_address_boundary_1

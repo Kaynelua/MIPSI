@@ -1,0 +1,3 @@
+gld		input_reg		input_data		shift_reg	shift_data		filename
+2		1				0x00000020		3			0x00000004		SRLV_normal
+21		1				0x2A000000		3			0x00045979		SRLV_data_pos_shift_of

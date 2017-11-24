@@ -1,5 +1,5 @@
 gld		input_reg		input_data		shamt		filename
-7		1			0x71234567		28			SRA_normal
-254  		2 			0xF8123456		26 			SRA_neg
-0 		2 			0x00000000		1 			SRA_zero_data
-255 		2 			0xFFFFFFFF		0 			SRA_zero_shamt
+7		1				0x71234567		28			SRA_normal
+254  	2 				0xF8123456		26 			SRA_neg
+0 		2 				0x00000000		1 			SRA_zero_data
+255 	2 				0xFFFFFFFF		0 			SRA_zero_shamt

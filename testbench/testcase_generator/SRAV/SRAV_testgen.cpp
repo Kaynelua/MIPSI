@@ -42,7 +42,7 @@ int main(){
 		//Set up shift reg data in shift reg:
 		outfile << "addi $" 	 	<< shiftregnum << ",$0," << 			  "0x" << shiftregdata[2] << shiftregdata[3] << shiftregdata[4] << shiftregdata[5] << endl;
 		outfile << "sll  $" 		<< shiftregnum << ",$" << shiftregnum << ",16"  << endl;
-		outfile << "addi $" 	 	<< shiftregnum << ",$" << shiftregnum << ",0x" << input_data[6] << input_data[7] << input_data[8] << input_data[9] << endl;
+		outfile << "addi $" 	 	<< shiftregnum << ",$" << shiftregnum << ",0x" << shiftreg_data[6] << shiftreg_data[7] << shiftreg_data[8] << shiftreg_data[9] << endl;
 
 		
 		outfile << "srav  $2,$"	 << input_reg << ",$"    << shiftregnum << endl;

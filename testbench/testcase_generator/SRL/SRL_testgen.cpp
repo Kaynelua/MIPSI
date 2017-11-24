@@ -25,8 +25,8 @@ int main(){
 
 	getline(infile, dummyLine);
 	while(infile >> gld >> input_reg >> input_data >> shamt >> filename ){
-		outfile.open(("SRL_tc/" + filename + ".s").c_str());
-		outfile_gld.open(("SRL_tc/" + filename + ".mips.gld").c_str());
+		outfile.open(("../../SRL_tc/" + filename + ".s").c_str());
+		outfile_gld.open(("../../SRL_tc/" + filename + ".mips.gld").c_str());
 
 
 /****************************************************************/
@@ -40,7 +40,7 @@ int main(){
 		outfile << "srl  $2,$"	 << input_reg << ","    << shamt << endl;
  		outfile << "jr   $0" << endl;
 /****************************************************************/
- 		outfile_gld << "SLL " << gld << " patrickjohncyh";
+ 		outfile_gld << "SRL " << gld << " patrickjohncyh";
 
 /****************************************************************/ 		
 

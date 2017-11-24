@@ -25,8 +25,8 @@ int main(){
 
 	getline(infile, dummyLine);
 	while(infile >> gld >> input_reg >> input_data >> shamt >> filename ){
-		outfile.open(("SLL_tc/" + filename + ".s").c_str());
-		outfile_gld.open(("SLL_tc/" + filename + ".mips.gld").c_str());
+		outfile.open(("../../SLL_tc/" + filename + ".s").c_str());
+		outfile_gld.open(("../../SLL_tc/" + filename + ".mips.gld").c_str());
 
 
 /****************************************************************/

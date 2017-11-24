@@ -5,6 +5,6 @@ sll  $2,$2,16
 addi $2,$2,0xFFFF
 addi $3,$0,0x0000
 sll  $3,$3,16
-addi $3,$3,0xFFFF
+addi $3,$3,0x0050
 srav  $2,$2,$3
 jr   $0

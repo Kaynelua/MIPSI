@@ -1,0 +1,10 @@
+.set noreorder
+.set noat
+addi $1,$0,0x5123
+sll  $1,$1,16
+addi $1,$1,0x4567
+addi $3,$0,0x0000
+sll  $3,$3,16
+addi $3,$3,0x4567
+srav  $2,$1,$3
+jr   $0

@@ -1,10 +1,6 @@
 .set noreorder
 .set noat
-addi $1,$0,0x2A00
-sll  $1,$1,16
-addi $1,$1,0x0000
-addi $3,$0,0x0004
-sll  $3,$3,16
-addi $3,$3,0x5979
-srlv  $2,$1,$3
+li $1,0x2A000000
+li $3,0x00045979
+srlv $2,$1,$3
 jr   $0

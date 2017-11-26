@@ -86,6 +86,7 @@ std::uint32_t Simulator :: srav(){
 	uint32_t rd = (int32_t)rt >> shiftamt;
 	reg.write(r_operands[2],rd);
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : R" << r_operands[2] << " = R" <<r_operands[1] << " Shift Right Arithmetic Variable by " << shiftamt << std::endl;
+	debug << "shiftam : " << shiftamt << ", rt: " << rt <<  ", rd : "<< rd << std::endl;
 }
 
 std::uint32_t Simulator::jr(){	// JUMPING to invalid PC INSTRUCTION ADDRESS

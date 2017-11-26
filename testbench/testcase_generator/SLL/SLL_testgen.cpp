@@ -21,19 +21,22 @@ int main(){
 	string filename;
 
 
-	infile.open("test_data.txt");
+	infile.open("testbench/testcase_generator/SLL/test_data.txt");
 
 	getline(infile, dummyLine);
 	while(infile >> gld >> input_reg >> input_data >> shamt >> filename ){
-		outfile.open(("../../SLL_tc/" + filename + ".s").c_str());
-		outfile_gld.open(("../../SLL_tc/" + filename + ".mips.gld").c_str());
+		outfile.open(("testbench/SLL_tc/" + filename + ".s").c_str());
+		outfile_gld.open(("testbench/SLL_tc/" + filename + ".mips.gld").c_str());
 
 
 /****************************************************************/
 		outfile << ".set noreorder" << endl;
 		outfile << ".set noat" 		<< endl;
 
-		outfile << "addi $" 	 << input_reg << ",$0," << input_data << endl;
+
+		// Set up input_data in input_reg:
+		outfile << "li $" 	 	<< input_reg <<  "," << input_data << endl;
+		
 		outfile << "sll  $2,$" << input_reg << ","    << shamt << endl;
  		outfile << "jr   $0" << endl;
 /****************************************************************/

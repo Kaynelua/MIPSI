@@ -1,5 +1,5 @@
-gld		input_reg		input_data		shiftregnum		shiftregdata			filename
-5		1			0x51234567		3			0x0000003C			SRA_normal
-252  		2 			0xF8123456		3			0x00000039			SRA_neg
-0 		2 			0x00000000		3			0x00000031			SRA_zero_data
-255 		2 			0xFFFFFFFF		3			0x00000050			SRA_zero_shamt
+gld		input_reg	input_data		shiftregnum		shiftregdata		filename
+5		1			0x51234567		3				0x0000003C			SRAV_normal
+252  	2 			0xF8123456		3				0x00000039			SRAV_neg
+0 		2 			0x00000000		3				0x00000031			SRAV_zero_data
+255 	2 			0xFFFFFFFF		3				0x00000050			SRAV_zero_shamt

@@ -142,8 +142,8 @@ std::uint32_t Memory::read_inst(uint32_t ADDR){
 		return word_read(R_ADDR,INSTR_MEM);
 	}
 	else{	//EXECUTING OUTSIDE INSTRUCTION MEMORY
-		debug  << "INVALID INSTR" << std::endl;
-		exit(INVALID_INSTRUCTION);
+		debug  << "INVALID INSTR ADDRESS" << std::endl;
+		exit(MEMORY_EXCEPTION);
 	}
 
 }

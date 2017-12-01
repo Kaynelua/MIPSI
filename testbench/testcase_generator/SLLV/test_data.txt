@@ -1,0 +1,6 @@
+gld		input_reg		input_data		shift_reg	shift_data		filename
+16		1				0x00000004		3			0x00000002		SLLV_normal
+48		1				0x00000003		3			0x00000024		SLLV_data_pos_shift_of
+156		1				-50				3			0x00000021		SLLV_data_neg_shift_of
+0		1				0				3			0x00000003		SLLV_data_zero
+248		1				-1				3			0x00000023		SLLV_data_neg1_shift_of

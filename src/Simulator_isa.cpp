@@ -892,6 +892,8 @@ std::uint32_t Simulator::lui(){
 	//source : imm
 	//dest	 : rt
 	reg.write( i_operands[1], (i_operands[2] << 16) | 0x00000000 );
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LUI " << std::endl;
+	debug << "R" << i_operands[1] << " = " << ((i_operands[2] << 16) | 0x00000000)  << std::endl;
 }
 
 

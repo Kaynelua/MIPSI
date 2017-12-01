@@ -1,10 +1,10 @@
-gld base offset filename
-245 0x00000004 0 LW_invalid_address_boundary_1
-245 0x0FFFFFFF 0 LW_invalid_address_boundary_2
-245 0x11000000 0 LW_invalid_address_boundary_3
-245 0x1FFFFFFF 0 LW_invalid_address_boundary_4
-245 0x24000000 0 LW_invalid_address_boundary_5
-245 0x2FFFFFFF 0 LW_invalid_address_boundary_6
-245 0x30000004 0 LW_invalid_address_boundary_7
-245 0x30000008 0 LW_invalid_address_boundary_8
-0	0x00000000 0 LW_valid_address_boundary_1
+gld 		base 				offset		dest_reg 		filename
+245 		0x00000004 			0 			2				LW_invalid_address_boundary_1
+245 		0x0FFFFFFF 			0 			2				LW_invalid_address_boundary_2
+245 		0x11000000 			0 			2				LW_invalid_address_boundary_3
+245 		0x1FFFFFFF 			0 			2				LW_invalid_address_boundary_4
+245 		0x24000000 			0 			2				LW_invalid_address_boundary_5
+245 		0x2FFFFFFF 			0 			2				LW_invalid_address_boundary_6
+245 		0x30000004 			0 			2				LW_invalid_address_boundary_7
+245 		0x30000008 			0 			2				LW_invalid_address_boundary_8
+0			0x00000000 			0 			2				LW_valid_address_boundary_1

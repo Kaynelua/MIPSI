@@ -106,10 +106,11 @@ std::uint32_t Simulator::jalr(){ // KIV NOT SURE about this when RS == R31 (LR )
 	uint32_t jd = reg.read(r_operands[0]);
 	uint32_t return_address = pc +8;
 		// SHOULD RETURN ADDRESS BE WRITTEN HERE ? DOES IT DEPENDS ON whether address is valid before they write to R31?
-		
 
 	if(branch_address%4 == 0){
-		reg.write(r_operands[2],return_address);
+		link_address  = return_address;
+		link_register = r_operands[2];
+		link = 1;
 		branch_address = jd;
 		branch_taken = 1;
 		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump Register (PC) -> " << jd << std::endl;

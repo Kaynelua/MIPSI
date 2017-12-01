@@ -14,4 +14,4 @@ gld		input_reg		input_address		db		filename
 245		2			  34000000		n		JR_Invalid0x34000000
 245		2			  30000004		n		JR_Invalid0x30000004
 245		2			  10000003		n		JR_UnalignedValid
-245		2			  30000005		n		JR_UnalignedUnvalid
+245		2			  30000005		n		JR_UnalignedInvalid

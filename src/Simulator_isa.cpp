@@ -105,9 +105,8 @@ std::uint32_t Simulator::jr(){	// JUMPING to invalid PC INSTRUCTION ADDRESS
 std::uint32_t Simulator::jalr(){ // KIV NOT SURE about this when RS == R31 (LR ) Undefined behaviour
 	uint32_t jd = reg.read(r_operands[0]);
 	uint32_t return_address = pc +8;
-		// SHOULD RETURN ADDRESS BE WRITTEN HERE ? DOES IT DEPENDS ON whether address is valid before they write to R31?
 
-	if(branch_address%4 == 0){
+	if(jd%4 == 0){
 		link_address  = return_address;
 		link_register = r_operands[2];
 		link = 1;

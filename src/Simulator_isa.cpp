@@ -98,24 +98,25 @@ std::uint32_t Simulator::jr(){	// JUMPING to invalid PC INSTRUCTION ADDRESS
 		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump Register (PC) -> " << jd << std::endl;
 	}
 	else{
-		exit(-12);
+		exit(-11);
 	}
 }
 
 std::uint32_t Simulator::jalr(){ // KIV NOT SURE about this when RS == R31 (LR ) Undefined behaviour
 	uint32_t jd = reg.read(r_operands[0]);
 	uint32_t return_address = pc +8;
-	reg.write(31,return_address);	// SHOULD RETURN ADDRESS BE WRITTEN HERE ? DOES IT DEPENDS ON whether address is valid before they write to R31?
+		// SHOULD RETURN ADDRESS BE WRITTEN HERE ? DOES IT DEPENDS ON whether address is valid before they write to R31?
 		
 
 	if(branch_address%4 == 0){
+		reg.write(r_operands[2],return_address);
 		branch_address = jd;
 		branch_taken = 1;
 		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump Register (PC) -> " << jd << std::endl;
-		debug <<"RETURN ADDR IN R31 = " << return_address << std::endl;
+		debug <<"RETURN ADDR IN R" << r_operands[2] << " = "  << return_address << std::endl;
 	}
 	else{
-		exit(-12);
+		exit(-11);
 	}
 }
 

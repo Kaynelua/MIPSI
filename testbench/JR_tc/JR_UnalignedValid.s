@@ -1,6 +1,6 @@
 .set noreorder
 .set noat
-li $2, 0x1FFFFFFF
+li $2, 0x10000003
 nop
 jr $2
 nop

@@ -5,4 +5,13 @@ gld		input_reg		input_address		db		filename
 245		2				4		n		JR_Invalid0x00000004
 245		2			  0FFFFFFC		n		JR_Invalid0x0FFFFFFC
 245		2			  11000004		n		JR_Invalid0x11000004
-245		2			  1FFFFFFF		n		JR_Invalid0x1FFFFFFF
+245		2			  1FFFFFFC		n		JR_Invalid0x1FFFFFFC
+245		2			  20000000		n		JR_Invalid0x20000000
+245		2			  23FFFFFC		n		JR_invalid0x23FFFFFC
+245		2			  24000000		n		JR_Invalid0x24000000
+245		2			  2FFFFFFC		n		JR_Invalid0x2FFFFFFC
+245		2			  30000000		n		JR_Invalid0x30000000
+245		2			  34000000		n		JR_Invalid0x34000000
+245		2			  30000004		n		JR_Invalid0x30000004
+245		2			  10000003		n		JR_UnalignedValid
+245		2			  30000005		n		JR_UnalignedUnvalid

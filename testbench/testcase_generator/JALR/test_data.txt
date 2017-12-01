@@ -1,0 +1,2 @@
+gld		input_reg		input_address		dest_reg	db		filename
+0		2				0		  31		n		JALR_0x0R31

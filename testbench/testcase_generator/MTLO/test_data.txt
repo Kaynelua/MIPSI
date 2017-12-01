@@ -1,0 +1,7 @@
+gld		input_reg		input_data		dest_reg	filename
+4		1				4				2			MTLO_normal
+0		1				0				2			MTLO_zero
+123		1				123				2			MTLO_pos
+196		1				80324			2			MTLO_pos_large
+236 	1				-20				2			MTLO_neg
+100		1				-49820			2			MTLO_neg_large

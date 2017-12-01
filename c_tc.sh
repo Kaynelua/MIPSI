@@ -28,7 +28,7 @@ else
 	else
 		instr_name=$1
 		rm testbench/testcases/"$instr_name"_*
-		g++ testbench/testcase_generator/"$instr_name"/*.cpp -o testbench/testcase_generator/instr_name/gen
+		g++ testbench/testcase_generator/"$instr_name"/*.cpp -o testbench/testcase_generator/"$instr_name"/gen
 		#need to exit if error
 		mkdir -p testbench/"$instr_name"_tc
 		rm testbench/"$instr_name"_tc/*

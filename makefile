@@ -41,7 +41,7 @@ MIPS_LDFLAGS += -Wl,--build-id=none
 ## Simulator
 
 # Build the simulation binary
-bin/mips_simulator : src/simulator.cpp
+bin/mips_simulator : src/Simulator.cpp
 	mkdir -p bin
 	g++ -W -Wall src/*.cpp -std=c++11 -o bin/mips_simulator
 

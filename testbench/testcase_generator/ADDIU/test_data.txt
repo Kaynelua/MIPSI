@@ -6,5 +6,5 @@ gld		input_reg1		input_data1			imm			type			filename
 255 	3				0x7FFFFFFA			0x5 		OF				ADDIU_normal_pospos
 0		3				0x80000002			0xFFFE		OF				ADDIU_normal_negneg
 6		3				0xFFFFFFFF			7 			OF				ADDIU_normal_negpos
-5	 	3				0x7FFFFFFF			6			OF				ADDIU_posposof
-254		3				0x80000001			0xFFFD		OF				ADDIU_negnegof
+5	 	3				0x7FFFFFFF			6			OF				ADDIU_posposnof
+254		3				0x80000001			0xFFFD		OF				ADDIU_negnegnof

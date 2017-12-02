@@ -1,0 +1,3 @@
+gld		imm				type			filename
+132		0xF984			N				LUI_normal
+0		0x049B			SP				LUI_overwrite_lshw

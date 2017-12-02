@@ -102,7 +102,7 @@ std::uint32_t Simulator::jr(){	// JUMPING to invalid PC INSTRUCTION ADDRESS
 	}
 }
 
-std::uint32_t Simulator::jalr(){ // KIV NOT SURE about this when RS == R31 (LR ) Undefined behaviour
+std::uint32_t Simulator::jalr(){ 
 	uint32_t jd = reg.read(r_operands[0]);
 	uint32_t return_address = pc +8;
 
@@ -474,9 +474,12 @@ std::uint32_t Simulator :: bltzal(){
 
 	if(RS < 0){
 		uint32_t return_address = pc +8;
-		reg.write(31,return_address);	
 		branch_address = pc + (int32_t)branchoffset + 4;
 		branch_taken = 1;
+		
+		link_address  = return_address;
+		link_register = 31;
+		link = 1;
 
 		debug <<"RS <0 and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
 		debug << "Return Addr = " << return_address << std::endl;
@@ -499,10 +502,13 @@ std::uint32_t Simulator :: bgezal(){
 	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
 
 	if(RS >= 0){
-		uint32_t return_address = pc +8;
-		reg.write(31,return_address);	
+		uint32_t return_address = pc +8;	
 		branch_address = pc + (int32_t)branchoffset + 4;
 		branch_taken = 1;
+		
+		link_address  = return_address;
+		link_register = 31;
+		link = 1;
 
 		debug <<"RS >=0 (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
 		debug << "Return Addr = " << return_address << std::endl;	

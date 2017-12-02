@@ -10,4 +10,3 @@ li $2, 0x35
 branchoffset0000000C :
 nop
 jr   $0
-li $2, 167 

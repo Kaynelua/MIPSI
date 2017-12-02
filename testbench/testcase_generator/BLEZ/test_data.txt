@@ -1,0 +1,10 @@
+gld		input_reg	input_data		offset_address		db		filename
+71		2		81234567		0000000C		n		BLEZ_posoffset_BT
+71		2		00000000		0000000C		n		BLEZ_posoffset_Input0_BT
+53		2		00000001		0000000C		n		BLEZ_posoffset_BNT
+67		2		81234567		00000018		b		BLEZ_negoffset_BT
+67		2		00000000		00000018		b		BLEZ_negoffset_Input0_BT
+87		2		80000000		00000018		c		BLEZ_negoffset_BNT
+167		2		81234567		0000000C		y		BLEZ_delayedbranch_BT
+167		2		00000000		0000000C		y		BLEZ_delayedbranch_Input0_BT
+167		2		00000001		0000000C		y		BLEZ_delayedbranch_BNT

@@ -1,7 +1,7 @@
 gld		input_reg	input_data		offset_address		db		filename
 71		2		81234567		0000000C		n		BLTZ_posoffset_BT
 53		2		00000001		0000000C		n		BLTZ_posoffset_BNT
-1		2		81234567		00000014		b		BLTZ_negoffset_BT
-87		2		80000000		00000014		c		BLTZ_negoffset_BNT
+67		2		81234567		00000018		b		BLTZ_negoffset_BT
+87		2		80000000		00000018		c		BLTZ_negoffset_BNT
 167		2		81234567		0000000C		y		BLTZ_delayedbranch_BT
 167		2		00000001		0000000C		y		BLTZ_delayedbranch_BNT

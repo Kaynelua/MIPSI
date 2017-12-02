@@ -1,0 +1,7 @@
+gld		input_reg1		input_data1			imm			type			filename
+254		0				0				 	0x4F72		N				ORI_normal
+
+89 		0				0				 	0x8F72		SE				ORI_zero_extend_imm
+248		0				0				 	0x0000		BIG				ORI_zero
+255		0				0				 	0xFFFF		BIG				ORI_ones
+

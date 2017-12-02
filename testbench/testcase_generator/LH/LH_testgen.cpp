@@ -43,21 +43,21 @@ int main(){
 		if(test_type == "N"){	//normal , lower 8 bits
 			outfile << "addi $1,$0," << input_data << endl; //fixed instruction which will be loaded from
 			outfile << "li 	 $1,0x10000002" 	   << endl;
-			outfile << "lh   $2,0($1)" 			   << endl;	//load lsbyte of first instruction into R2
+			outfile << "lh   $2,0($1)" 			   << endl;	//load ls hword of first instruction into R2
 		}
 
 		else if(test_type == "NF"){	//normal , full 16 bit
 			outfile << "addi $1,$0," << input_data << endl; //fixed instruction which will be loaded from
 			outfile << "li 	 $1,0x10000002" 	   << endl;
-			outfile << "lh   $3,0($1)" 			   << endl;	//load lsbyte of first instruction into R2
+			outfile << "lh   $3,0($1)" 			   << endl;	//load ls hword of first instruction into R2
 			outfile << "srl  $2,$3,8"			   << endl;
-			outfile << "add  $2,$2,$3"			   << endl;
+			outfile << "addu  $2,$2,$3"			   << endl;
 		}
 
 		else if(test_type == "SE"){	//testing sign extension
 			outfile << "addi $1,$0," << input_data << endl; //fixed instruction which will be loaded from
 			outfile << "li 	 $1,0x10000002" 	   << endl;
-			outfile << "lh   $2,0($1)" 			   << endl;	//load lsbyte of first instruction into R2
+			outfile << "lh   $2,0($1)" 			   << endl;	//load ls hword of first instruction into R2
 			outfile << "srl  $2,$2,9"			   << endl;
 		}
 		else if(test_type == "RI"){ //range check invalid

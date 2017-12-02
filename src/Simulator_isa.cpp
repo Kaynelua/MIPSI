@@ -830,9 +830,7 @@ std::uint32_t Simulator::lwr(){	//need to check for address error
 
 	int32_t eff_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);	//unaligned access permissible
 
-
 	uint32_t rt_data = reg.read(i_operands[1]);
-
 
 	uint32_t remainder = eff_addr%4;
 	uint32_t aligned_addr = eff_addr-remainder;
@@ -845,6 +843,13 @@ std::uint32_t Simulator::lwr(){	//need to check for address error
 
 	word_mask = word_mask << (3-remainder)*8;
 	rt_data_mask = rt_data_mask << (remainder+1)*8;
+	if(remainder == 3){		//sepcial case since range of shift is only from 0 - 31!! c++ limits or isit x86?
+		rt_data_mask = 0;
+	}
+
+	debug << "word mask! ! : " << word_mask << std::endl;
+	debug << "rt_data mask! ! : " << rt_data_mask << std::endl;
+
 
 	aligned_word = (aligned_word & word_mask) >> (3-remainder)*8;
 	rt_data = (rt_data & rt_data_mask);

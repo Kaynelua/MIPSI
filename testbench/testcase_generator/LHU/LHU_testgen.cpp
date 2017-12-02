@@ -51,7 +51,7 @@ int main(){
 			outfile << "li 	 $1,0x10000002" 	   << endl;
 			outfile << "lh   $3,0($1)" 			   << endl;	//load lsbyte of first instruction into R2
 			outfile << "srl  $2,$3,8"			   << endl;
-			outfile << "add  $2,$2,$3"			   << endl;
+			outfile << "addu  $2,$2,$3"			   << endl;
 		}
 
 		else if(test_type == "SE"){	//testing basic functionality and special cases

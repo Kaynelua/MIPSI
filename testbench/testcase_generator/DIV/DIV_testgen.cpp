@@ -26,7 +26,7 @@ int main(){
 	string filename;
 
 
-	infile.open("testbench/testcase_generator/MULT/test_data.txt");
+	infile.open("testbench/testcase_generator/DIV/test_data.txt");
 
 	getline(infile, dummyLine);
 	while(infile >> gld >> input_reg1 >> input_data1 >> input_reg2 >> input_data2 >> testHL>> filename ){
@@ -36,7 +36,7 @@ int main(){
 
 /****************************************************************/
 		outfile << ".set noreorder" << endl;
-		outfile << ".set noat" 		<< endl;
+		//outfile << ".set noat" 		<< endl;
 
 		// Set up input_data in input_reg:
 		outfile << "li $" 	 	<< input_reg1 <<  ", 0x" << input_data1 << endl;

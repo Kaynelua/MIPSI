@@ -241,7 +241,7 @@ std::uint32_t Simulator::add(){
 	int32_t B =  reg.read(r_operands[1]);
 	int32_t result = A+B; 
 	if( ((A >= 0) && (B>= 0) && (result < 0)) || ((A<0) && (B<0) && (result >=0)) ){
-		debug << "Signed Overflow Exception code" << std:: endl;
+		exit(-10);
 	}
 
 	//debugging
@@ -275,7 +275,7 @@ std::uint32_t Simulator::sub(){
 	int32_t result = A-B; 
 	reg.write(r_operands[2],result);
 	if( ((A >= 0) && (B< 0) && (result < 0)) || ((A<0) && (B>=0) && (result >=0)) ){
-		debug << "Signed Overflow Exception code" << std:: endl;
+		exit(-10);
 	}
 	//debugging
 	debug << "Performing Sub " <<std:: endl;

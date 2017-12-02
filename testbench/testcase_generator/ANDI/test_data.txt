@@ -1,0 +1,7 @@
+gld		input_reg1		input_data1			imm			type			filename
+82		0				0				 	0x4F72		N				ANDI_normal
+
+0		0				0				 	0x8F72		SE				ANDI_zero_extend_imm
+0		0				0				 	0x0000		BIG				ANDI_zero
+248		0				0				 	0xFFFF		BIG				ANDI_ones
+

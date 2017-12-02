@@ -210,9 +210,7 @@ std::uint32_t Simulator::div(){
 		debug <<  "R" << r_operands[0] << " / R" << r_operands[1] << " = " <<std :: endl;
 		debug <<  "HI(remainder) = " << reg.regHI << " LO(quotient) = " << reg.regLO << std::endl;
 	}
-	else{
-		exit(-10);
-	}
+	// If Divisor is 0 , Undefined behavior and we leave State as it is.
 
 	return 1;
 }
@@ -231,9 +229,7 @@ std::uint32_t Simulator::divu(){	// Cornell says that we have to sign extend Q a
 		debug <<  "R" << r_operands[0] << " / R" << r_operands[1] << " = " <<std :: endl;
 		debug <<  "HI(remainder) = " << reg.regHI << " LO(quotient) = " << reg.regLO << std::endl;
 	}
-	else{
-		exit(-10);
-	}
+	// If Divisor is 0 , Undefined behavior and we leave State as it is.
 
 	return 1;
 }

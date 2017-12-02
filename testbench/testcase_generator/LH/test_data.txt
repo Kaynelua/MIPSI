@@ -1,10 +1,13 @@
 gld		input_data	base_reg	base_data			offset		dest_reg		test_type		filename
-10	 	10			2			0x10000000 			0 			2				N				LH_normal
+10	 	10			2			0x10000000 			0 			2				N				LH_normal_lower_byte
+143	 	59814		2			0x10000000 			0 			2				NF				LH_normal_full
+
 10		10			2			0x0FFFFFFB			5			2				N 				LH_offset_normal
 10		10			2			0x10000007			-7			2				N 				LH_offset_sign_extend
 221		47777		2			0x10000000			0			2				SE				LH_data_sign_extend
 
 245		0			0			0x20000033			0			2				AL				LH_unaligned
+245		0			0			0x20000033			0			2				AL				LH_unaligned_2
 
 245		0			4			0x00000000			0			21				RI 				LH_Invalid0x00000000
 245		0			5			0x00000004			0			20				RI				LH_Invalid0x00000004

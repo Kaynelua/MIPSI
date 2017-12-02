@@ -423,13 +423,13 @@ std::uint32_t Simulator::conditional_B(){
 
 std::uint32_t Simulator :: bltz(){
 	int32_t RS = reg.read(i_operands[0]);
-	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
+	int32_t branchoffset =  sign_extend(i_operands[2],16) *4;
 
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BLTZ " << std::endl;
 	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
 
 	if(RS < 0){	
-		branch_address = pc + (int32_t)branchoffset;
+		branch_address = pc + (int32_t)branchoffset + 4;
 		branch_taken = 1;
 
 		debug <<"RS <0 and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
@@ -451,7 +451,7 @@ std::uint32_t Simulator :: bgez(){
 	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
 
 	if(RS >= 0){	
-		branch_address = pc + (int32_t)branchoffset;
+		branch_address = pc + (int32_t)branchoffset +4;
 		branch_taken = 1;
 
 		debug <<"RS >=0 (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
@@ -475,7 +475,7 @@ std::uint32_t Simulator :: bltzal(){
 	if(RS < 0){
 		uint32_t return_address = pc +8;
 		reg.write(31,return_address);	
-		branch_address = pc + (int32_t)branchoffset;
+		branch_address = pc + (int32_t)branchoffset + 4;
 		branch_taken = 1;
 
 		debug <<"RS <0 and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
@@ -501,7 +501,7 @@ std::uint32_t Simulator :: bgezal(){
 	if(RS >= 0){
 		uint32_t return_address = pc +8;
 		reg.write(31,return_address);	
-		branch_address = pc + (int32_t)branchoffset;
+		branch_address = pc + (int32_t)branchoffset + 4;
 		branch_taken = 1;
 
 		debug <<"RS >=0 (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
@@ -523,7 +523,7 @@ std::uint32_t Simulator :: beq(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BEQ" << std::endl;
 
 	if(A == B){	
-		branch_address = pc + (int32_t)branchoffset;
+		branch_address = pc + (int32_t)branchoffset + 4;
 		branch_taken = 1;
 
 		debug <<"RS = RT (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
@@ -544,7 +544,7 @@ std::uint32_t Simulator :: bne(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BNE" << std::endl;
 
 	if(A != B){	
-		branch_address = pc + (int32_t)branchoffset;
+		branch_address = pc + (int32_t)branchoffset + 4;
 		branch_taken = 1;
 
 		debug <<"RS != RT (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
@@ -565,7 +565,7 @@ std::uint32_t Simulator :: blez(){
 	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
 
 	if(RS <= 0){	
-		branch_address = pc + (int32_t)branchoffset;
+		branch_address = pc + (int32_t)branchoffset + 4;
 		branch_taken = 1;
 
 		debug <<"RS <=0 and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
@@ -586,7 +586,7 @@ std::uint32_t Simulator :: bgtz(){
 	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
 
 	if(RS > 0){	
-		branch_address = pc + (int32_t)branchoffset;
+		branch_address = pc + (int32_t)branchoffset + 4;
 		branch_taken = 1;
 
 		debug <<"RS > 0 (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;

@@ -1,2 +1,0 @@
-gld 		base_reg	base_data				offset		dest_reg		testing_func		filename
-245 		2			0x10000000 			0 			2				1					LW_invalid_address_boundary_1

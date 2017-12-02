@@ -1,6 +1,6 @@
 .set noreorder
 .set noat
-li $2, 0x00000000
+li $2, 0x80000003
 bgez $2 , branchoffset0000000C
 li $2, 0x47
 branchoffset00000004 :

@@ -1,8 +1,9 @@
 .set noreorder
 .set noat
-li $2, 0x20000000
-bgez $2 , branchoffset00000018
-li $2, 0x47
+li $1, 0x81234564
+li $3, 0x81234565
+bne $1 , $3 , branchoffset00000018
+li $2 , 0x47
 branchoffset00000004 :
 nop
 branchoffset00000008 :
@@ -12,11 +13,10 @@ nop
 jr   $0
 nop
 branchoffset00000018 : 
-li $2, 0x80000048
-branchoffset0000001C : 
-bgez $2 , branchoffset0000000C
+li $2, 0x80000043
+bne $1 , $1 , branchoffset0000000C
 branchoffset00000020 : 
 nop
 branchoffset00000024 : 
-li $2, 0x57
+li $2 , 0x57
 jr   $0

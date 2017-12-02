@@ -1,9 +1,10 @@
 .set noreorder
 .set noat
 li $2, 0x00000001
-Bltz $2 ,0x000C
+bltz $2 , branchoffset
 nop
 nop
 li $2, 0x35
-nop
+branchoffset : 
+ nop
 jr   $0

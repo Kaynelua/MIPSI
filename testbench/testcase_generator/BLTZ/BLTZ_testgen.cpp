@@ -37,11 +37,11 @@ int main(){
 
 		// Set up input_data in input_reg:
 		outfile << "li $" 	 	<< input_reg <<  ", 0x" << input_data << endl;
-		outfile << "Bltz $" << input_reg << " ,0x" << offset_address << endl;
+		outfile << "bltz $" << input_reg << " , branchoffset" << endl;
 		outfile << "nop" << endl;
 		outfile << "nop" << endl;
 		outfile << "li $2, 0x35" << endl;
-		outfile <<"nop" <<endl;
+		outfile <<"branchoffset : "<< endl <<" nop" <<endl;
  		outfile << "jr   $0" << endl;
 		
 		if(db=='y'){

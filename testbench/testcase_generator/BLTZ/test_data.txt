@@ -1,0 +1,3 @@
+gld		input_reg	input_data		offset_address		db		filename
+103		2		81234567		000C			n		BLTZ_branchtaken
+53		2		00000001		000C			n		BLTZ_branchnotaken

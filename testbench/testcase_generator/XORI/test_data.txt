@@ -1,0 +1,7 @@
+gld		input_reg1		input_data1			imm			type			filename
+172		0				0				 	0x4F72		N				XORI_normal
+
+89		0				0				 	0x8F72		SE				XORI_zero_extend_imm
+248		0				0				 	0x0000		BIG				XORI_zero
+7		0				0				 	0xFFFF		BIG				XORI_ones
+

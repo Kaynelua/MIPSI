@@ -1,0 +1,10 @@
+gld		input_reg1		input_data1			imm			type			filename
+37		0				0				 	37			N				ADDI_normal
+
+127		0				0				 	-5			SE				ADDI_sign_extend_imm
+
+255 	3				0x7FFFFFFA			0x5 		OF				ADDI_normal_pospos
+0		3				0x80000002			0xFFFE		OF				ADDI_normal_negneg
+6		3				0xFFFFFFFF			7 			OF				ADDI_normal_negpos
+246 	3				0x7FFFFFFF			1			OF				ADDI_posposof
+246		3				0x80000001			0xFFFD		OF				ADDI_negnegof

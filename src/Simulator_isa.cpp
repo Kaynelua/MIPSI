@@ -815,6 +815,9 @@ std::uint32_t Simulator::lwl(){	//need to check for address error
 
 	word_mask = word_mask >> remainder*8;
 	rt_data_mask = rt_data_mask >> (4-remainder)*8;
+	if(remainder == 0){
+		rt_data_mask = 0;
+	}
 
 	aligned_word = (aligned_word & word_mask) << remainder*8;
 	rt_data = (rt_data & rt_data_mask);

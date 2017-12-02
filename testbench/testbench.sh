@@ -20,7 +20,7 @@ for ((i=0;i<${#TEST_CASE_PATH[@]};i++))
 		done < $Curr_golden_path
 		$1 $Curr_test_path
 		Output=$?
-		if [ "$Output" = "$Golden" ]; then Status="Pass"; else Status="Fail"; fi
+		if [ "$Output" = "$Golden" ]; then Status="\e[32m Pass\e[0m"; else Status="\e[31m Fail\e[0m"; fi
 		echo -e "$i,\t $Instruction,\t $Status,\t $Author,\t $(basename $Curr_test_path)"
 	done
 

@@ -1,2 +1,20 @@
-gld		input_reg		input_address		dest_reg	db		filename
-0		2				0		  31		n		JALR_0x0R31
+gld		input_reg		input_address		link_reg	db	lr	filename
+0		2				0		  31		n	y	JALR_LRupdate
+17		2				0		  31		y	n	JALR_Delayedbranch
+16		2			 1000001C		  29		n	y	JALR_VariableLR
+32		2			 10000020		  31		n	n	JALR_JumpInstMemNormal
+24 		2			 10000018		  28		n	n	JALR_JumpInstMemNormal2
+5 		2			 10000014		  26		n	n	JALR_JumpInstMemNormal3
+245		2				4		  31		n	n	JALR_Invalid0x00000004
+245		2			  0FFFFFFC		  31		n	n	JALR_Invalid0x0FFFFFFC
+245		2			  11000004		  31		n	n	JALR_Invalid0x11000004
+245		2			  1FFFFFFC		  31		n	n	JALR_Invalid0x1FFFFFFC
+245		2			  20000000		  31		n	n	JALR_Invalid0x20000000
+245		2			  23FFFFFC		  31		n	n	JALR_invalid0x23FFFFFC
+245		2			  24000000		  31		n	n	JALR_Invalid0x24000000
+245		2			  2FFFFFFC		  31		n	n	JALR_Invalid0x2FFFFFFC
+245		2			  30000000		  31		n	n	JALR_Invalid0x30000000
+245		2			  34000000		  31		n	n	JALR_Invalid0x34000000
+245		2			  30000004		  31		n	n	JALR_Invalid0x30000004
+245		2			  10000003		  31		n	n	JALR_UnalignedValid
+245		2			  30000005		  31		n	n	JALR_UnalignedInvalid

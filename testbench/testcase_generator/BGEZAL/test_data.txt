@@ -1,0 +1,9 @@
+gld		input_reg	input_data		offset_address		db		filename
+53		2		81234567		0000000C		n		BGEZAL_posoffset_BNT
+71		2		00000001		0000000C		n		BGEZAL_posoffset_BT
+69		2		81234567		0000000C		l		BGEZAL_posoffset_LR_BNT
+12		2		00000000		0000000C		l		BGEZAL_posoffset_LR_BT
+87		2		71234567		00000018		b		BGEZAL_negoffset_BNT
+72		2		00000000		00000018		c		BGEZAL_negoffset_BT
+167		2		81234567		0000000C		y		BGEZAL_delayedbranch_BNT
+167		2		00000001		0000000C		y		BGEZAL_delayedbranch_BT

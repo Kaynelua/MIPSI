@@ -1,0 +1,24 @@
+gld		input_data	base_reg	base_data			offset		dest_reg		test_type		filename
+18	 	10			3			0x20000012 			0 			2				N				SH_normal
+64  	10			3			0x20000040			22			2				N 				SH_offset_normal
+66		10			3			0x20000042			-10			2				N 				SH_offset_sign_extend
+
+68		10			3			0x20000044			0			2				NF				SH_normal_full	
+
+245	 	10			3			0x20000011 			4 			2				N				SH_unaligned
+
+
+245		0			4			0x00000000			0			21				RI 				SH_Invalid0x00000000
+245		0			5			0x00000004			0			20				RI				SH_Invalid0x00000004
+245		0			6			0x0FFFFFFE			0			18				RI 				SH_Invalid0x0FFFFFFE
+245		0			6			0x10000000			0			18				RI 				SH_Invalid0x10000000
+245		0	 		7			0x10FFFFFE			0			17				RI				SH_Invalid0x10FFFFFE
+245		0	 		7			0x11000000			0			17				RI				SH_Invalid0x11000000
+245		0	 		8			0x1FFFFFFE			0			17				RI 				SH_Invalid0x1FFFFFFE
+245		0	 		9			0x24000000			0			16				RI				SH_Invalid0x24000000
+245		0	 		10			0x2FFFFFFE			0			15				RI 				SH_Invalid0x2FFFFFFE
+245		0	 		11			0x30000004			0			14				RI				SH_Invalid0x30000004
+245		0	 		12			0x30000008			0			13				RI 				SH_Invalid0x30000008
+
+0		0	 		24			0x20000000			0			2				RV				SH_Valid0x20000000
+252		0	 		25			0x23FFFFFE			0			2				RV 				SH_Valid0x23FFFFFE

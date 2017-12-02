@@ -43,7 +43,7 @@ int main(){
 		if(test_type == "N"){	//normal, reads from correct memory areas
 			outfile << "addi $1,$0," << input_data 		<< endl; //fixed instruction which will be loaded from
 			outfile << "li 	 $1,0x10000000" 	   		<< endl;
-			outfile << "lwr   $2," << offset << "($1)" 	<< endl;	//load word of first instruction into R2
+			outfile << "lwr   $2," << offset << "($1)" 	<< endl;	
 		}
 
 		if(test_type == "NSE"){	//normal, reads from correct memory areas
@@ -51,9 +51,20 @@ int main(){
 			outfile << "li 	 $"	  << base_reg << ","  << base_data	   		<< endl;
 			outfile << "sw   $3," << "0"      << "($" << base_reg  << ")"	<< endl;
 
-			outfile << "lwr  $2," << offset << "($"  << base_reg  << ")" 	<< endl;	//load word of first instruction into R2
+			outfile << "lwr  $2," << offset << "($"  << base_reg  << ")" 	<< endl;	
 			outfile << "srl  $2,$2,"<< offset*8 + 1 << endl;
 		}
+
+		else if(test_type == "DP"){		//correct data slots are preserved
+			outfile << "addi $1,$0," << input_data 		 << endl; //fixed instruction which will be loaded from
+			outfile << "li 	 $1,0x10000000" 	   		 << endl;
+			outfile << "li   $2,0x12345678"				 << endl;
+			outfile << "lwr  $2," 	 << offset << "($1)" << endl;	
+			if(offset < 3){
+				outfile << "srl  $2,$2," << (offset+1)*8		 << endl;
+			}
+		}
+
 
 		else if(test_type == "RI"){ //range check invalid
 			outfile << "li 	 $" << base_reg << "," << base_data << endl;

@@ -1,0 +1,19 @@
+gld		input_data	base_reg	base_data			offset		dest_reg		test_type		filename
+19	 	10			2			0x20000013 			0 			2				N				SB_normal
+7		10			2			0x20000007			5			2				N 				SB_offset_normal
+69		10			2			0x20000045			-7			2				N 				SB_offset_sign_extend
+
+245		0			4			0x00000000			0			21				RI 				SB_Invalid0x00000000
+245		0			5			0x00000004			0			20				RI				SB_Invalid0x00000004
+245		0			6			0x0FFFFFFF			0			18				RI 				SB_Invalid0x0FFFFFFF
+245		0			6			0x10000000			0			18				RI 				SB_Invalid0x10000000
+245		0	 		7			0x11000000			0			17				RI				SB_Invalid0x10FFFFFF
+245		0	 		7			0x11000000			0			17				RI				SB_Invalid0x11000000
+245		0	 		8			0x1FFFFFFF			0			17				RI 				SB_Invalid0x1FFFFFFF
+245		0	 		9			0x24000000			0			16				RI				SB_Invalid0x24000000
+245		0	 		10			0x2FFFFFFF			0			15				RI 				SB_Invalid0x2FFFFFFF
+245		0	 		11			0x30000004			0			14				RI				SB_Invalid0x30000004
+245		0	 		12			0x30000008			0			13				RI 				SB_Invalid0x30000008
+
+0		0	 		24			0x20000000			0			2				RV				SB_Valid0x20000000
+0		0	 		25			0x23FFFFFF			0			2				RV 				SB_Valid0x23FFFFFF

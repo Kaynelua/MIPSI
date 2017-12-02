@@ -1,10 +1,10 @@
 #!/bin/bash
 shopt -s nullglob
-#TEST_CASE_PATH=(testbench/testcases/*.bin)
-#GOLDEN_PATH=(testbench/testcases/*.gld)
+TEST_CASE_PATH=(testbench/testcases/*.bin)
+GOLDEN_PATH=(testbench/testcases/*.gld)
 
-TEST_CASE_PATH=($(ls -t testbench/testcases/*.bin ))
-GOLDEN_PATH=($(ls -t testbench/testcases/*.gld ))
+#TEST_CASE_PATH=($(ls -t testbench/testcases/*.bin ))
+#GOLDEN_PATH=($(ls -t testbench/testcases/*.gld ))
 
 #echo ${TEST_CASE_PATH[@]}
 #echo ${GOLDEN_PATH[@]}

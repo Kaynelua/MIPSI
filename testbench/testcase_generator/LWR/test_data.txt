@@ -3,7 +3,13 @@ gld		input_data		base_reg	base_data		offset		dest_reg		test_type		filename
 1	 	2061			2			0x10000000 		1 			2				N				LWR_normal_unaligned_by_1
 8	 	2061			2			0x10000000 		2 			2				N				LWR_normal_unaligned_by_2
 13	 	2061			2			0x10000000 		3 			2				N				LWR_normal_unaligned_by_3
+
 77	 	2611121327		2			0x20000000 		0 			2				NSE				LWR_normal_unaligned_by_0_no_sign_ex
 77	 	2611121327		2			0x20000000 		1 			2				NSE				LWR_normal_unaligned_by_1_no_sign_ex
 77	 	2611121327		2			0x20000000 		2 			2				NSE				LWR_normal_unaligned_by_2_no_sign_ex
 77	 	2611121327		2			0x20000000 		3 			2				NSE				LWR_normal_unaligned_by_3_no_sign_ex
+
+86	 	2061			2			0x10000000 		0 			2				DP				LWR_normal_unaligned_by_0_data_preserved
+52	 	2061			2			0x10000000 		1 			2				DP				LWR_normal_unaligned_by_1_data_preserved
+18	 	2061			2			0x10000000 		2 			2				DP				LWR_normal_unaligned_by_2_data_preserved
+13	 	2061			2			0x10000000 		3 			2				DP				LWR_normal_unaligned_by_3_data_preserved

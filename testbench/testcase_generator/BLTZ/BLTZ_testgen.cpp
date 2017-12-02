@@ -49,18 +49,20 @@ int main(){
 		}
 		
 		if (db == 'b'){  // testing backward branch 1 where backward branch is taken
-		outfile <<"branchoffset00000014 : "<< endl << "li $" << input_reg << ", 0x80000001" << endl;
-		outfile <<"branchoffset00000018 : " << endl << "bltz $" << input_reg << " , branchoffset0000000C" <<endl;
-		outfile <<"branchoffset0000001C : "<< endl <<"nop" <<endl;
-		outfile <<"branchoffset00000020 : "<< endl << "li $" << input_reg << ", 0x57" << endl; 
+		outfile <<"nop" << endl;
+		outfile <<"branchoffset00000018 : "<< endl << "li $" << input_reg << ", 0x80000043" << endl;
+		outfile <<"branchoffset0000001C : " << endl << "bltz $" << input_reg << " , branchoffset0000000C" <<endl;
+		outfile <<"branchoffset00000020 : "<< endl <<"nop" <<endl;
+		outfile <<"branchoffset00000024 : "<< endl << "li $" << input_reg << ", 0x57" << endl; 
 		outfile << "jr   $0" << endl;
 		}
 
 		else if (db == 'c'){  // testing backward branch 2 where backward branch not taken
-		outfile <<"branchoffset00000014 : "<< endl << "li $" << input_reg << ", 0x70000048" << endl;
-		outfile <<"branchoffset00000018 : " << endl << "bltz $" << input_reg << " , branchoffset0000000C" <<endl;
-		outfile <<"branchoffset0000001C : "<< endl <<"nop" <<endl;
-		outfile <<"branchoffset00000020 : "<< endl << "li $" << input_reg << ", 0x57" << endl; 
+		outfile <<"nop" << endl;
+		outfile <<"branchoffset00000018 : "<< endl << "li $" << input_reg << ", 0x70000048" << endl;
+		outfile <<"branchoffset0000001C : " << endl << "bltz $" << input_reg << " , branchoffset0000000C" <<endl;
+		outfile <<"branchoffset00000020 : "<< endl <<"nop" <<endl;
+		outfile <<"branchoffset00000024 : "<< endl << "li $" << input_reg << ", 0x57" << endl; 
 		outfile << "jr   $0" << endl;
 		}
 

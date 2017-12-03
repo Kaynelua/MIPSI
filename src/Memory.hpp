@@ -5,8 +5,8 @@
 #include <cstdint>
 
 // test with smaller sizes first
-#define INSTR_MEM_LEN 100	//268435456
-#define DATA_MEM_LEN  100	//1073741824
+#define INSTR_MEM_LEN 0x1000000	//268435456
+#define DATA_MEM_LEN  0x4000000	//1073741824
 
 
 #define INSTR_MEM_BASE 0x10000000

@@ -20,8 +20,13 @@ for ((i=0;i<${#TEST_CASE_PATH[@]};i++))
 		done < $Curr_golden_path
 		$1 $Curr_test_path
 		Output=$?
-		if [ "$Output" = "$Golden" ]; then Status="\e[32m Pass\e[0m"; else Status="\e[31m Fail\e[0m"; fi
-		echo -e "$i,\t $Instruction,\t $Status,\t $Author,\t $(basename $Curr_test_path)"
-	done
+		if [ "$Output" = "$Golden" ]; 
+			then Status="Pass"; 
+			printf  "%-5s %-10s \e[32m %-10s \e[0m %-15s %-30s\n" $i, $Instruction, $Status, $Author, $(basename $Curr_test_path)
+		else 
+			Status="Fail";
+			printf  "%-5s %-10s \e[31m %-10s \e[0m %-15s %-30s\n" $i, $Instruction, $Status, $Author, $(basename $Curr_test_path)
+		fi
+		done
 
 #NUM_TEST_CASES=$(ls -1 testbench/testcases | grep '\.bin$' | wc -l)

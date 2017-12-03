@@ -22,6 +22,7 @@ std::uint32_t Simulator::stub(){
 /**************** J TYPE ******************/
 std::uint32_t Simulator::j(){
 	branch_address = (j_operands[0]*4);
+	branch_address = (branch_address | ((pc+4)&0xF0000000) );
 	branch_taken = 1;
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump (PC):" << j_operands[0]*4 << std::endl;
 	return 1;
@@ -29,8 +30,15 @@ std::uint32_t Simulator::j(){
 
 std::uint32_t Simulator::jal(){
 	branch_address = (j_operands[0]*4);
+	branch_address = (branch_address | ((pc+4)&0xF0000000) );
 	branch_taken = 1;
+
 	uint32_t return_address = pc +8;
+	
+	link  = 1;
+	link_register = 31;
+	link_address = return_address;
+
 	reg.write(31,return_address);
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump and Link (PC): Branch Target=" << branch_address << std::endl;
 	debug <<"RETURN ADDR IN R31 = " << return_address << std::endl;
@@ -631,7 +639,7 @@ std::uint32_t Simulator::addiu(){
 	int32_t result = A+B;
 	reg.write(i_operands[1],result);
 
-	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "ADDIU :" << "R" << i_operands[1] << "= R"<<r_operands[0] << " + " << B << std::endl;
+	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "ADDIU :" << "R" << i_operands[1] << "= R"<<i_operands[0] << " + " << B << std::endl;
 	return 1;
 
 }
@@ -793,13 +801,14 @@ std::uint32_t Simulator::lw(){
 	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
 	debug << "mem addr " <<(int32_t)reg.read(i_operands[0]) << std::endl;
 	if(mem_addr%4 == 0){
+
+		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LW -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;	
 		reg.write(i_operands[1],mem.read(mem_addr));
 		debug << reg.read(i_operands[1]) << std::endl;
 	}
 	else{
 		exit(-11);
 	}
-	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LW -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;	
 }
 
 

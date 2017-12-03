@@ -21,4 +21,4 @@ gld		input_data	base_reg	base_data			offset		dest_reg		test_type		filename
 245		0	 		12			0x30000008			0			13				RI 				SH_Invalid0x30000008
 
 0		0	 		24			0x20000000			0			2				RV				SH_Valid0x20000000
-252		0	 		25			0x23FFFFFE			0			2				RV 				SH_Valid0x23FFFFFE
+254		0	 		25			0x23FFFFFE			0			2				RV 				SH_Valid0x23FFFFFE

@@ -1,0 +1,4 @@
+gld		offset_address		db		filename
+0		000003			n		J_normal
+1		000002			n		J_normal_2
+4		000006			y		J_delayed_branch

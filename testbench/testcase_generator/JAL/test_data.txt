@@ -1,0 +1,5 @@
+gld		offset_address		db		filename
+0		000003				n		JAL_normal
+1		000002				n		JAL_normal_2
+4		000006				y		JAL_delayed_branch
+8		000003				l		JAL_link_at_correct_time

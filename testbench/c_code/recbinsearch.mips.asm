@@ -1,0 +1,189 @@
+
+testbench/c_code/recbinsearch.mips.elf:     file format elf32-tradbigmips
+
+
+Disassembly of section .text:
+
+10000000 <entry-0x4>:
+10000000:	3c1d2400 	lui	sp,0x2400
+
+10000004 <entry>:
+10000004:	27bdffd8 	addiu	sp,sp,-40
+10000008:	afbf0024 	sw	ra,36(sp)
+1000000c:	afbe0020 	sw	s8,32(sp)
+10000010:	03a0f025 	move	s8,sp
+10000014:	2402000a 	li	v0,10
+10000018:	afc20018 	sw	v0,24(s8)
+1000001c:	8fc20018 	lw	v0,24(s8)
+10000020:	00000000 	nop
+10000024:	2442ffff 	addiu	v0,v0,-1
+10000028:	24070006 	li	a3,6
+1000002c:	00403025 	move	a2,v0
+10000030:	00002825 	move	a1,zero
+10000034:	3c021000 	lui	v0,0x1000
+10000038:	244401e0 	addiu	a0,v0,480
+1000003c:	0c000019 	jal	10000064 <binarySearch>
+10000040:	00000000 	nop
+10000044:	afc2001c 	sw	v0,28(s8)
+10000048:	8fc2001c 	lw	v0,28(s8)
+1000004c:	03c0e825 	move	sp,s8
+10000050:	8fbf0024 	lw	ra,36(sp)
+10000054:	8fbe0020 	lw	s8,32(sp)
+10000058:	27bd0028 	addiu	sp,sp,40
+1000005c:	03e00008 	jr	ra
+10000060:	00000000 	nop
+
+10000064 <binarySearch>:
+10000064:	27bdffd8 	addiu	sp,sp,-40
+10000068:	afbf0024 	sw	ra,36(sp)
+1000006c:	afbe0020 	sw	s8,32(sp)
+10000070:	03a0f025 	move	s8,sp
+10000074:	afc40028 	sw	a0,40(s8)
+10000078:	afc5002c 	sw	a1,44(s8)
+1000007c:	afc60030 	sw	a2,48(s8)
+10000080:	afc70034 	sw	a3,52(s8)
+10000084:	8fc30030 	lw	v1,48(s8)
+10000088:	8fc2002c 	lw	v0,44(s8)
+1000008c:	00000000 	nop
+10000090:	0062102a 	slt	v0,v1,v0
+10000094:	1440003d 	bnez	v0,1000018c <binarySearch+0x128>
+10000098:	00000000 	nop
+1000009c:	8fc30030 	lw	v1,48(s8)
+100000a0:	8fc2002c 	lw	v0,44(s8)
+100000a4:	00000000 	nop
+100000a8:	00621023 	subu	v0,v1,v0
+100000ac:	00021fc2 	srl	v1,v0,0x1f
+100000b0:	00621021 	addu	v0,v1,v0
+100000b4:	00021043 	sra	v0,v0,0x1
+100000b8:	00401825 	move	v1,v0
+100000bc:	8fc2002c 	lw	v0,44(s8)
+100000c0:	00000000 	nop
+100000c4:	00621021 	addu	v0,v1,v0
+100000c8:	afc20018 	sw	v0,24(s8)
+100000cc:	8fc20018 	lw	v0,24(s8)
+100000d0:	00000000 	nop
+100000d4:	00021080 	sll	v0,v0,0x2
+100000d8:	8fc30028 	lw	v1,40(s8)
+100000dc:	00000000 	nop
+100000e0:	00621021 	addu	v0,v1,v0
+100000e4:	8c430000 	lw	v1,0(v0)
+100000e8:	8fc20034 	lw	v0,52(s8)
+100000ec:	00000000 	nop
+100000f0:	14620004 	bne	v1,v0,10000104 <binarySearch+0xa0>
+100000f4:	00000000 	nop
+100000f8:	8fc20018 	lw	v0,24(s8)
+100000fc:	10000024 	b	10000190 <binarySearch+0x12c>
+10000100:	00000000 	nop
+10000104:	8fc20018 	lw	v0,24(s8)
+10000108:	00000000 	nop
+1000010c:	00021080 	sll	v0,v0,0x2
+10000110:	8fc30028 	lw	v1,40(s8)
+10000114:	00000000 	nop
+10000118:	00621021 	addu	v0,v1,v0
+1000011c:	8c430000 	lw	v1,0(v0)
+10000120:	8fc20034 	lw	v0,52(s8)
+10000124:	00000000 	nop
+10000128:	0043102a 	slt	v0,v0,v1
+1000012c:	1040000c 	beqz	v0,10000160 <binarySearch+0xfc>
+10000130:	00000000 	nop
+10000134:	8fc20018 	lw	v0,24(s8)
+10000138:	00000000 	nop
+1000013c:	2442ffff 	addiu	v0,v0,-1
+10000140:	8fc70034 	lw	a3,52(s8)
+10000144:	00403025 	move	a2,v0
+10000148:	8fc5002c 	lw	a1,44(s8)
+1000014c:	8fc40028 	lw	a0,40(s8)
+10000150:	0c000019 	jal	10000064 <binarySearch>
+10000154:	00000000 	nop
+10000158:	1000000d 	b	10000190 <binarySearch+0x12c>
+1000015c:	00000000 	nop
+10000160:	8fc20018 	lw	v0,24(s8)
+10000164:	00000000 	nop
+10000168:	24420001 	addiu	v0,v0,1
+1000016c:	8fc70034 	lw	a3,52(s8)
+10000170:	8fc60030 	lw	a2,48(s8)
+10000174:	00402825 	move	a1,v0
+10000178:	8fc40028 	lw	a0,40(s8)
+1000017c:	0c000019 	jal	10000064 <binarySearch>
+10000180:	00000000 	nop
+10000184:	10000002 	b	10000190 <binarySearch+0x12c>
+10000188:	00000000 	nop
+1000018c:	2402ffff 	li	v0,-1
+10000190:	03c0e825 	move	sp,s8
+10000194:	8fbf0024 	lw	ra,36(sp)
+10000198:	8fbe0020 	lw	s8,32(sp)
+1000019c:	27bd0028 	addiu	sp,sp,40
+100001a0:	03e00008 	jr	ra
+100001a4:	00000000 	nop
+	...
+
+Disassembly of section .reginfo:
+
+100001b0 <.reginfo>:
+100001b0:	e00000fc 	swc0	c0_index,252(zero)
+	...
+
+Disassembly of section .MIPS.abiflags:
+
+100001c8 <.MIPS.abiflags>:
+100001c8:	00000100 	sll	zero,zero,0x4
+100001cc:	01010001 	0x1010001
+	...
+
+Disassembly of section .rodata:
+
+100001e0 <arr>:
+100001e0:	00000001 	0x1
+100001e4:	00000002 	srl	zero,zero,0x0
+100001e8:	00000003 	sra	zero,zero,0x0
+100001ec:	00000004 	sllv	zero,zero,zero
+100001f0:	00000005 	0x5
+100001f4:	00000006 	srlv	zero,zero,zero
+100001f8:	00000007 	srav	zero,zero,zero
+100001fc:	00000008 	jr	zero
+10000200:	00000009 	jalr	zero,zero
+10000204:	0000000a 	0xa
+	...
+
+Disassembly of section .pdr:
+
+00000000 <.pdr>:
+   0:	10000004 	b	14 <entry-0xffffff0>
+   4:	c0000000 	lwc0	c0_index,0(zero)
+   8:	fffffffc 	0xfffffffc
+	...
+  14:	00000028 	0x28
+  18:	0000001e 	0x1e
+  1c:	0000001f 	0x1f
+  20:	10000064 	b	1b4 <entry-0xffffe50>
+  24:	c0000000 	lwc0	c0_index,0(zero)
+  28:	fffffffc 	0xfffffffc
+	...
+  34:	00000028 	0x28
+  38:	0000001e 	0x1e
+  3c:	0000001f 	0x1f
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	4743433a 	c1	0x143433a
+   4:	20285562 	addi	t0,at,21858
+   8:	756e7475 	jalx	5b9d1d4 <entry-0xa462e30>
+   c:	20352e34 	addi	s5,at,11828
+  10:	2e302d36 	sltiu	s0,s1,11574
+  14:	7562756e 	jalx	589d5b8 <entry-0xa762a4c>
+  18:	7475317e 	jalx	1d4c5f8 <entry-0xe2b3a0c>
+  1c:	31362e30 	andi	s6,t1,0x2e30
+  20:	342e3129 	ori	t6,at,0x3129
+  24:	20352e34 	addi	s5,at,11828
+  28:	2e302032 	sltiu	s0,s1,8242
+  2c:	30313630 	andi	s1,at,0x3630
+  30:	36303900 	ori	s0,s1,0x3900
+
+Disassembly of section .gnu.attributes:
+
+00000000 <.gnu.attributes>:
+   0:	41000000 	bc0f	4 <entry-0x10000000>
+   4:	0f676e75 	jal	d9db9d4 <entry-0x2624630>
+   8:	00010000 	sll	zero,at,0x0
+   c:	00070401 	0x70401

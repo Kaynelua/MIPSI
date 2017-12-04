@@ -6,7 +6,7 @@ MIPS_OBJCOPY = mips-linux-gnu-objcopy
 MIPS_OBJDUMP = mips-linux-gnu-objdump
 
 # Turn on all warnings, and enable optimisations
-MIPS_CPPFLAGS = -W -Wall -O0 -fno-builtin -mfp32 -mgp32 -march=mips1 -mno-check-zero-division 
+MIPS_CPPFLAGS = -W -Wall -O0 -fno-builtin -fno-stack-protector -fno-builtin-memcpy -mfp32 -mgp32 -march=mips1 -mno-check-zero-division
 
 # Avoid standard libraries etc. being brought in, and link statically
 MIPS_LDFLAGS = -nostdlib -Wl,-melf32btsmip -march=mips1 -nostartfiles -mno-check-zero-division -Wl,--gpsize=0 -static -Wl,-Bstatic
@@ -30,11 +30,14 @@ MIPS_LDFLAGS += -Wl,--build-id=none
 
 # Extract machine instructions from object file
 %.mips.asm : %.mips.elf
-	$(MIPS_OBJDUMP) -d $< > $@
+	$(MIPS_OBJDUMP) -D $< > $@
 
 # Extract just the binary instructions from the object file
 %.mips.bin : %.mips.elf
 	$(MIPS_OBJCOPY) -O binary --only-section=.text $< $@
+
+
+
 
 # For example, if you have testbench/test.c, you can do:
 #

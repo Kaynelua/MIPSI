@@ -47,7 +47,7 @@ int main(){
 
 		}
 
-		else if(test_type == "NF"){	//testing basic functionality
+		else if(test_type == "NF"){	//testing full value functionality
 			outfile << "li 	 $"				<< base_reg << ","						<< base_data		<< endl;
 			outfile << "sh   $" 			<< base_reg << ","	<<  offset << "($"	<< base_reg  << ")"	<< endl;
 			outfile << "lh   $2," 			<< offset   << "($"	<< base_reg << ")"						<< endl;

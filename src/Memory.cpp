@@ -13,8 +13,7 @@ std::uint32_t Memory::word_read(uint32_t R_ADDR, const std::vector<uint8_t>& v){
 	return (v[R_ADDR]<<24) + (v[R_ADDR+1] <<16) +  (v[R_ADDR+2]<<8) + v[R_ADDR+3];
 }
 
-std::uint32_t Memory::word_write(uint32_t R_ADDR, uint32_t DATA, std::vector<uint8_t>& v){
-	//v[R_ADDR]<<24) + (v[R_ADDR+1] <<16) +  (v[R_ADDR+2]<<8) + v[R_ADDR+3];
+void Memory::word_write(uint32_t R_ADDR, uint32_t DATA, std::vector<uint8_t>& v){
 	v[R_ADDR] =   (DATA & 0xFF000000 ) >> 24;
 	v[R_ADDR+1] = (DATA & 0x00FF0000 ) >> 16;
 	v[R_ADDR+2] = (DATA & 0x0000FF00 ) >> 8;
@@ -25,10 +24,9 @@ std::uint32_t Memory::half_word_read(uint32_t R_ADDR, const std::vector<uint8_t>
 	return (v[R_ADDR]<<8) + (v[R_ADDR+1]);
 }
 
-std::uint32_t Memory::half_word_write(uint32_t R_ADDR, uint32_t DATA, std::vector<uint8_t>& v){ //wrong for now
-	v[R_ADDR  ] =   (DATA & 0x0000FF00 ) >> 8;
+void Memory::half_word_write(uint32_t R_ADDR, uint32_t DATA, std::vector<uint8_t>& v){
+	v[R_ADDR  ] = (DATA & 0x0000FF00 ) >> 8;
 	v[R_ADDR+1] = (DATA & 0x000000FF );
-
 }
 
 
@@ -94,7 +92,7 @@ std::uint32_t Memory::read(uint32_t ADDR, char mode){
 	return 0;	
 }
 
-std::uint32_t Memory::write(uint32_t ADDR, uint32_t DATA, char mode){
+void Memory::write(uint32_t ADDR, uint32_t DATA, char mode){
 	if(ADDR == ADDR_PUTC && mode == WORD_RW){
 		uint8_t c = (DATA & 0XFF);
 		std::putchar(c);
@@ -122,18 +120,15 @@ std::uint32_t Memory::write(uint32_t ADDR, uint32_t DATA, char mode){
 	else{
 		exit(-11);
 	}
-
-	return 1;
 }
 
-std::uint32_t Memory::write_inst(uint32_t ADDR, uint8_t DATA){
+void Memory::write_inst(uint32_t ADDR, uint8_t DATA){
 	if(ADDR >= INSTR_MEM_BASE && ADDR < INSTR_MEM_BASE + INSTR_MEM_LEN){
 		INSTR_MEM[ADDR-INSTR_MEM_BASE] = DATA;
 	}
 	else{
 		//std::cout << "Error Loading Binary Instructions" << std::endl;
 	}	
-	return 1;
 }
 
 std::uint32_t Memory::read_inst(uint32_t ADDR){
@@ -145,5 +140,4 @@ std::uint32_t Memory::read_inst(uint32_t ADDR){
 		debug  << "INVALID INSTR ADDRESS" << std::endl;
 		exit(MEMORY_EXCEPTION);
 	}
-
 }

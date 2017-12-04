@@ -6,7 +6,7 @@ MIPS_OBJCOPY = mips-linux-gnu-objcopy
 MIPS_OBJDUMP = mips-linux-gnu-objdump
 
 # Turn on all warnings, and enable optimisations
-MIPS_CPPFLAGS = -W -Wall -O3 -fno-builtin -mfp32 -mgp32 -march=mips1 -mno-check-zero-division 
+MIPS_CPPFLAGS = -W -Wall -O0 -fno-builtin -mfp32 -mgp32 -march=mips1 -mno-check-zero-division 
 
 # Avoid standard libraries etc. being brought in, and link statically
 MIPS_LDFLAGS = -nostdlib -Wl,-melf32btsmip -march=mips1 -nostartfiles -mno-check-zero-division -Wl,--gpsize=0 -static -Wl,-Bstatic
@@ -48,7 +48,6 @@ bin/mips_simulator : src/Simulator.cpp
 	mkdir -p bin
 	g++ -W -Wall src/*.cpp -std=c++11 -o bin/mips_simulator
 
-
 # In order to comply with spec
 simulator : bin/mips_simulator
 
@@ -58,8 +57,6 @@ bin/mips_testbench : testbench/testbench.sh
 	@mkdir -p bin
 	@cp testbench/testbench.sh bin/mips_testbench
 	@chmod +x bin/mips_testbench
-
-
 
 testbench : bin/mips_testbench
 

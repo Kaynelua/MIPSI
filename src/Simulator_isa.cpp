@@ -14,21 +14,19 @@ std::uint32_t Simulator::sign_extend(std::int32_t a,int bits){
 	return a;
 }
 
-std::uint32_t Simulator::stub(){
-	std::cout << "stub" << std::endl;
-	return 1;
+void Simulator::stub(){
+	exit(INVALID_INSTRUCTION);
 }
 
 /**************** J TYPE ******************/
-std::uint32_t Simulator::j(){
+void Simulator::j(){
 	branch_address = (j_operands[0]*4);
 	branch_address = (branch_address | ((pc+4)&0xF0000000) );
 	branch_taken = 1;
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump (PC):" << j_operands[0]*4 << std::endl;
-	return 1;
 }
 
-std::uint32_t Simulator::jal(){
+void Simulator::jal(){
 	branch_address = (j_operands[0]*4);
 	branch_address = (branch_address | ((pc+4)&0xF0000000) );
 	branch_taken = 1;
@@ -42,13 +40,12 @@ std::uint32_t Simulator::jal(){
 	reg.write(31,return_address);
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump and Link (PC): Branch Target=" << branch_address << std::endl;
 	debug <<"RETURN ADDR IN R31 = " << return_address << std::endl;
-	return 1;
 }
 
 
 /**************** R TYPE ******************/
 
-std::uint32_t Simulator :: sll(){
+void Simulator::sll(){
 	uint32_t shiftamt = r_operands[3];
 	uint32_t rt = reg.read(r_operands[1]);
 	uint32_t rd = rt << shiftamt;
@@ -56,7 +53,7 @@ std::uint32_t Simulator :: sll(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : R" << r_operands[2] <<" = R" << r_operands[1] << " Shift left Logical by " << shiftamt << std::endl;
 }
 
-std::uint32_t Simulator :: srl(){
+void Simulator::srl(){
 	uint32_t shiftamt = r_operands[3];
 	uint32_t rt = reg.read(r_operands[1]);
 	uint32_t rd = rt >> shiftamt;
@@ -64,7 +61,7 @@ std::uint32_t Simulator :: srl(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : R" << r_operands[2] <<" = R" << r_operands[1] << " Shift Right Logical by " << shiftamt << std::endl;
 }
 
-std::uint32_t Simulator :: sra(){ 
+void Simulator::sra(){ 
 	uint32_t shiftamt = r_operands[3];
 	uint32_t rt = reg.read(r_operands[1]);
 	uint32_t rd = (int32_t)rt >> shiftamt;
@@ -72,7 +69,7 @@ std::uint32_t Simulator :: sra(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : R" << r_operands[2] <<" = R" << r_operands[1] << " Shift Right Arithmetic by " << shiftamt << std::endl;
 }
 
-std::uint32_t Simulator :: sllv(){
+void Simulator::sllv(){
 	uint32_t shiftamt = ( reg.read(r_operands[0]) & 0x1F );
 	uint32_t rt = reg.read(r_operands[1]);
 	uint32_t rd = rt << shiftamt;
@@ -80,7 +77,7 @@ std::uint32_t Simulator :: sllv(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : R" << r_operands[2] << " = R" <<r_operands[1] << " Shift left Logical Variable by " << shiftamt << std::endl;
 }
 
-std::uint32_t Simulator :: srlv(){
+void Simulator::srlv(){
 	uint32_t shiftamt = ( reg.read(r_operands[0]) & 0x1F );
 	uint32_t rt = reg.read(r_operands[1]);
 	uint32_t rd = rt >> shiftamt;
@@ -88,7 +85,7 @@ std::uint32_t Simulator :: srlv(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : R" << r_operands[2] << " = R" <<r_operands[1] << " Shift Right Logical Variable by " << shiftamt << std::endl;
 }
 
-std::uint32_t Simulator :: srav(){
+void Simulator::srav(){
 	uint32_t shiftamt = ( reg.read(r_operands[0]) & 0x1F );
 	uint32_t rt = reg.read(r_operands[1]);
 	uint32_t rd = (int32_t)rt >> shiftamt;
@@ -97,7 +94,7 @@ std::uint32_t Simulator :: srav(){
 	debug << "shiftam : " << shiftamt << ", rt: " << rt <<  ", rd : "<< rd << std::endl;
 }
 
-std::uint32_t Simulator::jr(){	// JUMPING to invalid PC INSTRUCTION ADDRESS
+void Simulator::jr(){	// JUMPING to invalid PC INSTRUCTION ADDRESS
 	uint32_t jd = reg.read(r_operands[0]);
 	
 	if(jd%4 == 0){
@@ -110,7 +107,7 @@ std::uint32_t Simulator::jr(){	// JUMPING to invalid PC INSTRUCTION ADDRESS
 	}
 }
 
-std::uint32_t Simulator::jalr(){ 
+void Simulator::jalr(){ 
 	uint32_t jd = reg.read(r_operands[0]);
 	uint32_t return_address = pc +8;
 
@@ -128,51 +125,43 @@ std::uint32_t Simulator::jalr(){
 	}
 }
 
-std::uint32_t Simulator::mfhi(){	// UNHANDLED: Reads of HI/LO Register must be separated from any instructions that writes to them by 2 or more
+void Simulator::mfhi(){	// UNHANDLED: Reads of HI/LO Register must be separated from any instructions that writes to them by 2 or more
 	
 	int32_t data =  reg.regHI;
 	reg.write(r_operands[2],data);
 	//debugging
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Move From HI " << std::endl;
 	debug << "R" << r_operands[2] << " = " << reg.read(r_operands[2])  << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::mthi(){
+void Simulator::mthi(){
 	
 	int32_t data =  reg.read(r_operands[0]);
 	reg.regHI = data;
 	//debugging
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Move TO HI " << std::endl;
 	debug << "reg HI = R"  << r_operands[0] << " = " << data << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::mflo(){
+void Simulator::mflo(){
 	
 	int32_t data =  reg.regLO;
 	reg.write(r_operands[2],data);
 	//debugging
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Move From LO " << std::endl;
 	debug << "R" << r_operands[2] << " = " << reg.read(r_operands[2])  << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::mtlo(){
+void Simulator::mtlo(){
 	
 	int32_t data =  reg.read(r_operands[0]);
 	reg.regLO = data;
 	//debugging
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Move TO LO " << std::endl;
 	debug << "reg LO = R"  << r_operands[0] << " = " << data << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::mult(){
+void Simulator::mult(){
 	
 	int32_t A =  reg.read(r_operands[0]);
 	int32_t B =  reg.read(r_operands[1]);
@@ -184,11 +173,9 @@ std::uint32_t Simulator::mult(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Multiply " << std::endl;
 	debug <<  "R" << r_operands[0] << " * R" << r_operands[1] << " = " <<std :: endl;
 	debug <<  "HI = " << reg.regHI << " LO = " << reg.regLO << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::multu(){	// NOT QUITE SURE WHAT UNSIGNED MULTIPLY MEANS /DIFFER OTHER THAN OPERANDS BEING UNSIGNED
+void Simulator::multu(){	// NOT QUITE SURE WHAT UNSIGNED MULTIPLY MEANS /DIFFER OTHER THAN OPERANDS BEING UNSIGNED
 	
 	uint32_t A =  reg.read(r_operands[0]);
 	uint32_t B =  reg.read(r_operands[1]);
@@ -200,11 +187,9 @@ std::uint32_t Simulator::multu(){	// NOT QUITE SURE WHAT UNSIGNED MULTIPLY MEANS
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Unsigned Multiply " << std::endl;
 	debug <<  "R" << r_operands[0] << " * R" << r_operands[1] << " = " <<std :: endl;
 	debug <<  "HI = " << reg.regHI << " LO = " << reg.regLO << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::div(){
+void Simulator::div(){
 	
 	int32_t A =  reg.read(r_operands[0]);
 	int32_t B =  reg.read(r_operands[1]);
@@ -219,11 +204,9 @@ std::uint32_t Simulator::div(){
 		debug <<  "HI(remainder) = " << reg.regHI << " LO(quotient) = " << reg.regLO << std::endl;
 	}
 	// If Divisor is 0 , Undefined behavior and we leave State as it is.
-
-	return 1;
 }
 
-std::uint32_t Simulator::divu(){	// Cornell says that we have to sign extend Q and R Not too sure what it means since they are both 32 bits alr
+void Simulator::divu(){	// Cornell says that we have to sign extend Q and R Not too sure what it means since they are both 32 bits alr
 	
 	uint32_t A =  reg.read(r_operands[0]);
 	uint32_t B =  reg.read(r_operands[1]);
@@ -238,12 +221,10 @@ std::uint32_t Simulator::divu(){	// Cornell says that we have to sign extend Q a
 		debug <<  "HI(remainder) = " << reg.regHI << " LO(quotient) = " << reg.regLO << std::endl;
 	}
 	// If Divisor is 0 , Undefined behavior and we leave State as it is.
-
-	return 1;
 }
 
 
-std::uint32_t Simulator::add(){
+void Simulator::add(){
 	
 	int32_t A =  reg.read(r_operands[0]);
 	int32_t B =  reg.read(r_operands[1]);
@@ -258,11 +239,9 @@ std::uint32_t Simulator::add(){
 	reg.write(r_operands[2],result);
 
 	debug << reg.read(r_operands[2]) << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::addu(){
+void Simulator::addu(){
 	
 	int32_t A =  reg.read(r_operands[0]);
 	int32_t B =  reg.read(r_operands[1]);
@@ -272,11 +251,9 @@ std::uint32_t Simulator::addu(){
 	debug << "Performing Addu " <<std:: endl;
 	debug <<"R" << r_operands[2] << " = R" << r_operands[0] << " + R" << r_operands[1] << " = " <<std :: endl;
 	debug << reg.read(r_operands[2]) << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::sub(){
+void Simulator::sub(){
 	
 	int32_t A =  reg.read(r_operands[0]);
 	int32_t B =  reg.read(r_operands[1]);
@@ -289,11 +266,9 @@ std::uint32_t Simulator::sub(){
 	debug << "Performing Sub " <<std:: endl;
 	debug <<"R" << r_operands[2] << " = R" << r_operands[0] << " - R" << r_operands[1] << " = " <<std :: endl;
 	debug << (int)reg.read(r_operands[2]) << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::subu(){
+void Simulator::subu(){
 	
 	int32_t A =  reg.read(r_operands[0]);
 	int32_t B =  reg.read(r_operands[1]);
@@ -304,11 +279,9 @@ std::uint32_t Simulator::subu(){
 	debug  << "Performing Subu " <<std:: endl;
 	debug <<"R" << r_operands[2] << " = R" << r_operands[0] << " - R" << r_operands[1] << " = " <<std :: endl;
 	debug << (int)reg.read(r_operands[2]) << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::bwand(){
+void Simulator::bwand(){
 	
 	uint32_t A =  reg.read(r_operands[0]);
 	uint32_t B =  reg.read(r_operands[1]);
@@ -317,11 +290,9 @@ std::uint32_t Simulator::bwand(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Bitwise And " << std::endl;
 	debug <<  "R" << r_operands[0] << " AND R" << r_operands[1] << " = " <<std :: endl;
 	debug <<  "R" << r_operands[2]  << " = " << result << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::bwor(){
+void Simulator::bwor(){
 	
 	uint32_t A =  reg.read(r_operands[0]);
 	uint32_t B =  reg.read(r_operands[1]);
@@ -330,11 +301,9 @@ std::uint32_t Simulator::bwor(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Bitwise OR " << std::endl;
 	debug <<  "R" << r_operands[0] << " OR R" << r_operands[1] << " = " <<std :: endl;
 	debug <<  "R" << r_operands[2]  << " = " << result << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::bwxor(){
+void Simulator::bwxor(){
 	
 	uint32_t A =  reg.read(r_operands[0]);
 	uint32_t B =  reg.read(r_operands[1]);
@@ -343,11 +312,9 @@ std::uint32_t Simulator::bwxor(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Bitwise XOR " << std::endl;
 	debug <<  "R" << r_operands[0] << " XOR R" << r_operands[1] << " = " <<std :: endl;
 	debug <<  "R" << r_operands[2]  << " = " << result << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::bwnor(){
+void Simulator::bwnor(){
 	
 	uint32_t A =  reg.read(r_operands[0]);
 	uint32_t B =  reg.read(r_operands[1]);
@@ -356,11 +323,9 @@ std::uint32_t Simulator::bwnor(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Bitwise NOR " << std::endl;
 	debug <<  "R" << r_operands[0] << " NOR R" << r_operands[1] << " = " <<std :: endl;
 	debug <<  "R" << r_operands[2]  << " = " << result << std::endl;
-
-	return 1;
 }
 
-std::uint32_t Simulator::slt(){
+void Simulator::slt(){
 	
 	int32_t A =  reg.read(r_operands[0]);
 	int32_t B =  reg.read(r_operands[1]);
@@ -376,11 +341,9 @@ std::uint32_t Simulator::slt(){
 		debug <<  "R" << r_operands[0] << " is not < R" << r_operands[1] << std :: endl;
 		debug <<  "R" << r_operands[2]  << " = 0 " << std::endl;
 	}
-
-	return 1;
 }
 
-std::uint32_t Simulator::sltu(){
+void Simulator::sltu(){
 	
 	uint32_t A =  reg.read(r_operands[0]);
 	uint32_t B =  reg.read(r_operands[1]);
@@ -396,12 +359,10 @@ std::uint32_t Simulator::sltu(){
 		debug <<  "R" << r_operands[0] << " is not < R" << r_operands[1] << std :: endl;
 		debug <<  "R" << r_operands[2]  << " = 0 " << std::endl;
 	}
-
-	return 1;
 }
 
 /**************** I TYPE ******************/
-std::uint32_t Simulator::conditional_B(){
+void Simulator::conditional_B(){
 	uint32_t branchCondition = (i_operands[1]);
 	if(branchCondition == 0){
 		//BLTZ	
@@ -425,11 +386,9 @@ std::uint32_t Simulator::conditional_B(){
 	std :: cout << "Invalid Instruction" << std:: endl;
 	exit(-10);
 	}
-
-	return 1;
 }
 
-std::uint32_t Simulator :: bltz(){
+void Simulator::bltz(){
 	int32_t RS = reg.read(i_operands[0]);
 	int32_t branchoffset =  sign_extend(i_operands[2],16) *4;
 
@@ -445,13 +404,10 @@ std::uint32_t Simulator :: bltz(){
 	
 	else{
 		debug <<"RS >= 0 and Branch not Taken "  << std::endl;
-	}
-
-	return 1;	
-	
+	}	
 }
 
-std::uint32_t Simulator :: bgez(){
+void Simulator::bgez(){
 	int32_t RS = reg.read(i_operands[0]);
 	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
 
@@ -469,11 +425,9 @@ std::uint32_t Simulator :: bgez(){
 		debug <<"RS < 0 (Branch not Taken) "  << std::endl;
 	}
 
-	return 1;	
-	
 }
 
-std::uint32_t Simulator :: bltzal(){
+void Simulator::bltzal(){
 	int32_t RS = reg.read(i_operands[0]);
 	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
 
@@ -497,11 +451,9 @@ std::uint32_t Simulator :: bltzal(){
 		debug <<"RS >= 0 and Branch not Taken "  << std::endl;
 	}
 
-	return 1;
-
 }
 
-std::uint32_t Simulator :: bgezal(){
+void Simulator::bgezal(){
 	int32_t RS = reg.read(i_operands[0]);
 	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
 	
@@ -526,10 +478,9 @@ std::uint32_t Simulator :: bgezal(){
 		debug <<"RS < 0 (Branch not Taken) "  << std::endl;
 	}
 
-	return 1;
 }
 
-std::uint32_t Simulator :: beq(){
+void Simulator::beq(){
 	uint32_t A = reg.read(i_operands[0]);
 	uint32_t B = reg.read(i_operands[1]);
 	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
@@ -546,11 +497,10 @@ std::uint32_t Simulator :: beq(){
 	else{
 		debug <<"RS != RT (Branch not Taken) "  << std::endl;
 	}
-
-	return 1;		
+		
 }
 
-std::uint32_t Simulator :: bne(){
+void Simulator::bne(){
 	uint32_t A = reg.read(i_operands[0]);
 	uint32_t B = reg.read(i_operands[1]);
 	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
@@ -567,11 +517,10 @@ std::uint32_t Simulator :: bne(){
 	else{
 		debug <<"RS = RT (Branch not Taken) "  << std::endl;
 	}
-
-	return 1;		
+		
 }
 
-std::uint32_t Simulator :: blez(){
+void Simulator::blez(){
 	int32_t RS = reg.read(i_operands[0]);
 	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
 
@@ -587,12 +536,10 @@ std::uint32_t Simulator :: blez(){
 	
 	else{
 		debug <<"RS > 0 and Branch not Taken "  << std::endl;
-	}
-
-	return 1;		
+	}	
 }
 
-std::uint32_t Simulator :: bgtz(){
+void Simulator::bgtz(){
 	int32_t RS = reg.read(i_operands[0]);
 	int32_t branchoffset =  sign_extend(i_operands[2],16) *4 ;
 
@@ -608,13 +555,11 @@ std::uint32_t Simulator :: bgtz(){
 	
 	else{
 		debug <<"RS <= 0 (Branch not Taken) "  << std::endl;
-	}
-
-	return 1;	
+	}	
 	
 }
 
-std::uint32_t Simulator::addi(){
+void Simulator::addi(){
 	//source : rs,imm
 	//dest : rt
 	int32_t A = reg.read(i_operands[0]);
@@ -628,10 +573,10 @@ std::uint32_t Simulator::addi(){
 
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "ADDI :" << "R" << i_operands[1] << "= R"<<i_operands[0] << " + " <<  i_operands[2]<< std::endl;
 	debug << reg.read(i_operands[1]) <<std::endl;
-	return 1;
+
 }
 
-std::uint32_t Simulator::addiu(){
+void Simulator::addiu(){
 	//source : rs,imm
 	//dest : rt
 	int32_t A = reg.read(i_operands[0]);
@@ -640,11 +585,10 @@ std::uint32_t Simulator::addiu(){
 	reg.write(i_operands[1],result);
 
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "ADDIU :" << "R" << i_operands[1] << "= R"<<i_operands[0] << " + " << B << std::endl;
-	return 1;
 
 }
 
-std::uint32_t Simulator::slti(){
+void Simulator::slti(){
 	
 	int32_t RS =  reg.read(i_operands[0]);
 	int32_t Immediate =  sign_extend(i_operands[2],16);
@@ -662,10 +606,9 @@ std::uint32_t Simulator::slti(){
 		debug <<  "R" << i_operands[1]  << " = 0 " << std::endl;
 	}
 
-	return 1;
 }
 
-std::uint32_t Simulator::sltiu(){
+void Simulator::sltiu(){
 	
 	uint32_t RS =  reg.read(i_operands[0]);
 	uint32_t Immediate =  sign_extend(i_operands[2],16);
@@ -682,11 +625,9 @@ std::uint32_t Simulator::sltiu(){
 		debug <<  "R" << i_operands[0] << " is not < Immediate = " << Immediate << std :: endl;
 		debug <<  "R" << i_operands[1]  << " = 0 " << std::endl;
 	}
-
-	return 1;
 }
 
-std::uint32_t Simulator::andi(){
+void Simulator::andi(){
 	
 	uint32_t RS =  reg.read(i_operands[0]);
 	uint32_t Immediate =  i_operands[2];
@@ -696,10 +637,9 @@ std::uint32_t Simulator::andi(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "And Immediate " << std::endl;
 	debug <<  "R" << i_operands[0] << " AND Immediate " << i_operands[2] << " = " <<std :: endl;
 	debug <<  "R" << i_operands[1]  << " = " << result << std::endl;
-	return 1;
 }
 
-std::uint32_t Simulator::ori(){
+void Simulator::ori(){
 	
 	uint32_t RS =  reg.read(i_operands[0]);
 	uint32_t Immediate =  i_operands[2];
@@ -709,10 +649,9 @@ std::uint32_t Simulator::ori(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "OR Immediate " << std::endl;
 	debug <<  "R" << i_operands[0] << " OR Immediate " << i_operands[2] << " = " <<std :: endl;
 	debug <<  "R" << i_operands[1]  << " = " << result << std::endl;
-	return 1;
 }
 
-std::uint32_t Simulator::xori(){
+void Simulator::xori(){
 	
 	uint32_t RS =  reg.read(i_operands[0]);
 	uint32_t Immediate =  i_operands[2];
@@ -722,12 +661,10 @@ std::uint32_t Simulator::xori(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "XOR Immediate " << std::endl;
 	debug <<  "R" << i_operands[0] << " XOR Immediate " << i_operands[2] << " = " <<std :: endl;
 	debug <<  "R" << i_operands[1]  << " = " << result << std::endl;
-	return 1;
 }
 
 
-
-std::uint32_t Simulator::sb(){
+void Simulator::sb(){
 	//source: rt
 	//dest	: rs + imm
 	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
@@ -736,7 +673,7 @@ std::uint32_t Simulator::sb(){
 }
 
 
-std::uint32_t Simulator::lb(){
+void Simulator::lb(){
 	//source: rs,imm
 	//dest	: rt
 	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
@@ -749,7 +686,7 @@ std::uint32_t Simulator::lb(){
 }
 
 
-std::uint32_t Simulator::sh(){
+void Simulator::sh(){
 	//source: rt
 	//dest	: rs + imm
 	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
@@ -764,7 +701,7 @@ std::uint32_t Simulator::sh(){
 }
 
 
-std::uint32_t Simulator::lh(){
+void Simulator::lh(){
 	//source: rs,imm
 	//dest	: rt
 	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
@@ -781,7 +718,7 @@ std::uint32_t Simulator::lh(){
 
 
 
-std::uint32_t Simulator::sw(){
+void Simulator::sw(){
 	//source: rt
 	//dest	: rs + imm
 	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
@@ -795,7 +732,7 @@ std::uint32_t Simulator::sw(){
 }
 
 
-std::uint32_t Simulator::lw(){
+void Simulator::lw(){
 	//source: rs,imm
 	//dest	: rt
 	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
@@ -812,7 +749,7 @@ std::uint32_t Simulator::lw(){
 }
 
 
-std::uint32_t Simulator::lwl(){	//need to check for address error
+void Simulator::lwl(){	//need to check for address error
 
 	int32_t eff_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);	//unaligned access permissible
 
@@ -843,7 +780,7 @@ std::uint32_t Simulator::lwl(){	//need to check for address error
 	debug << std::setw(21)  << std::left << "INSTRUCTION" << " : " << "LWL -> " << std:: endl;
 }
 
-std::uint32_t Simulator::lwr(){	//need to check for address error
+void Simulator::lwr(){	//need to check for address error
 
 
 	int32_t eff_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);	//unaligned access permissible
@@ -881,7 +818,7 @@ std::uint32_t Simulator::lwr(){	//need to check for address error
 }
 
 
-std::uint32_t Simulator::lbu(){
+void Simulator::lbu(){
 	//source: rs,imm
 	//dest	: rt
 	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
@@ -892,7 +829,7 @@ std::uint32_t Simulator::lbu(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "LBU -> " << "R" << i_operands[1] << " = MEM[" << mem_addr << "]" << std::endl;
 }
 
-std::uint32_t Simulator::lhu(){
+void Simulator::lhu(){
 	//source: rs,imm
 	//dest	: rt
 	int32_t mem_addr = (int32_t)reg.read(i_operands[0]) + sign_extend(i_operands[2],16);
@@ -907,7 +844,7 @@ std::uint32_t Simulator::lhu(){
 	
 }
 
-std::uint32_t Simulator::lui(){
+void Simulator::lui(){
 	//source : imm
 	//dest	 : rt
 	reg.write( i_operands[1], (i_operands[2] << 16) | 0x00000000 );

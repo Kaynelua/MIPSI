@@ -35,26 +35,28 @@ class Memory{
 		std::vector<uint8_t> INSTR_MEM;
 		std::vector<uint8_t> DATA_MEM;
 
-		int	read_word();
-		char read_byte();
 
-		int write_word();
-		char write_byte();
+		std::uint32_t half_word_read(uint32_t RADDR, const std::vector<uint8_t>& v);
+		void half_word_write(uint32_t R_ADDR, uint32_t DATA, std::vector<uint8_t>& v);
+
+		std::uint32_t word_read(uint32_t RADDR, const std::vector<uint8_t>& v);
+		void word_write(uint32_t R_ADDR, uint32_t DATA, std::vector<uint8_t>& v);
 
 
 	public:
 		Memory();
+
 		std::uint32_t read(uint32_t ADDR, char mode = 0);
-		std::uint32_t write(uint32_t ADDR, uint32_t DATA, char mode = 0);
-		std::uint32_t write_inst(uint32_t ADDR, uint8_t DATA);
+		void write(uint32_t ADDR, uint32_t DATA, char mode = 0);
+	
 		std::uint32_t read_inst(uint32_t ADDR);
+		void write_inst(uint32_t ADDR, uint8_t DATA);
+		
 
 		
-		std::uint32_t half_word_read(uint32_t RADDR, const std::vector<uint8_t>& v);
-		std::uint32_t half_word_write(uint32_t R_ADDR, uint32_t DATA, std::vector<uint8_t>& v);
+		
 
-		std::uint32_t word_read(uint32_t RADDR, const std::vector<uint8_t>& v);
-		std::uint32_t word_write(uint32_t R_ADDR, uint32_t DATA, std::vector<uint8_t>& v);
+	
 };
 
 #endif

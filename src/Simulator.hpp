@@ -39,7 +39,7 @@ public:
 
 
 private:
-	std::uint32_t (Simulator::*opcode_table[8][8])() = {
+	void (Simulator::*opcode_table[8][8])() = {
 		{&Simulator::stub,&Simulator::conditional_B,&Simulator::j,&Simulator::jal,&Simulator::beq,&Simulator::bne,&Simulator::blez,&Simulator::bgtz},
 
 		{&Simulator::addi,&Simulator::addiu,&Simulator::slti,&Simulator::sltiu,&Simulator::andi,&Simulator::ori,&Simulator::xori,&Simulator::lui},
@@ -57,7 +57,7 @@ private:
 		{&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub}};
 
 	
-	std::uint32_t (Simulator::*funct_table[8][8])()=  {
+	void (Simulator::*funct_table[8][8])()=  {
 		{&Simulator::sll,&Simulator::stub,&Simulator::srl,&Simulator::sra,&Simulator::sllv,&Simulator::stub,&Simulator::srlv,&Simulator::srav},
 
 		{&Simulator::jr,&Simulator::jalr,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub,&Simulator::stub},
@@ -95,66 +95,66 @@ private:
 	std::uint32_t sign_extend(std::int32_t a,int bits);
 
 
-	std::uint32_t stub();
-	std::uint32_t invalid_func();
+	void stub();
+	void invalid_func();
 
-	std::uint32_t conditional_B();
-	std::uint32_t bltz();
-	std::uint32_t bltzal();
-	std::uint32_t bgezal();
-	std::uint32_t bgez();
-	std::uint32_t j();
-	std::uint32_t jal();
-	std::uint32_t beq();
-	std::uint32_t bne();
-	std::uint32_t blez();
-	std::uint32_t bgtz();
-	std::uint32_t addi();
-	std::uint32_t addiu();
-	std::uint32_t slti();
-	std::uint32_t sltiu();
-	std::uint32_t andi();
-	std::uint32_t ori();
-	std::uint32_t xori();
-	std::uint32_t lui();
-	std::uint32_t lb();
-	std::uint32_t lh();
-	std::uint32_t lwl();
-	std::uint32_t lw();
-	std::uint32_t lbu();
-	std::uint32_t lhu();
-	std::uint32_t lwr();
-	std::uint32_t sb();
-	std::uint32_t sh();
-	std::uint32_t sw();
+	void conditional_B();
+	void bltz();
+	void bltzal();
+	void bgezal();
+	void bgez();
+	void j();
+	void jal();
+	void beq();
+	void bne();
+	void blez();
+	void bgtz();
+	void addi();
+	void addiu();
+	void slti();
+	void sltiu();
+	void andi();
+	void ori();
+	void xori();
+	void lui();
+	void lb();
+	void lh();
+	void lwl();
+	void lw();
+	void lbu();
+	void lhu();
+	void lwr();
+	void sb();
+	void sh();
+	void sw();
 	
 	//R-type Inst:
-	std::uint32_t sll();
-	std::uint32_t srl();
-	std::uint32_t sra();
-	std::uint32_t sllv();
-	std::uint32_t srlv();
-	std::uint32_t srav();
-	std::uint32_t jr();
-	std::uint32_t jalr();
-	std::uint32_t mfhi();
-	std::uint32_t mthi();
-	std::uint32_t mflo();
-	std::uint32_t mtlo();
-	std::uint32_t mult();
-	std::uint32_t multu();
-	std::uint32_t div();
-	std::uint32_t divu();
-	std::uint32_t add();
-	std::uint32_t addu();
-	std::uint32_t sub();
-	std::uint32_t subu();
-	std::uint32_t bwand();
-	std::uint32_t bwor(); 
-	std::uint32_t bwxor();
-	std::uint32_t bwnor();
-	std::uint32_t slt();
-	std::uint32_t sltu();
+	void sll();
+	void srl();
+	void sra();
+	void sllv();
+	void srlv();
+	void srav();
+	void jr();
+	void jalr();
+	void mfhi();
+	void mthi();
+	void mflo();
+	void mtlo();
+	void mult();
+	void multu();
+	void div();
+	void divu();
+	void add();
+	void addu();
+	void sub();
+	void subu();
+	void bwand();
+	void bwor(); 
+	void bwxor();
+	void bwnor();
+	void slt();
+	void sltu();
 
 };
 

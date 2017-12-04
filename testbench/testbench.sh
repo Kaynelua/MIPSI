@@ -21,7 +21,15 @@ for ((i=0;i<${#TEST_CASE_PATH[@]};i++))
 		do
 			true
 		done < $Curr_golden_path
-		$1 $Curr_test_path
+		
+
+		if [[ $(basename $Curr_test_path) =   *_getc_* ]];
+			then echo "$Golden" | awk '{printf("%c",$1)}' | $1 $Curr_test_path
+		else
+			$1 $Curr_test_path #$1 is the input simulator
+		fi
+
+
 		Output=$?
 		if [ "$Output" = "$Golden" ]; 
 			then Status="Pass"; 

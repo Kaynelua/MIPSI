@@ -7,7 +7,7 @@ int32_t shell(int32_t x);
 
 // Put the entry-point function first
 
-asm("lui $29,0x2400");  //put your mips instructions here
+asm("lui $29,0x2400");  //set stack pointer to max address
 
 int entry() {
 	int32_t x = getc();

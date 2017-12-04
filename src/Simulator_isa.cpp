@@ -802,10 +802,6 @@ void Simulator::lwr(){	//need to check for address error
 		rt_data_mask = 0;
 	}
 
-	debug << "word mask! ! : " << word_mask << std::endl;
-	debug << "rt_data mask! ! : " << rt_data_mask << std::endl;
-
-
 	aligned_word = (aligned_word & word_mask) >> (3-remainder)*8;
 	rt_data = (rt_data & rt_data_mask);
 	rt_data = rt_data | aligned_word;

@@ -18,7 +18,7 @@ if [ "$1" = "ALL" ];
 		rm -f testbench/"$instr_name"_tc/*
 		
 		./$d/gen
-		./s_to_bin testbench/"$instr_name"_tc
+		./testbench/_SCRIPTS/s_to_bin testbench/"$instr_name"_tc
 	done
 else
 	if [ -z "$1" ]
@@ -33,7 +33,7 @@ else
 		mkdir -p testbench/"$instr_name"_tc
 		rm testbench/"$instr_name"_tc/*
 		./testbench/testcase_generator/"$instr_name"/gen
-		./s_to_bin testbench/"$instr_name"_tc
+		./testbench/_SCRIPTS/s_to_bin  testbench/"$instr_name"_tc
 	fi
 fi
 

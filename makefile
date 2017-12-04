@@ -56,9 +56,9 @@ simulator : bin/mips_simulator
 
 ###################################################
 ## Testbench
-bin/mips_testbench : testbench/testbench.sh
+bin/mips_testbench : testbench/_SCRIPTS/testbench.sh
 	@mkdir -p bin
-	@cp testbench/testbench.sh bin/mips_testbench
+	@cp testbench/_SCRIPTS/testbench.sh bin/mips_testbench
 	@chmod +x bin/mips_testbench
 
 testbench : bin/mips_testbench

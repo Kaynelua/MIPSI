@@ -20,6 +20,30 @@ if [ "$1" = "ALL" ];
 		./$d/gen
 		./testbench/_SCRIPTS/s_to_bin testbench/"$instr_name"_tc
 	done
+	for f in testbench/_c_code/_confirmed/*.c
+	do
+		c_code_filename=$(basename $f)
+		fn_no_ext=$(echo $c_code_filename | cut -f 1 -d '.')
+		echo "$fn_no_ext"
+		make testbench/_c_code/_confirmed/"$fn_no_ext".mips.bin -B
+		cp testbench/_c_code/_confirmed/"$fn_no_ext".mips.bin testbench/testcases
+		cp testbench/_c_code/_confirmed/"$fn_no_ext".mips.gld testbench/testcases
+		rm -f testbench/_c_code/_confirmed/"$fn_no_ext".mips.bin
+	done
+
+elif [ "$1" = "C" ]; 
+	then
+	rm -f testbench/testcases/C_*
+	for f in testbench/_c_code/_confirmed/*.c
+	do
+		c_code_filename=$(basename $f)
+		fn_no_ext=$(echo $c_code_filename | cut -f 1 -d '.')
+		echo "$fn_no_ext"
+		make testbench/_c_code/_confirmed/"$fn_no_ext".mips.bin -B
+		cp testbench/_c_code/_confirmed/"$fn_no_ext".mips.bin testbench/testcases
+		cp testbench/_c_code/_confirmed/"$fn_no_ext".mips.gld testbench/testcases
+		rm -f testbench/_c_code/_confirmed/"$fn_no_ext".mips.bin
+	done
 else
 	if [ -z "$1" ]
 		then

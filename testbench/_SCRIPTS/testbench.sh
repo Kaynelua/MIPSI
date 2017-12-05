@@ -33,10 +33,10 @@ for ((i=0;i<${#TEST_CASE_PATH[@]};i++))
 		Output=$?
 		if [ "$Output" = "$Golden" ]; 
 			then Status="Pass"; 
-			printf  "%-5s %-10s \e[32m %-10s \e[0m %-15s %-30s\n" $i, $Instruction, $Status, $Author, $(basename $Curr_test_path)
+			printf  "%-5s %-25s \e[32m %-10s \e[0m %-15s %-30s\n" $i, $Instruction, $Status, $Author, $(basename $Curr_test_path)
 		else 
 			Status="Fail";
-			printf  "%-5s %-10s \e[31m %-10s \e[0m %-15s %-30s\n" $i, $Instruction, $Status, $Author, $(basename $Curr_test_path)
+			printf  "%-5s %-25s \e[31m %-10s \e[0m %-15s %-30s\n" $i, $Instruction, $Status, $Author, $(basename $Curr_test_path)
 		fi
 		done
 

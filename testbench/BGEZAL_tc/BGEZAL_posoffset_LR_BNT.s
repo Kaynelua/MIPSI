@@ -1,13 +1,13 @@
 .set noreorder
 .set noat
 li $2, 0x81234567
-bgezal $2 , branchoffset0000000C
-li $31 , 0x45
+bgezal $2 , branchoffset00000008
+nop
 branchoffset00000004 :
 nop
 branchoffset00000008 :
-li $2, 0x35
+add $2,$0,$31
 branchoffset0000000C :
 nop
 jr   $0
-add $2, $0, $31
+nop

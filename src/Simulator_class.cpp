@@ -27,10 +27,6 @@ void Simulator::update_pc(){
 		branch_taken = 2;
 	}
 	else if(branch_taken == 2){
-		if(link){
-			reg.write(link_register,link_address);
-			link = 0;
-		}	
 		pc = branch_address;
 		branch_taken = 0;
 	}

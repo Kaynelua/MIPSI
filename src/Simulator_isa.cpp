@@ -32,10 +32,6 @@ void Simulator::jal(){
 	branch_taken = 1;
 
 	uint32_t return_address = pc +8;
-	
-	link  = 1;
-	link_register = 31;
-	link_address = return_address;
 
 	reg.write(31,return_address);
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump and Link (PC): Branch Target=" << branch_address << std::endl;
@@ -111,10 +107,9 @@ void Simulator::jalr(){
 	uint32_t jd = reg.read(r_operands[0]);
 	uint32_t return_address = pc +8;
 
+	reg.write(r_operands[2],return_address);
+
 	if(jd%4 == 0){
-		link_address  = return_address;
-		link_register = r_operands[2];
-		link = 1;
 		branch_address = jd;
 		branch_taken = 1;
 		debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "Jump Register (PC) -> " << jd << std::endl;
@@ -434,19 +429,16 @@ void Simulator::bltzal(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BLTZAL " << std::endl;
 	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
 
+	uint32_t return_address = pc + 8;
+	reg.write(31,return_address);
+	
 	if(RS < 0){
-		uint32_t return_address = pc +8;
 		branch_address = pc + (int32_t)branchoffset + 4;
 		branch_taken = 1;
 		
-		link_address  = return_address;
-		link_register = 31;
-		link = 1;
-
 		debug <<"RS <0 and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
 		debug << "Return Addr = " << return_address << std::endl;
 	}
-	
 	else{
 		debug <<"RS >= 0 and Branch not Taken "  << std::endl;
 	}
@@ -461,15 +453,13 @@ void Simulator::bgezal(){
 	debug << std::setw(21)  << std::left <<"INSTRUCTION" << " : " << "BGEZAL " << std::endl;
 	debug <<"R" << i_operands[0] << " = " << RS << std::endl;
 
+	uint32_t return_address = pc + 8;
+	reg.write(31,return_address);
+
 	if(RS >= 0){
-		uint32_t return_address = pc +8;	
 		branch_address = pc + (int32_t)branchoffset + 4;
 		branch_taken = 1;
-		
-		link_address  = return_address;
-		link_register = 31;
-		link = 1;
-
+	
 		debug <<"RS >=0 (Branch Taken) and Branch Offset = " << branchoffset << " PC Target = " << branch_address  << std::endl;
 		debug << "Return Addr = " << return_address << std::endl;	
 	}

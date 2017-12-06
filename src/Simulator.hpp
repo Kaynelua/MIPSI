@@ -84,10 +84,7 @@ private:
 	
 	std::uint32_t branch_taken;
 	std::uint32_t branch_address;
-	std::uint32_t link;
-	std::uint32_t link_address;
-	std::uint32_t link_register;
-
+	
 	void fetch_instruction();
 	void decode();
 	void update_pc();

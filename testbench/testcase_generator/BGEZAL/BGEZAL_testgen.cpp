@@ -46,6 +46,14 @@ int main(){
  			outfile << "jr   $0" << endl;
 			outfile << "nop" <<endl;
 		}
+		else if(db== 'm') { // testing whether LR is updated After branch
+			outfile << "li $31, 0xA0" << endl;
+			outfile << "branchoffset00000004 :" << endl << "nop" << endl;
+			outfile << "branchoffset00000008 :" << endl << "add $2,$0,$31" << endl;
+			outfile << "branchoffset0000000C :"<< endl <<"nop" <<endl;
+ 			outfile << "jr   $0" << endl;
+			outfile << "nop" <<endl;
+		}
 		else{
 			outfile << "li $" << input_reg << " , 0x47" << endl;
 			outfile << "branchoffset00000004 :" << endl << "nop" << endl;

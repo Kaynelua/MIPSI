@@ -1,5 +1,5 @@
 gld		input_reg		input_address		link_reg	db	lr	filename
-0		2				0		  31		n	y	JALR_LRupdate
+12		2				0		  31		n	y	JALR_LRupdate
 17		2				0		  31		y	n	JALR_Delayedbranch
 16		2			 1000001C		  29		n	y	JALR_VariableLR
 32		2			 10000020		  31		n	n	JALR_JumpInstMemNormal

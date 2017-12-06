@@ -1,8 +1,8 @@
 gld		input_reg	input_data		offset_address		db		filename
 71		2		81234567		0000000C		n		BLTZAL_posoffset_BT
 53		2		00000000		0000000C		n		BLTZAL_posoffset_BNT
-16		2		81234567		0000000C		l		BLTZAL_posoffset_LR_BT
-69		2		00000000		0000000C		l		BLTZAL_posoffset_LR_BNT
+16		2		81234567		00000008		l		BLTZAL_posoffset_LR_BT
+12		2		00000000		00000008		l		BLTZAL_posoffset_LR_BNT
 67		2		81234567		00000018		b		BLTZAL_negoffset_BT
 87		2		80000000		00000018		c		BLTZAL_negoffset_BNT
 167		2		81234567		0000000C		y		BLTZAL_delayedbranch_BT

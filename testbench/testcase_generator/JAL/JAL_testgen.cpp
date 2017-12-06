@@ -53,7 +53,7 @@ int main(){
 			outfile << "jr   $0" << endl;
 		}
 
-		else if(db == "l"){
+		else if(db == "l"){ // test whether LR is updated after jump
 			outfile << ".word 0x0C" << offset_address << endl;
 			outfile << "li $31,0x5989" << endl;
 			outfile << "nop" << endl;
@@ -62,8 +62,16 @@ int main(){
 
 		}
 
+		else if(db == "m"){ // test whether LR is updated
+			outfile << ".word 0x0C" << offset_address << endl;
+			outfile << "nop" << endl;
+			outfile << "nop" << endl;
+			outfile << "add $2,$0,$31" << endl;
+			outfile << "jr   $0" << endl;
+
+		}
 /****************************************************************/
- 		outfile_gld << "JAL " << gld << " patrickjohncyh";
+ 		outfile_gld << "JAL " << gld << " yhl15";
 
 /****************************************************************/ 		
 

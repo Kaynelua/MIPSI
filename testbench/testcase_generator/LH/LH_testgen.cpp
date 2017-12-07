@@ -69,6 +69,12 @@ int main(){
 			outfile << "li   $2, 128" << endl;
 			outfile << "lh   $" << dest_reg << "," << offset    << "($" << base_reg << ")" << endl;	//load lsbyte of first instruction into R2
 		}
+
+		else if(test_type == "IO"){
+			outfile << " lui	$2,0x3000"  << endl;
+			outfile << " lh 	$2,2($2)"   << endl;
+		}
+
 		
 		
  		outfile << "jr   $0" 		<< endl;

@@ -93,7 +93,6 @@ private:
 
 
 	void stub();
-	void invalid_func();
 
 	void conditional_B();
 	void bltz();

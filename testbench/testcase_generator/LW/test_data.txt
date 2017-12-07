@@ -24,4 +24,4 @@ gld		input_data	base_reg	base_data			offset		dest_reg		test_type		filename
 0		0	 		25			0x23FFFFFC			0			2				RV 				LW_Valid0x23FFFFFC
 
 
-88		0			0			0					0			0				IO 				LW_getc_a
+88		0			0			0					0			0				IO 				LW_getc_0x30000000

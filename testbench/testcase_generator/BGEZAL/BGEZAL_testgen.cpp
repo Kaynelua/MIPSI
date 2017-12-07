@@ -38,24 +38,35 @@ int main(){
 		// Set up input_data in input_reg:
 		outfile << "li $" 	 	<< input_reg <<  ", 0x" << input_data << endl;
 		outfile << "bgezal $" << input_reg << " , branchoffset" << offset_address<< endl;
-		if(db== 'l') {
-			outfile << "li $31 , 0x45" << endl;
+		if(db== 'l') { // testing when link register is updated
+			outfile << "nop" << endl;
+			outfile << "branchoffset00000004 :" << endl << "nop" << endl;
+			outfile << "branchoffset00000008 :" << endl << "add $2,$0,$31" << endl;
+			outfile << "branchoffset0000000C :"<< endl <<"nop" <<endl;
+ 			outfile << "jr   $0" << endl;
+			outfile << "nop" <<endl;
+		}
+		else if(db== 'm') { // testing whether LR is updated After branch
+			outfile << "li $31, 0xA0" << endl;
+			outfile << "branchoffset00000004 :" << endl << "nop" << endl;
+			outfile << "branchoffset00000008 :" << endl << "add $2,$0,$31" << endl;
+			outfile << "branchoffset0000000C :"<< endl <<"nop" <<endl;
+ 			outfile << "jr   $0" << endl;
+			outfile << "nop" <<endl;
 		}
 		else{
 			outfile << "li $" << input_reg << " , 0x47" << endl;
+			outfile << "branchoffset00000004 :" << endl << "nop" << endl;
+			outfile << "branchoffset00000008 :" << endl << "li $2, 0x35" << endl;
+			outfile << "branchoffset0000000C :"<< endl <<"nop" <<endl;
+ 			outfile << "jr   $0" << endl;
 		}
-		outfile << "branchoffset00000004 :" << endl << "nop" << endl;
-		outfile << "branchoffset00000008 :" << endl << "li $2, 0x35" << endl;
-		outfile << "branchoffset0000000C :"<< endl <<"nop" <<endl;
- 		outfile << "jr   $0" << endl;
+		
 		
 		if(db=='y'){	// testing delayed branch
 		outfile << "li $2, 167 " << endl;
 		}
 	
-		if(db =='l') { // testing Link register
-		outfile << "add $2, $0, $31" <<endl;
-		}
 		
 		if (db == 'b'){  // testing backward branch 1 where backward branch is not taken
 		outfile <<"nop" << endl;
@@ -76,7 +87,7 @@ int main(){
 		}
 
 /****************************************************************/
- 		outfile_gld << "BGEZAL " << gld << " yh";
+ 		outfile_gld << "BGEZAL " << gld << " yhl15";
 
 /****************************************************************/ 		
 

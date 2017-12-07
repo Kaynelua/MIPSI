@@ -40,25 +40,32 @@ int main(){
 		if(lr == 'y'){							// Test specifically for when input address is 0 and testing Link Register
  			outfile << "jalr $" << link_reg << " , $2" << endl;
 			outfile << "add $2, $0, $"<< link_reg << endl;
-		}
-
-		outfile << "nop" << endl;
-		outfile << "jalr $" << link_reg << " ,$" << input_reg << endl;
-		if(input_address == "0" && db =='y' ){
-			outfile << "li $2, 0x11 " <<endl;
-		}
-		outfile << "nop" << endl;
-		outfile << "li $2, 0x5" << endl;
-		outfile <<"nop" <<endl;
-		outfile << "nop" << endl;
-		outfile << "nop" << endl;
-		if(lr == 'y'){							// If Input address is non zero but we want to test Link Register
+			outfile << "nop" << endl;
+			outfile << "jalr $" << link_reg << " ,$" << input_reg << endl;
+			outfile << "nop" << endl;
+			outfile << "li $2, 0x5" << endl;
+			outfile <<"nop" <<endl;
+			outfile << "nop" << endl;
+			outfile << "nop" << endl;
 			outfile << "add $2, $0, $" << link_reg << endl;
 		}
+		else {
+			outfile << "nop" << endl;
+			outfile << "jalr $" << link_reg << " ,$" << input_reg << endl;
+			if(input_address == "0" && db =='y' ){
+				outfile << "li $2, 0x11 " <<endl;
+			}
+			outfile << "nop" << endl;
+			outfile << "li $2, 0x5" << endl;
+			outfile <<"nop" <<endl;
+			outfile << "nop" << endl;
+			outfile << "nop" << endl;
+		}
+
 		outfile << "jalr $0" << endl;
 
 /****************************************************************/
- 		outfile_gld << "JALR " << gld << " yh";
+ 		outfile_gld << "JALR " << gld << " yhl15";
 
 /****************************************************************/ 		
 

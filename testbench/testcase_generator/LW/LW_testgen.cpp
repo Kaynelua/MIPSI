@@ -81,7 +81,6 @@ int main(){
 		else if(test_type == "IO"){
 			outfile << " lui	$2,0x3000"  << endl;
 			outfile << " lw 	$2,0($2)"   << endl;
-			outfile << " jr	    $0"			<< endl;	
 		}
 
 		

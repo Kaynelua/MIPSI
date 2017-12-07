@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <vector>
 #include <cstdint>
+#include <stdexcept>
 
 #include "Simulator.hpp"
 #include "Memory.hpp"
@@ -63,16 +64,27 @@ void read_binary(const string& filename,vector<uint8_t>& v_inst_out){
 
 
 int main(int argc, char* argv[]){
-	Simulator sim;
-	
-	string binary_filename;
-	vector<uint8_t> v_byte_inst;
+	try{
+		Simulator sim;
+		
+		string binary_filename;
+		vector<uint8_t> v_byte_inst;
 
-	if(argc > 1){ binary_filename = string(argv[1]); }
-	//read_binstring(binary_filename,v_byte_inst); //Read in binary string
-	read_binary(binary_filename,v_byte_inst); //Read in binary file
-	sim.load_bin(v_byte_inst);
-	int ret = sim.run();
+		if(argc > 1){ binary_filename = string(argv[1]); }
+		read_binary(binary_filename,v_byte_inst); //Read in binary file
+		sim.load_bin(v_byte_inst);
+		int ret = sim.run();
+		return ret;
+	}
+	catch(const exception& e){
+		exit(-20);
+	}
 
-	return ret;
+
+
+
+
+
+
+
 }

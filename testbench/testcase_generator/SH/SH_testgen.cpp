@@ -13,7 +13,7 @@ int main(){
 	ofstream outfile_gld;
 	ifstream infile;
 
-	int gld  	 =0;
+	string gld;
 	int base_reg =0;
 	string base_data = "";
 
@@ -66,6 +66,12 @@ int main(){
 		else if(test_type == "RI"){ //range check invalid
 			outfile << "li 	 $" << base_reg << "," << base_data << endl;
 			outfile << "SH   $" << dest_reg << "," << offset    << "($" << base_reg << ")" << endl;
+		}
+
+		else if(test_type == "PUTC"){ //range check invalid
+			outfile << "li 	 $" << dest_reg << "," << input_data << endl;
+			outfile << "li 	 $" << base_reg << "," << base_data << endl;
+			outfile << "sh   $" << dest_reg << "," << offset    << "($" << base_reg << ")" << endl;
 		}
 		
  		outfile << "jr   $0" 		<< endl;

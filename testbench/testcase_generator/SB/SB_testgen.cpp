@@ -13,7 +13,7 @@ int main(){
 	ofstream outfile_gld;
 	ifstream infile;
 
-	int gld  = -0;
+	string gld;
 	int base_reg=0;
 	string base_data = "";
 
@@ -55,6 +55,12 @@ int main(){
 		else if(test_type == "RI"){ //range check invalid
 			outfile << "li 	 $" << base_reg << "," << base_data << endl;
 			outfile << "sb   $" << dest_reg << "," << offset    << "($" << base_reg << ")" << endl;	//load lsbyte of first instruction into R2
+		}
+
+		else if(test_type == "PUTC"){ //range check invalid
+			outfile << "li 	 $" << dest_reg << "," << input_data << endl;
+			outfile << "li 	 $" << base_reg << "," << base_data << endl;
+			outfile << "sb   $" << dest_reg << "," << offset    << "($" << base_reg << ")" << endl;
 		}
 		
  		outfile << "jr   $0" 		<< endl;

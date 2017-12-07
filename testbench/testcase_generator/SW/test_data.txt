@@ -21,4 +21,4 @@ gld		input_data	base_reg	base_data			offset		dest_reg		test_type		filename
 
 0		0	 		24			0x20000000			0			2				RV				SW_Valid0x20000000
 252		0	 		25			0x23FFFFFC			0			2				RV 				SW_Valid0x23FFFFFC
-0		0	 		11			0x30000004			0			14				RI				SW_Valid0x30000004
+D		68	 		11			0x30000004			0			14				PUTC			SW_putc_0x30000004

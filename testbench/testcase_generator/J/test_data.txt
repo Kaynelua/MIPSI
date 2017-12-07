@@ -2,3 +2,5 @@ gld		offset_address		db		filename
 0		000003			n		J_normal
 1		000002			n		J_normal_2
 4		000006			y		J_delayed_branch
+245		8400000			i		J_Invalid_ADDR0x11000000
+245		BFFFFFF			i		J_Invalid_ADDR0x1FFFFFFC

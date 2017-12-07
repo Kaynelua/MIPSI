@@ -70,6 +70,15 @@ int main(){
 			outfile << "jr   $0" << endl;
 
 		}
+		if(db == "i"){ // Test for Invalid Mem Addr
+			outfile << ".word 0x0" << offset_address << endl;
+			outfile << "nop" << endl;
+			outfile << "addi $2,$2,1" << endl;
+			outfile << "jr   $0" << endl;
+			outfile << "nop" << endl;
+			outfile << "addi $2,$2,2" << endl;
+			outfile << "jr   $0" << endl;
+		}
 /****************************************************************/
  		outfile_gld << "JAL " << gld << " yhl15";
 

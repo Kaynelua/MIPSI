@@ -4,3 +4,5 @@ gld		offset_address		db		filename
 4		000006				y		JAL_delayed_branch
 137		000003				l		JAL_LRupdated_at_correct_time
 8		000003				m		JAL_LinkRegister
+245		8400000				i		JAL_Invalid_ADDR0x11000000
+245		BFFFFFF				i		JAL_Invalid_ADDR0x1FFFFFFC

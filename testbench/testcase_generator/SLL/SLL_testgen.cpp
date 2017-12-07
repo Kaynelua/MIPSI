@@ -40,7 +40,7 @@ int main(){
 		outfile << "sll  $2,$" << input_reg << ","    << shamt << endl;
  		outfile << "jr   $0" << endl;
 /****************************************************************/
- 		outfile_gld << "SLL " << gld << " patrickjohncyh";
+ 		outfile_gld << "SLL " << gld << " pjc316";
 
 /****************************************************************/ 		
 

@@ -47,7 +47,7 @@ int main(){
 		outfile << "srlv $2,$"		<< input_reg << ",$" << shift_reg << endl;
  		outfile << "jr   $0" << endl;
 /****************************************************************/
- 		outfile_gld << "SRLV " << gld << " patrickjohncyh";
+ 		outfile_gld << "SRLV " << gld << " pjc316";
 
 /****************************************************************/ 		
 

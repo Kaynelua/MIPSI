@@ -39,7 +39,7 @@ int main(){
 		outfile << "sra  $2,$"	 << input_reg << ","    << shamt << endl;
  		outfile << "jr   $0" << endl;
 /****************************************************************/
- 		outfile_gld << "SRA " << gld << " patrickjohncyh";
+ 		outfile_gld << "SRA " << gld << " pjc316";
 
 /****************************************************************/ 		
 
